@@ -35,14 +35,13 @@ describe("POST register user sukses", () => {
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(201);
-        console.log(body);
+        
         expect(body).toHaveProperty("id", expect.any(Number));
         expect(body).toHaveProperty("email", successCase.email);
         expect(body).toHaveProperty("username", successCase.username);
         done();
       })
       .catch((err) => {
-        // console.log(err)
         done(err);
       });
   });
@@ -57,7 +56,7 @@ describe("POST register user dengan email yg sudah terdaftar", () => {
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(400);
-        console.log(body);
+        
         expect(body).toHaveProperty("message", "Email is already used");
         done();
       })
@@ -120,7 +119,7 @@ describe("POST login user sukses", () => {
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(200);
-        console.log(body);
+        
         expect(body).toHaveProperty("id", expect.any(Number));
         expect(body).toHaveProperty("email", successCase.email);
         expect(body).toHaveProperty("access_token", expect.any(String));

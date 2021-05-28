@@ -24,7 +24,7 @@ app.post("/register", postRegister);
 module.exports = app;
 
 function postRegister(req, res, next) {
-  console.log(req.body);
+
 
   if (req.body.email == "registered@mail.com") {
     res.status(400).json({ message: "Email is already used" });
