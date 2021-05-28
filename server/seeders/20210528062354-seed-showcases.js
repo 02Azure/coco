@@ -4,20 +4,20 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('Showcases', [{
       UserId: 1,
-      name: 'a',
-      isStarred: false,
+      name: 'Si atk tak terhingga',
+      isStarred: true,
       createdAt: new Date(),
       updatedAt: new Date()
     }
     ,{
-      UserId: '',
-      name: '',
+      UserId: 1,
+      name: "Most Valued",
       isStarred: false,
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      UserId: '',
-      name: '',
+      UserId: 2,
+      name: 'Kolpri Gunpla',
       isStarred: false,
       createdAt: new Date(),
       updatedAt: new Date()

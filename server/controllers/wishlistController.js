@@ -1,6 +1,6 @@
+//model
 
-
-class wishlistController {
+class WishlistController {
   static async getAll(req, res, next) {
     try {
       res.status(200).json({msg: "success wishlist getAll"})
@@ -68,4 +68,4 @@ class wishlistController {
   }
 }
 
-module.exports = wishlistController
+module.exports = WishlistController

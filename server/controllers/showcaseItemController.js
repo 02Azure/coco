@@ -14,7 +14,7 @@ class showcaseItemController {
 
   static async switchStarredStatus(req, res, next) {
     try {
-      res.status(201).json({msg: "success wishlist create"})
+      res.status(200).json({msg: "success showcaseItem switchstarredstatus"})
     }
 
     catch(err) {
