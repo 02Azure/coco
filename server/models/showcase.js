@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Showcase.belongsTo(models.UserId)
+      Showcase.belongsTo(models.User)
       Showcase.hasMany(models.ShowcaseItem)
     }
   };

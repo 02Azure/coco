@@ -1,13 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const wishlistController = require("../controllers/wishlistController")
+const WishlistController = require("../controllers/wishlistController")
 
-router.get("/", wishlistController.getAll)
-router.post("/", wishlistController.create)
+router.get("/", WishlistController.getAll)
+router.post("/", WishlistController.create)
 
-router.get("/:id", wishlistController.getOne)
-router.put("/:id", wishlistController.update)
-router.patch("/:id", wishlistController.switchStarredStatus)
-router.delete("/:id", wishlistController.delete)
+router.get("/:id", WishlistController.getOne)
+
+//authorization
+router.put("/:id", WishlistController.update)
+router.patch("/:id", WishlistController.switchStarredStatus)
+router.delete("/:id", WishlistController.delete)
 
 module.exports = router
