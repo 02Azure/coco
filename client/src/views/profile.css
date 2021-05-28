@@ -1,0 +1,11 @@
+.header__image__container {
+  max-width: 75%;
+  margin: 0 auto;
+}
+.row {
+  --bs-gutter-x: 0;
+}
+.header__image {
+  height: 300px;
+  width: 400px;
+}
