@@ -4,6 +4,7 @@ import Detail from "./views/Detail";
 import { Profile } from "./views/Profile";
 
 import { Button } from "react-bootstrap";
+import Discovery from "./views/Discovery";
 
 // import Register from "./views/Register";
 
@@ -17,11 +18,13 @@ function App() {
 
       {/* <Profile /> */}
 
-      <Button variant="primary" onClick={() => setModalShow(true)}>
+      {/* <Button variant="primary" onClick={() => setModalShow(true)}>
         Launch vertically centered modal
       </Button>
 
-      <Detail show={modalShow} onHide={() => setModalShow(false)} />
+      <Detail show={modalShow} onHide={() => setModalShow(false)} /> */}
+
+      <Discovery />
     </div>
   );
 }
