@@ -3,17 +3,18 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('Items', [{
-      UserId: '',
-      name: '',
-      image: '',
+      UserId: 1,
+      name: 'a',
+      image: 'b',
       tradeable: true,
-      price: 0,
-      tradeWith: '',
-      tag: '',
-      description: '',
+      price: 10,
+      tradeWith: 'c',
+      tag: 'd',
+      description: 'e',
       createdAt: new Date(),
       updatedAt: new Date()
-    },{
+    }
+    ,{
       UserId: '',
       name: '',
       image: '',
@@ -57,7 +58,8 @@ module.exports = {
       description: '',
       createdAt: new Date(),
       updatedAt: new Date()
-    }])
+    }
+  ])
   },
 
   down: async (queryInterface, Sequelize) => {

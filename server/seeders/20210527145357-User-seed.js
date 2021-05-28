@@ -3,18 +3,24 @@ const  hashPassword  = require('../helpers/hashPassword')
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('Users', [{
-      username: '',
-      passowrd: hashPassword('abc123'),
-      email: '',
+      username: 'test',
+      password: hashPassword('abc123'),
+      email: 'a',
+      userDesc: 'b',
+      location: 'c',
       createdAt: new Date(),
       updatedAt: new Date()
-    },{
+    }
+    ,{
       username: '',
-      passowrd: hashPassword('abc123'),
+      password: hashPassword('abc123'),
       email: '',
+      userDesc: '',
+      location: '',
       createdAt: new Date(),
       updatedAt: new Date()
-    }])
+    }
+  ])
   },
 
   down: async (queryInterface, Sequelize) => {

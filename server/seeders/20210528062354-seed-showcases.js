@@ -3,12 +3,13 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('Showcases', [{
-      UserId: '',
-      name: '',
+      UserId: 1,
+      name: 'a',
       isStarred: false,
       createdAt: new Date(),
       updatedAt: new Date()
-    },{
+    }
+    ,{
       UserId: '',
       name: '',
       isStarred: false,
@@ -20,7 +21,8 @@ module.exports = {
       isStarred: false,
       createdAt: new Date(),
       updatedAt: new Date()
-    }])
+    }
+  ])
 
   },
 
