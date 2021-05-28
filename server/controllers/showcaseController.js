@@ -36,7 +36,7 @@ class showcaseController {
 
   static async editName(req, res, next) {
     try {
-      res.status(200).json({msg: "success  showcase editName"})
+      res.status(200).json({msg: "success showcase editName"})
     }
 
     catch(err) {

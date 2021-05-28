@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1622202149866" clover="3.2.0">
-  <project timestamp="1622202149866" name="All files">
-    <metrics statements="94" coveredstatements="72" conditionals="12" coveredconditionals="12" methods="14" coveredmethods="8" elements="120" coveredelements="92" complexity="0" loc="94" ncloc="94" packages="4" files="8" classes="8"/>
+<coverage generated="1622205186184" clover="3.2.0">
+  <project timestamp="1622205186185" name="All files">
+    <metrics statements="94" coveredstatements="82" conditionals="12" coveredconditionals="12" methods="14" coveredmethods="13" elements="120" coveredelements="107" complexity="0" loc="94" ncloc="94" packages="4" files="8" classes="8"/>
     <package name="server">
       <metrics statements="33" coveredstatements="32" conditionals="12" coveredconditionals="12" methods="3" coveredmethods="2"/>
       <file name="app.js" path="D:\hacktiv8\phase3\coco\server\app.js">
@@ -45,23 +45,23 @@
       </file>
     </package>
     <package name="server.controllers">
-      <metrics statements="35" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="11" coveredmethods="6"/>
+      <metrics statements="35" coveredstatements="24" conditionals="0" coveredconditionals="0" methods="11" coveredmethods="11"/>
       <file name="showcaseController.js" path="D:\hacktiv8\phase3\coco\server\controllers\showcaseController.js">
-        <metrics statements="16" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="0"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
+        <metrics statements="16" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
         <line num="32" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
         <line num="43" count="0" type="stmt"/>
-        <line num="49" count="0" type="stmt"/>
-        <line num="50" count="0" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
         <line num="54" count="0" type="stmt"/>
         <line num="60" count="2" type="stmt"/>
       </file>
