@@ -11,12 +11,43 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.Item)
+      User.hasMany(models.Showcase)
+      User.hasMany(models.WishlistItem)
     }
   };
   User.init({
-    username: DataTypes.STRING,
-    password: DataTypes.STRING,
-    email: DataTypes.STRING,
+    username: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: 'Username cannot be empty'
+        }
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: 'Password cannot be Empty'
+        },
+        len: {
+          args: 6,
+          msg: 'Password must be 6 Character or more'
+        }
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: 'Email cannot be empty'
+        },
+        isEmail: {
+          msg: 'Format email is Invalid'
+        }
+      }
+    },
     userDesc: DataTypes.STRING,
     location: DataTypes.STRING
   }, {
