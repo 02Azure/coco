@@ -1,9 +1,11 @@
-
+const {Showcase} = require('../models')
 
 class showcaseController {
   static async getAll(req, res, next) {
     try {
-      res.status(200).json({msg: "success showcase getAll"})
+      let Showcases = await Showcase.findAll({where:{ UserId:req.body.id}})
+      console.log(Showcases)
+      res.status(200).json(Showcases)
     }
 
     catch(err) {
@@ -36,7 +38,7 @@ class showcaseController {
 
   static async editName(req, res, next) {
     try {
-      res.status(200).json({msg: "success  showcase editName"})
+      res.status(200).json({msg: "success showcase editName"})
     }
 
     catch(err) {
