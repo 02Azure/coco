@@ -1,5 +1,6 @@
 const express = require('express')
 const index = require("./routes/indexRoute")
+const errorHandler = require('./middlewares/errorHandler')
 const cors = require("cors")
 const app = express()
 const port = process.env.PORT || 3000
@@ -10,7 +11,7 @@ app.use(express.json())
 
 app.use("/", index)
 
-// app.use(errorHandler)
+app.use(errorHandler)
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`)
