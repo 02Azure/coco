@@ -5,16 +5,17 @@ import { Profile } from "./views/Profile";
 
 import { Button } from "react-bootstrap";
 import Discovery from "./views/Discovery";
-
+import EditProfile from "./views/EditProfile";
+import Login from "./views/Login";
 // import Register from "./views/Register";
 
 function App() {
   const [modalShow, setModalShow] = React.useState(false);
   return (
     <div className="App">
-      {/* <Login />
+      {/* <Login /> */}
 
-      <Register /> */}
+      {/*<Register /> */}
 
       {/* <Profile /> */}
 
@@ -24,7 +25,9 @@ function App() {
 
       <Detail show={modalShow} onHide={() => setModalShow(false)} /> */}
 
-      <Discovery />
+      {/* <Discovery /> */}
+
+      <EditProfile />
     </div>
   );
 }
