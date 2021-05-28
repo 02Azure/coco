@@ -22,6 +22,9 @@ module.exports = {
       userDesc: {
         type: Sequelize.STRING
       },
+      userImage: {
+        type: Sequelize.STRING
+      }, 
       location: {
         type: Sequelize.STRING
       },
