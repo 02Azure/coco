@@ -18,6 +18,7 @@ let access_token;
 let token_user_2;
 let user = {
 <<<<<<< HEAD
+<<<<<<< HEAD
   username: "siotong",
   password: hashPassword("abc123"),
   email: "otong@mail.com",
@@ -26,6 +27,8 @@ let user = {
   createdAt: new Date(),
   updatedAt: new Date(),
 =======
+=======
+>>>>>>> ceb6ba9244b8f99caf834fcaed1864a69691ca08
   username: 'siotong',
   password: hashPassword('abc123'),
   email: 'otong@mail.com',
@@ -33,7 +36,10 @@ let user = {
   location: 'Stardew Valley',
   createdAt: new Date(),
   updatedAt: new Date()
+<<<<<<< HEAD
 >>>>>>> fce0c11ca622b06276bf4b85f8150c36f553b3a5
+=======
+>>>>>>> ceb6ba9244b8f99caf834fcaed1864a69691ca08
 };
 
 let user2 = {
@@ -44,6 +50,7 @@ let user2 = {
   location: "Zuzu City",
   createdAt: new Date(),
 <<<<<<< HEAD
+<<<<<<< HEAD
   updatedAt: new Date(),
 };
 beforeAll((done) => {
@@ -52,6 +59,8 @@ beforeAll((done) => {
       access_token = generateToken({
         email: result.email,
 =======
+=======
+>>>>>>> ceb6ba9244b8f99caf834fcaed1864a69691ca08
   updatedAt: new Date()
 }
 
@@ -92,7 +101,10 @@ beforeAll((done) => {
     .then((result) => {
         access_token = generateToken({
         username: result.username,
+<<<<<<< HEAD
 >>>>>>> fce0c11ca622b06276bf4b85f8150c36f553b3a5
+=======
+>>>>>>> ceb6ba9244b8f99caf834fcaed1864a69691ca08
         id: result.id,
       });
       return User.create(user2);
@@ -130,6 +142,7 @@ beforeAll((done) => {
 afterAll((done) => {
   queryInterface
 <<<<<<< HEAD
+<<<<<<< HEAD
     .bulkDelete("Users", null, { truncate: true, cascade: true }) //{truncate: true}
     .then(() => {
       return queryInterface.bulkDelete("Showcases", null, {
@@ -141,6 +154,11 @@ afterAll((done) => {
     .then(() => {
       queryInterface.bulkDelete("Showcases",null,{truncate:true, restartIdentity:true, cascade:true});
 >>>>>>> fce0c11ca622b06276bf4b85f8150c36f553b3a5
+=======
+    .bulkDelete("Users",null,{truncate:true, restartIdentity:true, cascade:true}) 
+    .then(() => {
+      queryInterface.bulkDelete("Showcases",null,{truncate:true, restartIdentity:true, cascade:true});
+>>>>>>> ceb6ba9244b8f99caf834fcaed1864a69691ca08
     })
     .then(() => {
       done();
@@ -174,11 +192,16 @@ describe("GET /showcases gagal, userId tidak ditemukan", () => {
     request(app)
       .get("/showcases")
 <<<<<<< HEAD
+<<<<<<< HEAD
       .send({ id: 1676923 })
 =======
       .send({id:432})
       .set("Accept", "application/json")
 >>>>>>> fce0c11ca622b06276bf4b85f8150c36f553b3a5
+=======
+      .send({id:432})
+      .set("Accept", "application/json")
+>>>>>>> ceb6ba9244b8f99caf834fcaed1864a69691ca08
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
@@ -200,10 +223,14 @@ describe("POST /showcases sukses", () => {
         name: "showcase",
       })
 <<<<<<< HEAD
+<<<<<<< HEAD
       .set({ access_token: access_token, Accept: "application/json" })
 =======
       .set({access_token: access_token,"Accept": "application/json"})
 >>>>>>> fce0c11ca622b06276bf4b85f8150c36f553b3a5
+=======
+      .set({access_token: access_token,"Accept": "application/json"})
+>>>>>>> ceb6ba9244b8f99caf834fcaed1864a69691ca08
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
@@ -286,10 +313,14 @@ describe("GET /showcases/:id gagal, showcase id tidak ditemukan", () => {
   it("it responds with ", (done) => {
     request(app)
 <<<<<<< HEAD
+<<<<<<< HEAD
       .get("/showcases/177698")
 =======
       .get("/showcases/13232")
 >>>>>>> fce0c11ca622b06276bf4b85f8150c36f553b3a5
+=======
+      .get("/showcases/13232")
+>>>>>>> ceb6ba9244b8f99caf834fcaed1864a69691ca08
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .then((response) => {
@@ -359,6 +390,7 @@ describe("PATCH /showcases/:id gagal access token tidak sesuai userId", () => {
         let { body, status } = response;
         expect(status).toBe(401);
 <<<<<<< HEAD
+<<<<<<< HEAD
         expect(body).toHaveProperty(
           "error",
           "You are not authorized to perform this action"
@@ -366,6 +398,9 @@ describe("PATCH /showcases/:id gagal access token tidak sesuai userId", () => {
 =======
         expect(body).toHaveProperty("error", "You are not authorized to perform this action");
 >>>>>>> fce0c11ca622b06276bf4b85f8150c36f553b3a5
+=======
+        expect(body).toHaveProperty("error", "You are not authorized to perform this action");
+>>>>>>> ceb6ba9244b8f99caf834fcaed1864a69691ca08
         done();
       })
       .catch((err) => {
@@ -396,22 +431,29 @@ describe("PATCH /showcases/:id gagal nama tidak diisi", () => {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 describe("DELETE /showcases/:id sukses", () => {
   it("it responds with ", (done) => {
     request(app)
       .delete("/showcases/1")
       .set({ access_token: access_token, Accept: "application/json" })
 =======
+=======
+>>>>>>> ceb6ba9244b8f99caf834fcaed1864a69691ca08
 describe("PATCH /showcases/:id/star sukses", () => {
   it("it responds with ", (done) => {
     request(app)
       .patch("/showcases/1/star")
       .set({access_token:access_token, Accept: "application/json" })
+<<<<<<< HEAD
 >>>>>>> fce0c11ca622b06276bf4b85f8150c36f553b3a5
+=======
+>>>>>>> ceb6ba9244b8f99caf834fcaed1864a69691ca08
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(200);
+<<<<<<< HEAD
 <<<<<<< HEAD
         expect(body).toHaveProperty(
           "msg",
@@ -420,6 +462,9 @@ describe("PATCH /showcases/:id/star sukses", () => {
 =======
         expect(body).toHaveProperty("msg", "Showcase starred status has been successfully updated");
 >>>>>>> fce0c11ca622b06276bf4b85f8150c36f553b3a5
+=======
+        expect(body).toHaveProperty("msg", "Showcase starred status has been successfully updated");
+>>>>>>> ceb6ba9244b8f99caf834fcaed1864a69691ca08
         done();
       })
       .catch((err) => {
@@ -456,6 +501,7 @@ describe("DELETE /showcases/:id gagal access token tidak sesuai userId", () => {
         let { body, status } = response;
         expect(status).toBe(401);
 <<<<<<< HEAD
+<<<<<<< HEAD
         expect(body).toHaveProperty(
           "error",
           "You are not authorized to perform this action"
@@ -463,6 +509,9 @@ describe("DELETE /showcases/:id gagal access token tidak sesuai userId", () => {
 =======
         expect(body).toHaveProperty("error", "You are not authorized to perform this action");
 >>>>>>> fce0c11ca622b06276bf4b85f8150c36f553b3a5
+=======
+        expect(body).toHaveProperty("error", "You are not authorized to perform this action");
+>>>>>>> ceb6ba9244b8f99caf834fcaed1864a69691ca08
         done();
       })
       .catch((err) => {
