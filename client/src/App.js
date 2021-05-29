@@ -9,6 +9,8 @@ import EditProfile from "./views/EditProfile";
 import Login from "./views/Login";
 import Register from "./views/Register";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Trending from "./views/Trending";
 
 function App() {
   // const [modalShow, setModalShow] = React.useState(false);
@@ -31,40 +33,26 @@ function App() {
       {/* <EditProfile /> */}
 
       <Router>
+        <Navbar />
         <div>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/edit">Edit profile</Link>
-            </li>
+          {/* <ul>
             <li>
               <Link to="/login">login</Link>
             </li>
             <li>
               <Link to="/register">regis</Link>
             </li>
-            <li>
-              <Link to="/profile">profile</Link>
-            </li>
-          </ul>
+          </ul> */}
 
-          <hr />
-
-          {/*
-          A <Switch> looks through all its children <Route>
-          elements and renders the first one whose path
-          matches the current URL. Use a <Switch> any time
-          you have multiple routes, but you want only one
-          of them to render at a time
-        */}
           <Switch>
             <Route exact path="/">
               <Discovery />
             </Route>
             <Route path="/edit">
               <EditProfile />
+            </Route>
+            <Route path="/trending">
+              <Trending />
             </Route>
             <Route path="/register">
               <Register />

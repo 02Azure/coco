@@ -3,7 +3,7 @@ import "./edit.css";
 const EditProfile = () => {
   return (
     <div className="edit__profile">
-      <div className="edit__container">
+      <div className="edit__container mt-5">
         <div className="form-block mx-auto">
           {/* heading login */}
           <div className="text-center mb-5">
@@ -14,19 +14,19 @@ const EditProfile = () => {
           {/* login form */}
           <form>
             <div className="form-group first mb-2">
-              <label for="username">Username</label>
+              <label htmlFor="username">Username</label>
               <input type="text" className="form-control py-1 px-2" placeholder="your-email@gmail.com" id="username" />
             </div>
             <div className="form-group first mb-2">
-              <label for="username">Location</label>
+              <label htmlFor="username">Location</label>
               <input type="text" className="form-control py-1 px-2" placeholder="your-email@gmail.com" id="username" />
             </div>
             <div className="form-group first mb-2 d-flex flex-column">
-              <label for="username">Bio</label>
+              <label htmlFor="username">Bio</label>
               <textarea />
             </div>
             <div className="form-group last mb-3">
-              <label for="password">Password</label>
+              <label htmlFor="password">Password</label>
               <input type="password" className="form-control py-1 px-2" placeholder="Your Password" id="password" />
             </div>
 
