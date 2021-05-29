@@ -3,7 +3,7 @@ const app = require("../app");
 const { sequelize, User } = require("../models");
 const { queryInterface } = sequelize;
 const jwt = require("jsonwebtoken");
-const JWT_SECRET = "jwtsecret";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const hashPassword = require("../helpers/hashPassword");
 
@@ -314,7 +314,7 @@ describe("DELETE /wishlist/:id gagal access token tidak sesuai userId", () => {
         expect(status).toBe(401);
         expect(body).toHaveProperty(
           "error",
-          "You ara not authorized to perform this action"
+          "You are not authorized to perform this action"
         );
         done();
       })

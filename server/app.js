@@ -15,6 +15,7 @@ app.use(express.json())
 app.use("/", index)
 
 app.use(errorHandler)
+
 if(process.env.NODE_ENV == 'production'){
 
   app.listen(port, () => {
