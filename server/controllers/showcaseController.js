@@ -135,6 +135,7 @@ class showcaseController {
     }
 
     catch(err) {
+      /* istanbul ignore next */
       next(err)
     }
 

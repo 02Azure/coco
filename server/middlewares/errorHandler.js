@@ -10,11 +10,11 @@ function errorHandler(err, req, res, next){
             }
             res.status(400).json({ error: errorMessage })
             break;
-
+      /* istanbul ignore next */
         case 'Bad Request':
             res.status(400).json({ error: [err.message] })
             break;
-        
+      /* istanbul ignore next */
         case 'SequelizeDatabaseError': 
             res.status(400).json({ error: [err.message] })
             break;
@@ -44,7 +44,7 @@ function errorHandler(err, req, res, next){
           break;
 
         case 'MaximumStarredReached':
-          res.status(401).json({ error: err.message })
+          res.status(400).json({ error: err.message })
           break;
 
         default:
