@@ -43,6 +43,10 @@ function errorHandler(err, req, res, next){
           res.status(404).json({ error: err.message })
           break;
 
+        case 'MaximumStarredReached':
+          res.status(401).json({ error: err.message })
+          break;
+
         default:
             const status = err.status || 500
             const message = err.message || 'Internal Server Error'

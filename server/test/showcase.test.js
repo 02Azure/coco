@@ -358,6 +358,24 @@ describe("PATCH /showcases/:id/star sukses", () => {
   });
 });
 
+describe("PATCH /showcases/:id/star gagal - jumlah maksimum starred tercapai", () => {
+  it("it responds with ", (done) => {
+    request(app)
+      .patch("/showcases/4/star")
+      .set({access_token:access_token, Accept: "application/json" })
+      .expect("Content-Type", /json/)
+      .then((response) => {
+        let { body, status } = response;
+        expect(status).toBe(401);
+        expect(body).toHaveProperty("error", "You can only have maximum 3 starred showcases at the same time");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+});
+
 describe("DELETE /showcases/:id gagal tidak membawa access token", () => {
   it("it responds with ", (done) => {
     request(app)
