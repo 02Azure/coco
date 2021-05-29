@@ -1,4 +1,5 @@
 function errorHandler(err, req, res, next){
+  console.log(err.name, err.message)
     switch(err.name) {
         case 'SequelizeValidationError':
             const errorMessage = []
@@ -7,29 +8,45 @@ function errorHandler(err, req, res, next){
                     errorMessage.push(error.message)
                 })
             }
-            res.status(400).json({ message: errorMessage })
+            res.status(400).json({ error: errorMessage })
             break;
 
         case 'Bad Request':
-            res.status(400).json({ message: [err.message] })
+            res.status(400).json({ error: [err.message] })
             break;
         
         case 'SequelizeDatabaseError': 
-            res.status(400).json({ message: [err.message] })
+            res.status(400).json({ error: [err.message] })
             break;
 
         case 'JsonWebTokenError':
-            res.status(400).json({ message: [err.message] })
+            res.status(401).json({ error: err.message })
             break;
 
         case 'SequelizeUniqueConstraintError':
-            res.status(409).json({ message: [err.message] })
+            res.status(409).json({ error: [err.message] })
             break;
-        
+
+        case 'Unauthorized':
+          res.status(401).json({ error: err.message })
+          break;
+
+        case 'UserNotFound':
+          res.status(404).json({ error: err.message })
+          break;
+
+        case 'ItemNotFound':
+          res.status(404).json({ error: err.message })
+          break;
+
+        case 'ShowcaseNotFound':
+          res.status(404).json({ error: err.message })
+          break;
+
         default:
             const status = err.status || 500
             const message = err.message || 'Internal Server Error'
-            res.status(status).json({ message })
+            res.status(status).json({ error: message })
     }
 }
 
