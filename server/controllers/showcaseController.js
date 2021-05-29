@@ -89,18 +89,20 @@ class showcaseController {
 
   static async switchStarredStatus(req, res, next) {
     try {
-      let foundShowcase = Showcase.findByPk(+req.params.id)
+      let foundShowcase = await Showcase.findByPk(+req.params.id)
       let newStarredStatus = false
-      
+
       if(!foundShowcase.isStarred) {
-        let userStarredShowcases = Showcase.findAll({
+        let userStarredShowcases = await Showcase.findAll({
           where: {
-            UserId: +req.body.id,
+            UserId: +req.user.id,
             isStarred: true
           }
         })
 
-        if(userStarredShowcases > 3) {
+        console.log(userStarredShowcases.length, "<<<<<")
+
+        if(userStarredShowcases.length >= 3) {
           throw {
             name: "MaximumStarredReached",
             message: "You can only have maximum 3 starred showcases at the same time"
