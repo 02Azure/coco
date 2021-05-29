@@ -17,13 +17,10 @@ const ItemCard = () => {
               <strong class="card-text"> Tag</strong>
               <p class="card-text">Yugioh-TCG</p>
             </div>
-            <div className="d-flex content__card my-1 flex-column">
-              <strong class="card-text">Tradable With</strong>
-              <p class="card-text">Playmat Yugioh San Diego Comic-Con Exclusive Yugi & Exodia Playmat</p>
-            </div>
-            <a href="#" class="btn item btn-primary ">
+
+            {/* <a href="#" class="btn item btn-primary ">
               Go somewhere
-            </a>
+            </a> */}
           </div>
         </div>
       </div>
