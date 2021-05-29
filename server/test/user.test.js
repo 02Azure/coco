@@ -129,11 +129,30 @@ describe("POST login user sukses", () => {
       });
   });
 });
-describe("POST login customer dgn email/password salah", () => {
+describe("POST login customer dgn password salah", () => {
   it('it responds with status 401 and message :"Incorrect email or password"', (done) => {
     request(app)
       .post("/login")
       .send(badPassword)
+      .set("Accept", "application/json")
+      .expect("Content-Type", /json/)
+      .then((response) => {
+        let { body, status } = response;
+        expect(status).toBe(401);
+        expect(body).toHaveProperty("message", "Incorrect email or password");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+});
+
+describe("POST login customer dgn email salah", () => {
+  it('it responds with status 401 and message :"Incorrect email or password"', (done) => {
+    request(app)
+      .post("/login")
+      .send(wrongFormat)
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .then((response) => {
