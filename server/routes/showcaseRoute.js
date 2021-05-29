@@ -13,6 +13,7 @@ router.post("/", ShowcaseController.create)
 
 router.use("/:id", authorize)
 
+router.patch("/:id/star", ShowcaseController.switchStarredStatus)
 router.patch("/:id", ShowcaseController.editName)
 router.delete("/:id", ShowcaseController.delete)
 

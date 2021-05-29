@@ -35,7 +35,31 @@ let user2 = {
 let showcase1 = {
   UserId: 1,
   name: 'Si atk tak terhingga',
+  isStarred: false,
+  createdAt: new Date(),
+  updatedAt: new Date()
+}
+
+let showcase2 = {
+  UserId: 1,
+  name: 'showcase dua',
   isStarred: true,
+  createdAt: new Date(),
+  updatedAt: new Date()
+}
+
+let showcase3 = {
+  UserId: 1,
+  name: 'showcase tiga',
+  isStarred: true,
+  createdAt: new Date(),
+  updatedAt: new Date()
+}
+
+let showcase4 = {
+  UserId: 1,
+  name: 'showcase 4',
+  isStarred: false,
   createdAt: new Date(),
   updatedAt: new Date()
 }
@@ -56,6 +80,18 @@ beforeAll((done) => {
         id: result.id,
       })
       return Showcase.create(showcase1)
+    })
+
+    .then(() => {
+      return Showcase.create(showcase2)
+    })
+
+    .then(() => {
+      return Showcase.create(showcase3)
+    })
+
+    .then(() => {
+      return Showcase.create(showcase4)
     })
 
     .then(() => {
@@ -192,6 +228,7 @@ describe("GET /showcases/:id sukses", () => {
         expect(body).toHaveProperty("id", expect.any(Number));
         expect(body).toHaveProperty("UserId", expect.any(Number));
         expect(body).toHaveProperty("name", expect.any(String));
+        expect(body).toHaveProperty("isStarred", expect.any(Boolean)); 
         expect(Array.isArray(body.ShowcaseItems)).toBeTruthy();
         done();
       })
@@ -231,7 +268,7 @@ describe("PATCH /showcases/:id sukses", () => {
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(200);
-        expect(body).toHaveProperty("msg", "Showcase has been successfully updated");
+        expect(body).toHaveProperty("msg", "Showcase name has been successfully updated");
         done();
       })
       .catch((err) => {
@@ -295,6 +332,24 @@ describe("PATCH /showcases/:id gagal nama tidak diisi", () => {
         let { body, status } = response;
         expect(status).toBe(400);
         expect(body.error).toContain("name cannot be empty")
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+});
+
+describe("PATCH /showcases/:id/star sukses", () => {
+  it("it responds with ", (done) => {
+    request(app)
+      .patch("/showcases/1/star")
+      .set({access_token:access_token, Accept: "application/json" })
+      .expect("Content-Type", /json/)
+      .then((response) => {
+        let { body, status } = response;
+        expect(status).toBe(200);
+        expect(body).toHaveProperty("msg", "Showcase starred status has been successfully updated");
         done();
       })
       .catch((err) => {

@@ -9,7 +9,6 @@ router.get("/:id", WishlistController.getOne)
 
 //authorization
 router.put("/:id", WishlistController.update)
-router.patch("/:id", WishlistController.switchStarredStatus)
 router.delete("/:id", WishlistController.delete)
 
 module.exports = router
