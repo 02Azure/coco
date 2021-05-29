@@ -5,6 +5,7 @@ const authenticate = require("../middlewares/authentication")
 
 router.post("/register", userController.register)
 router.post("/login", userController.login)
+router.get("/:id", userController.viewProfile)
 
 router.use(authenticate)
 

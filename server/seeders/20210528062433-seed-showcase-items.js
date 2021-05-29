@@ -33,12 +33,6 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      ItemId: 1,
-      ShowcaseId: 2,
-      isStarred: false,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }, {
       ItemId: 6,
       ShowcaseId: 2,
       isStarred: false,

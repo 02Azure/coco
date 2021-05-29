@@ -218,6 +218,47 @@ describe("POST login user dgn email salah", () => {
   });
 });
 
+describe("GET /users/:id sukses", () => {
+  it("it responds with profile object", (done) => {
+    request(app)
+      .get("/users/1")
+      .set("Accept", "application/json")
+      .expect("Content-Type", /json/)
+      .then((response) => {
+        let { body, status } = response;
+        expect(status).toBe(200);
+        expect(body).toHaveProperty("username", expect.any(String));
+        expect(body).toHaveProperty("userDesc", expect.any(String));
+        expect(body).toHaveProperty("userImage", expect.any(String));
+        expect(body).toHaveProperty("location", expect.any(String)); 
+        expect(Array.isArray(body.Showcases)).toBeTruthy();
+        expect(Array.isArray(body.WishlistItems)).toBeTruthy();
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+});
+
+describe("GET /users/:id gagal - user tidak ditemukan", () => {
+  it("it responds with error - User not found", (done) => {
+    request(app)
+      .get("/users/1123")
+      .set("Accept", "application/json")
+      .expect("Content-Type", /json/)
+      .then((response) => {
+        let { body, status } = response;
+        expect(status).toBe(404);
+        expect(body).toHaveProperty("error", "User not found"); 
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+});
+
 describe("PUT /users/:id sukses", () => {
   it("it responds with msg User profile has been successfully updated", (done) => {
     request(app)

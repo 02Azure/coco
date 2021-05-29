@@ -1,12 +1,13 @@
-const { User } = require('../models')
+const { User, Showcase, WishlistItem, ShowcaseItem } = require('../models')
 const checkPassword = require('../helpers/checkHashedPassword')
 const { generateToken } = require('../helpers/jwt')
 
 class userController{
   static async register(req, res, next){
     try {
-      const { username, email, password, userDesc, userImage, location } = req.body
-      const user = await User.create({ username, email, password, userDesc, userImage, location })
+      const { username, email, password } = req.body
+
+      const user = await User.create({ username, email, password })
       res.status(201).json({ id: user.id, email: user.email, username: user.username })
 
     } catch (err) {
@@ -43,18 +44,40 @@ class userController{
     }
   }
 
+  static async viewProfile(req, res, next){
+    try {
+      let user = await User.findByPk(+req.params.id, {
+        include: {
+          all: true,
+          nested: true
+        }
+      })
+
+      if(!user) throw { status: 404, message: "User not found"}
+
+      let profile = {
+        username: user.username,
+        userDesc: user.userDesc,
+        userImage: user.userImage,
+        location: user.location,
+        Showcases: user.Showcases,
+        WishlistItems: user.WishlistItems
+      }
+
+      res.status(200).json(profile)
+
+    } catch (err) {
+      next(err)
+    }
+  }
+
   static async updateUser(req, res, next){
     try {
       const { userDesc, userImage, location } = req.body
-      const user = await User.findByPk(+req.user.id)
+      
+      await User.update({ userDesc, userImage, location }, { where : { id: +req.user.id }})
+      res.status(200).json({ msg: 'User profile has been successfully updated' })
 
-      if(!user){
-        throw { status: 401, message: 'Unauthorized' }
-
-      } else {
-        await User.update({ userDesc, userImage, location }, { where : { id: user.id }})
-        res.status(200).json({ msg: 'User profile has been successfully updated' })
-      }
     } catch (err) {
       next(err)
     }
