@@ -1,70 +1,106 @@
-//model
+const { WishlistItem, User } = require('../models')
 
 class WishlistController {
   static async getAll(req, res, next) {
     try {
-      res.status(200).json({msg: "success wishlist getAll"})
+      let user = await User.findByPk(+req.body.id)
+
+      if(!user) {
+        throw({
+          name: "UserNotFound",
+          message: "User not found"
+        })
+      }
+      let wishlistItems = await WishlistItem.findAll({
+        where: { 
+          UserId: +req.body.id
+        }
+      })
+
+      res.status(200).json(wishlistItems)
     }
 
     catch(err) {
       next(err)
     }
-
   }
 
   static async create(req, res, next) {
+    let input = {
+      UserId: +req.user.id,
+      name: req.body.name || "",
+      image: req.body.image || "",
+      description: req.body.description || "",
+      price: req.body.price || 0,
+      tag: req.body.tag || ""
+    }
+
     try {
-      res.status(201).json({msg: "success wishlist create"})
+      await WishlistItem.create(input)
+
+      res.status(201).json({ msg: "WishlistItem has been succesfully created" })
     }
 
     catch(err) {
       next(err)
     }
-
   }
 
   static async getOne(req, res, next) {
     try {
-      res.status(200).json({msg: "success wishlist showOne"})
+      let wishlistItem = await WishlistItem.findByPk(+req.params.id)
+
+      if(!wishlistItem) {
+        throw {
+          name: "ItemNotFound",
+          message: "WishlistItem not found"
+        }
+      }
+
+      res.status(200).json(wishlistItem)
     }
 
     catch(err) {
       next(err)
     }
-
   }
 
   static async update(req, res, next) {
+    let input = {
+      name: req.body.name || "",
+      image: req.body.image || "",
+      description: req.body.description || "",
+      price: req.body.price || 0,
+      tag: req.body.tag || ""
+    }
+
     try {
-      res.status(200).json({msg: "success wishlist editName"})
+      await WishlistItem.update(input, {
+        where: {
+          id: +req.params.id
+        }
+      })
+      res.status(200).json({ msg: "WishlistItem has been successfully updated" })
     }
 
     catch(err) {
       next(err)
     }
-
-  }
-
-  static async switchStarredStatus(req, res, next) {
-    try {
-      res.status(200).json({msg: "success wishlist switchStarredStatus"})
-    }
-
-    catch(err) {
-      next(err)
-    }
-
   }
 
   static async delete(req, res, next) {
     try {
-      res.status(200).json({msg: "success wishlist delete"})
+      await WishlistItem.destroy({
+        where: {
+          id: +req.params.id
+        }
+      })
+      res.status(200).json({ msg: "Wishlist has been successfully deleted" })
     }
 
     catch(err) {
       next(err)
     }
-
   }
 }
 

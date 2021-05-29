@@ -29,6 +29,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN
     }
   }, {
+    hooks: {
+      beforeCreate: (showcase, options) => {
+        if(showcase.isStarred === undefined) showcase.isStarred = false
+      }
+    },
     sequelize,
     modelName: 'Showcase',
   });
