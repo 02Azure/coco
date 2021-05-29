@@ -1,7 +1,20 @@
 const URL_USER = "http://localhost:3000/users";
+const jsonServer = "http://localhost:8000";
 
 export function setRegister(payload) {
   return { type: "SET_REG", payload };
+}
+
+export function setItem(payload) {
+  return { type: "SET_ITEM", payload };
+}
+
+export function fetchItems() {
+  return function (dispatch) {
+    fetch(jsonServer + "/items")
+      .then((res) => res.json())
+      .then((item) => dispatch(setItem(item)));
+  };
 }
 
 export function register(payload) {

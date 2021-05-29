@@ -3,7 +3,6 @@ import React from "react";
 import Detail from "./views/Detail";
 import { Profile } from "./views/Profile";
 
-import { Button } from "react-bootstrap";
 import Discovery from "./views/Discovery";
 import EditProfile from "./views/EditProfile";
 import Login from "./views/Login";
@@ -13,7 +12,6 @@ import Navbar from "./components/Navbar";
 import Trending from "./views/Trending";
 
 function App() {
-  // const [modalShow, setModalShow] = React.useState(false);
   return (
     <div className="App">
       {/* <Login /> */}
@@ -21,12 +19,6 @@ function App() {
       {/*<Register /> */}
 
       {/* <Profile /> */}
-
-      {/* <Button variant="primary" onClick={() => setModalShow(true)}>
-        Launch vertically centered modal
-      </Button>
-
-      <Detail show={modalShow} onHide={() => setModalShow(false)} /> */}
 
       {/* <Discovery /> */}
 

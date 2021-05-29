@@ -2,7 +2,7 @@ import React from "react";
 
 import { Button, Modal } from "react-bootstrap";
 
-function Detail(props) {
+function Detail({ discovery, ...props }) {
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       {/* <Modal.Header>
@@ -10,11 +10,11 @@ function Detail(props) {
       </Modal.Header> */}
       <Modal.Body>
         <div className="detail__container p-2">
-          <h4>Right Leg of the Forbidden One UR LOB</h4>
+          <h4>{discovery.name}</h4>
 
           <div className="d-flex">
             <div className="align-self-center">
-              <img src={"https://52f4e29a8321344e30ae-0f55c9129972ac85d6b1f4e703468e6b.ssl.cf2.rackcdn.com/products/pictures/1155781.jpg"} alt="" />
+              <img src={discovery.image} alt="" />
             </div>
 
             <div className="px-3 items__detail">
