@@ -1,19 +1,27 @@
-import React from "react";
 import "./login.css";
 
+import React, { useEffect, useState } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+
 const Login = () => {
-  const initialLogin = { username: "", email: "", password: "" };
-  const [reg, setReg] = useState(initialLogin);
+  const initialLogin = { email: "", password: "" };
+  const [login, setLogin] = useState(initialLogin);
+  const history = useHistory();
 
   const handleChange = (event) => {
     const target = event.target;
     const value = target.value;
     const name = target.name;
 
-    setReg({
-      ...reg,
+    setLogin({
+      ...login,
       [name]: value,
     });
+  };
+
+  const registerHandle = () => {
+    history.push("/register");
   };
   return (
     <div className="d-md-flex half">
@@ -33,12 +41,12 @@ const Login = () => {
                 {/* login form */}
                 <form>
                   <div className="form-group first mb-2">
-                    <label for="username">Username</label>
-                    <input type="text" className="form-control py-1 px-2" placeholder="your-email@gmail.com" id="username" />
+                    <label htmlFor="username">Email</label>
+                    <input type="text" className="form-control py-1 px-2" name="email" value={login.email} onChange={handleChange} placeholder="your-email@gmail.com" id="username" />
                   </div>
                   <div className="form-group last mb-3">
-                    <label for="password">Password</label>
-                    <input type="password" className="form-control py-1 px-2" placeholder="Your Password" id="password" />
+                    <label htmlFor="password">Password</label>
+                    <input type="password" className="form-control py-1 px-2" name="password" value={login.password} onChange={handleChange} placeholder="Your Password" id="password" />
                   </div>
 
                   <div className="d-sm-flex mb-5 align-items-center">

@@ -40,6 +40,10 @@ const Register = () => {
     dispatch(register(reg));
   };
 
+  const cancel = () => {
+    history.push("/login");
+  };
+
   return (
     <div class="d-md-flex half">
       <div class="bg"></div>
@@ -58,15 +62,15 @@ const Register = () => {
                 {/* regis form */}
                 <form>
                   <div class="form-group first mb-2">
-                    <label for="username">Username</label>
+                    <label htmlFor="username">Username</label>
                     <input type="text" class="form-control py-1 px-2" name="username" autoComplete="off" onChange={handleChange} value={reg.username} placeholder="Username" />
                   </div>
                   <div class="form-group first mb-2">
-                    <label for="username">Email</label>
+                    <label htmlFor="username">Email</label>
                     <input type="email" class="form-control py-1 px-2" name="email" autoComplete="off" onChange={handleChange} value={reg.email} placeholder="your-email@gmail.com" />
                   </div>
                   <div class="form-group last mb-3">
-                    <label for="password">Password</label>
+                    <label htmlFor="password">Password</label>
                     <input type="password" class="form-control py-1 px-2" name="password" onChange={handleChange} value={reg.password} placeholder="Your Password" />
                   </div>
 
@@ -75,7 +79,7 @@ const Register = () => {
                       {" "}
                       <span class="icon-facebook me-3"></span> submit
                     </a>
-                    <a class="btn py-2 btn-google">
+                    <a class="btn py-2 btn-google" onClick={cancel}>
                       <span class="icon-google me-3"></span> cancel
                     </a>
                   </div>
