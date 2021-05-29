@@ -24,7 +24,11 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           msg: 'Username cannot be empty'
         }
-      }
+      },
+      unique: {
+        args: true,
+        msg: "Username is already used",
+      },
     },
     password: {
       type: DataTypes.STRING,
@@ -34,18 +38,22 @@ module.exports = (sequelize, DataTypes) => {
         },
         len: {
           args: 6,
-          msg: 'Password must be 6 Character or more'
+          msg: 'Minimum password length is 6 characters'
         }
       }
     },
     email: {
       type: DataTypes.STRING,
+      unique: {
+        args: true,
+        msg: "Email is already used",
+      },
       validate: {
         notEmpty: {
           msg: 'Email cannot be empty'
         },
         isEmail: {
-          msg: 'Format email is Invalid'
+          msg: 'Incorrect email format'
         }
       }
     },
@@ -56,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
     hooks: {
-      beforeBulkCreate(user, option){
+      beforeCreate(user, option){
         user.password = hashPassword(user.password)
       }
     }
