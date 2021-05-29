@@ -100,8 +100,6 @@ class showcaseController {
           }
         })
 
-        console.log(userStarredShowcases.length, "<<<<<")
-
         if(userStarredShowcases.length >= 3) {
           throw {
             name: "MaximumStarredReached",

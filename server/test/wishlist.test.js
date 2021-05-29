@@ -47,18 +47,19 @@ let editedWishlist = {
   price: 1000788,
   tag: "langka sekali",
 };
+
 beforeAll((done) => {
   User.create(user)
     .then((result) => {
       access_token = generateToken({
-        email: result.email,
+        username: result.username,
         id: result.id,
       });
       return User.create(user2);
     })
     .then((result) => {
       token_user_2 = generateToken({
-        email: result.email,
+        username: result.username,
         id: result.id,
       });
       done();
@@ -70,11 +71,12 @@ beforeAll((done) => {
 
 afterAll((done) => {
   queryInterface
-    .bulkDelete("Users", null, { truncate: true, cascade: true }) //{truncate: true}
+    .bulkDelete("Users", null, { truncate: true, cascade: true, restartIdentity:true }) //{truncate: true}
     .then(() => {
-      return queryInterface.bulkDelete("WishlistItem", null, {
+      return queryInterface.bulkDelete("WishlistItems", null, {
         truncate: true,
         cascade: true,
+        restartIdentity: true
       });
     })
     .then(() => {
@@ -84,6 +86,7 @@ afterAll((done) => {
       done(err);
     });
 });
+
 describe("GET /wishlist sukses", () => {
   it("it responds with ", (done) => {
     request(app)
@@ -133,7 +136,7 @@ describe("POST /wishlist sukses", () => {
         expect(status).toBe(201);
         expect(body).toHaveProperty(
           "msg",
-          "Wishlist has been succesfully created"
+          "WishlistItem has been succesfully created"
         );
         done();
       })
@@ -175,7 +178,7 @@ describe("POST /wishlist gagal, nama tidak diisi", () => {
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(400);
-        expect(body).toHaveProperty("error", "name cannot be empty");
+        expect(body.error).toContain("name cannot be empty")
         done();
       })
       .catch((err) => {
@@ -183,6 +186,7 @@ describe("POST /wishlist gagal, nama tidak diisi", () => {
       });
   });
 });
+
 describe("GET /wishlist/:id sukses", () => {
   it("it responds with ", (done) => {
     request(app)
@@ -193,9 +197,9 @@ describe("GET /wishlist/:id sukses", () => {
         let { body, status } = response;
         expect(status).toBe(200);
         expect(body).toHaveProperty("id", expect.any(Number));
-        expect(body).toHaveProperty("userId", expect.any(Number));
+        expect(body).toHaveProperty("UserId", expect.any(Number));
         expect(body).toHaveProperty("name", expect.any(String));
-        expect(body).toHaveProperty("image", expect.any(Number));
+        expect(body).toHaveProperty("image", expect.any(String));
         expect(body).toHaveProperty("price", expect.any(Number));
         expect(body).toHaveProperty("description", expect.any(String));
         expect(body).toHaveProperty("tag", expect.any(String));
@@ -333,7 +337,7 @@ describe("DELETE /wishlist/:id gagal wishlist tidak ditemukan", () => {
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(404);
-        expect(body).toHaveProperty("error", "Wishlist not found");
+        expect(body).toHaveProperty("error", "WishlistItem not found");
         done();
       })
       .catch((err) => {
@@ -341,8 +345,6 @@ describe("DELETE /wishlist/:id gagal wishlist tidak ditemukan", () => {
       });
   });
 });
-
-
 
 describe("DELETE /wishlist/:id sukses", () => {
   it("it responds with ", (done) => {

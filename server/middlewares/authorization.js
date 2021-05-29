@@ -1,4 +1,4 @@
-const { Showcase, Item } = require("../models")
+const { Showcase, Item, WishlistItem } = require("../models")
 
 async function authorize(req, res, next) {
   try {
@@ -14,6 +14,13 @@ async function authorize(req, res, next) {
 
       if(!item) throw {name: "ItemNotFound", message: "Item not found"}
       if(item.UserId !== +req.user.id) throw { name: "Unauthorized", message: "You are not authorized to perform this action" }
+      next()
+
+    } else if(req.baseUrl.includes("wishlist")) {
+      let wishlistItem = await WishlistItem.findByPk(+req.params.id)
+
+      if(!wishlistItem) throw {name: "ItemNotFound", message: "WishlistItem not found"}
+      if(wishlistItem.UserId !== +req.user.id) throw { name: "Unauthorized", message: "You are not authorized to perform this action" }
       next()
     }
 
