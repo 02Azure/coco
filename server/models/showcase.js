@@ -18,7 +18,12 @@ module.exports = (sequelize, DataTypes) => {
   Showcase.init({
     UserId: DataTypes.INTEGER,
     name: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: 'name cannot be empty'
+        }
+      }
     },
     isStarred: {
       type: DataTypes.BOOLEAN

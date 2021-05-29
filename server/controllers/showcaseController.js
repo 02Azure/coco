@@ -1,11 +1,25 @@
-const {Showcase} = require('../models')
+const { Showcase, ShowcaseItem, User } = require('../models')
 
 class showcaseController {
   static async getAll(req, res, next) {
     try {
-      let Showcases = await Showcase.findAll({where:{ UserId:req.body.id}})
-      console.log(Showcases)
-      res.status(200).json(Showcases)
+      let user = await User.findByPk(+req.body.id)
+
+      if(!user) {
+        throw({
+          name: "UserNotFound",
+          message: "User not found"
+        })
+      }
+
+      let showcases = await Showcase.findAll({
+        where: { 
+          UserId: +req.body.id
+        },
+        include: ShowcaseItem
+      })
+      
+      res.status(200).json(showcases)
     }
 
     catch(err) {
@@ -15,8 +29,15 @@ class showcaseController {
   }
 
   static async create(req, res, next) {
+    let input = {
+      UserId: +req.user.id,
+      name: req.body.name || ""
+    }
+
     try {
-      res.status(201).json({msg: "success showcase create"})
+      await Showcase.create(input)
+
+      res.status(201).json({ msg: "Showcase has been succesfully created" })
     }
 
     catch(err) {
@@ -27,7 +48,17 @@ class showcaseController {
 
   static async getOne(req, res, next) {
     try {
-      res.status(200).json({msg: "success showcase showOne"})
+      let showcase = await Showcase.findByPk(+req.params.id, {
+        include: ShowcaseItem
+      })
+
+      if(!showcase) {
+        throw {
+          name: "ShowcaseNotFound",
+          message: "Showcase not found"
+        }
+      }
+      res.status(200).json(showcase)
     }
 
     catch(err) {
@@ -37,8 +68,18 @@ class showcaseController {
   }
 
   static async editName(req, res, next) {
+    let input = {
+      name: req.body.name || ""
+    }
+
     try {
-      res.status(200).json({msg: "success showcase editName"})
+      await Showcase.update(input, {
+        where: {
+          id: +req.params.id
+        }
+      })
+
+      res.status(200).json({ msg: "Showcase has been successfully updated" })
     }
 
     catch(err) {
@@ -49,7 +90,13 @@ class showcaseController {
 
   static async delete(req, res, next) {
     try {
-      res.status(200).json({msg: "success showcase delete"})
+      await Showcase.destroy({
+        where: {
+          id: +req.params.id
+        }
+      })
+      
+      res.status(200).json({msg: "Showcase has been successfully deleted"})
     }
 
     catch(err) {
