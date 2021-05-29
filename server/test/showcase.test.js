@@ -1,9 +1,9 @@
 const request = require("supertest");
 const app = require("../app");
-const { sequelize, User } = require("../models");
+const { sequelize, User, Showcase } = require("../models");
 const { queryInterface } = sequelize;
 const jwt = require("jsonwebtoken");
-const JWT_SECRET = "jwtsecret";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const hashPassword = require("../helpers/hashPassword");
 
@@ -13,13 +13,13 @@ function generateToken(payload) {
 let access_token;
 let token_user_2;
 let user = {
-  username: "siotong",
-  password: hashPassword("abc123"),
-  email: "otong@mail.com",
-  userDesc: "Hanyalah seorang pemuda yang mengoleksi kertas karton yugioh",
-  location: "Stardew Valley",
+  username: 'siotong',
+  password: hashPassword('abc123'),
+  email: 'otong@mail.com',
+  userDesc: 'Hanyalah seorang pemuda yang mengoleksi kertas karton yugioh',
+  location: 'Stardew Valley',
   createdAt: new Date(),
-  updatedAt: new Date(),
+  updatedAt: new Date()
 };
 
 let user2 = {
@@ -29,24 +29,75 @@ let user2 = {
   userDesc: "new Co&Co passionate collector", //default value?
   location: "Zuzu City",
   createdAt: new Date(),
-  updatedAt: new Date(),
-};
+  updatedAt: new Date()
+}
+
+let showcase1 = {
+  UserId: 1,
+  name: 'Si atk tak terhingga',
+  isStarred: false,
+  createdAt: new Date(),
+  updatedAt: new Date()
+}
+
+let showcase2 = {
+  UserId: 1,
+  name: 'showcase dua',
+  isStarred: true,
+  createdAt: new Date(),
+  updatedAt: new Date()
+}
+
+let showcase3 = {
+  UserId: 1,
+  name: 'showcase tiga',
+  isStarred: true,
+  createdAt: new Date(),
+  updatedAt: new Date()
+}
+
+let showcase4 = {
+  UserId: 1,
+  name: 'showcase 4',
+  isStarred: false,
+  createdAt: new Date(),
+  updatedAt: new Date()
+}
+
 beforeAll((done) => {
   User.create(user)
     .then((result) => {
-      access_token = generateToken({
-        email: result.email,
+        access_token = generateToken({
+        username: result.username,
         id: result.id,
       });
       return User.create(user2);
     })
+
     .then((result) => {
       token_user_2 = generateToken({
-        email: result.email,
+        username: result.username,
         id: result.id,
-      });
-      done();
+      })
+      return Showcase.create(showcase1)
     })
+
+    .then(() => {
+      return Showcase.create(showcase2)
+    })
+
+    .then(() => {
+      return Showcase.create(showcase3)
+    })
+
+    .then(() => {
+      return Showcase.create(showcase4)
+    })
+
+    .then(() => {
+      done()
+    }) 
+
     .catch((err) => {
       done(err);
     });
@@ -54,12 +105,9 @@ beforeAll((done) => {
 
 afterAll((done) => {
   queryInterface
-    .bulkDelete("Users", null, { truncate: true, cascade: true }) //{truncate: true}
+    .bulkDelete("Users",null,{truncate:true, restartIdentity:true, cascade:true}) 
     .then(() => {
-      return queryInterface.bulkDelete("Showcases", null, {
-        truncate: true,
-        cascade: true,
-      });
+      queryInterface.bulkDelete("Showcases",null,{truncate:true, restartIdentity:true, cascade:true});
     })
     .then(() => {
       done();
@@ -70,7 +118,7 @@ afterAll((done) => {
 });
 
 describe("GET /showcases sukses", () => {
-  it.only("it responds with ", (done) => {
+  it("it responds with ", (done) => {
     request(app)
       .get("/showcases")
       .send({ id: 1 })
@@ -87,16 +135,18 @@ describe("GET /showcases sukses", () => {
       });
   });
 });
+
 describe("GET /showcases gagal, userId tidak ditemukan", () => {
   it("it responds with ", (done) => {
     request(app)
       .get("/showcases")
-      .send({ id: 1676923 })
+      .send({id:432})
+      .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(404);
-        expect(body).toHaveProperty("error", "user not found");
+        expect(body).toHaveProperty("error", "User not found");
         done();
       })
       .catch((err) => {
@@ -112,7 +162,7 @@ describe("POST /showcases sukses", () => {
       .send({
         name: "showcase",
       })
-      .set({ access_token: access_token, Accept: "application/json" })
+      .set({access_token: access_token,"Accept": "application/json"})
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
@@ -147,6 +197,7 @@ describe("POST /showcases gagal tidak membawa access token", () => {
       });
   });
 });
+
 describe("POST /showcases gagal, nama tidak diisi", () => {
   it("it responds with ", (done) => {
     request(app)
@@ -154,12 +205,12 @@ describe("POST /showcases gagal, nama tidak diisi", () => {
       .send({
         name: "",
       })
-      .set("Accept", "application/json")
+      .set({access_token: access_token,"Accept": "application/json"})
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(400);
-        expect(body).toHaveProperty("error", "name cannot be empty");
+        expect(body.error).toContain("name cannot be empty")
         done();
       })
       .catch((err) => {
@@ -178,8 +229,9 @@ describe("GET /showcases/:id sukses", () => {
         let { body, status } = response;
         expect(status).toBe(200);
         expect(body).toHaveProperty("id", expect.any(Number));
-        expect(body).toHaveProperty("userId", expect.any(Number));
+        expect(body).toHaveProperty("UserId", expect.any(Number));
         expect(body).toHaveProperty("name", expect.any(String));
+        expect(body).toHaveProperty("isStarred", expect.any(Boolean)); 
         expect(Array.isArray(body.ShowcaseItems)).toBeTruthy();
         done();
       })
@@ -192,7 +244,7 @@ describe("GET /showcases/:id sukses", () => {
 describe("GET /showcases/:id gagal, showcase id tidak ditemukan", () => {
   it("it responds with ", (done) => {
     request(app)
-      .get("/showcases/177698")
+      .get("/showcases/13232")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .then((response) => {
@@ -219,7 +271,7 @@ describe("PATCH /showcases/:id sukses", () => {
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(200);
-        expect(body).toHaveProperty("msg", "success showcase editName");
+        expect(body).toHaveProperty("msg", "Showcase name has been successfully updated");
         done();
       })
       .catch((err) => {
@@ -227,6 +279,7 @@ describe("PATCH /showcases/:id sukses", () => {
       });
   });
 });
+
 describe("PATCH /showcases/:id gagal tidak membawa access token", () => {
   it("it responds with ", (done) => {
     request(app)
@@ -260,10 +313,7 @@ describe("PATCH /showcases/:id gagal access token tidak sesuai userId", () => {
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(401);
-        expect(body).toHaveProperty(
-          "error",
-          "You ara not authorized to perform this action"
-        );
+        expect(body).toHaveProperty("error", "You are not authorized to perform this action");
         done();
       })
       .catch((err) => {
@@ -284,7 +334,7 @@ describe("PATCH /showcases/:id gagal nama tidak diisi", () => {
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(400);
-        expect(body).toHaveProperty("error", "name cannot be empty");
+        expect(body.error).toContain("name cannot be empty")
         done();
       })
       .catch((err) => {
@@ -293,19 +343,16 @@ describe("PATCH /showcases/:id gagal nama tidak diisi", () => {
   });
 });
 
-describe("DELETE /showcases/:id sukses", () => {
+describe("PATCH /showcases/:id/star sukses", () => {
   it("it responds with ", (done) => {
     request(app)
-      .delete("/showcases/1")
-      .set({ access_token: access_token, Accept: "application/json" })
+      .patch("/showcases/1/star")
+      .set({access_token:access_token, Accept: "application/json" })
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(200);
-        expect(body).toHaveProperty(
-          "msg",
-          "showcase has been successfully deleted"
-        );
+        expect(body).toHaveProperty("msg", "Showcase starred status has been successfully updated");
         done();
       })
       .catch((err) => {
@@ -341,10 +388,7 @@ describe("DELETE /showcases/:id gagal access token tidak sesuai userId", () => {
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(401);
-        expect(body).toHaveProperty(
-          "error",
-          "You ara not authorized to perform this action"
-        );
+        expect(body).toHaveProperty("error", "You are not authorized to perform this action");
         done();
       })
       .catch((err) => {
@@ -352,6 +396,25 @@ describe("DELETE /showcases/:id gagal access token tidak sesuai userId", () => {
       });
   });
 });
+
+describe("DELETE /showcases/:id sukses", () => {
+  it("it responds with ", (done) => {
+    request(app)
+      .delete("/showcases/1")
+      .set({ access_token:access_token,"Accept": "application/json"})
+      .expect("Content-Type", /json/)
+      .then((response) => {
+        let { body, status } = response;
+        expect(status).toBe(200);
+        expect(body).toHaveProperty("msg", "Showcase has been successfully deleted");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+});
+
 
 describe("DELETE /showcases/:id gagal showcase tidak ditemukan", () => {
   it("it responds with ", (done) => {
