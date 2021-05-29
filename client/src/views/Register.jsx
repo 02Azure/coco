@@ -1,11 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import { register } from "../store/action";
+
+import { setRegister } from "../store/action";
 import "./regis.css";
 
-const registerHandle = () => {
-  console.log("regist");
-};
+const Register = () => {
+  const dispatch = useDispatch();
 
-const Login = () => {
+  const history = useHistory();
+
+  const regist = useSelector((state) => state.register);
+
+  useEffect(() => {
+    if (regist) {
+      history.push("/login");
+      dispatch(setRegister(false));
+    }
+  }, [regist]);
+
+  console.log(regist);
+
+  const initialRegister = { username: "", email: "", password: "" };
+  const [reg, setReg] = useState(initialRegister);
+
+  const handleChange = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    setReg({
+      ...reg,
+      [name]: value,
+    });
+  };
+
+  const submit = () => {
+    dispatch(register(reg));
+  };
+
   return (
     <div class="d-md-flex half">
       <div class="bg"></div>
@@ -25,19 +59,19 @@ const Login = () => {
                 <form>
                   <div class="form-group first mb-2">
                     <label for="username">Username</label>
-                    <input type="text" class="form-control py-1 px-2" placeholder="Username" id="username" />
+                    <input type="text" class="form-control py-1 px-2" name="username" autoComplete="off" onChange={handleChange} value={reg.username} placeholder="Username" />
                   </div>
                   <div class="form-group first mb-2">
                     <label for="username">Email</label>
-                    <input type="email" class="form-control py-1 px-2" placeholder="your-email@gmail.com" id="username" />
+                    <input type="email" class="form-control py-1 px-2" name="email" autoComplete="off" onChange={handleChange} value={reg.email} placeholder="your-email@gmail.com" />
                   </div>
                   <div class="form-group last mb-3">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control py-1 px-2" placeholder="Your Password" id="password" />
+                    <input type="password" class="form-control py-1 px-2" name="password" onChange={handleChange} value={reg.password} placeholder="Your Password" />
                   </div>
 
                   <div class="">
-                    <a class="btn mb-2 py-2 btn-facebook">
+                    <a class="btn mb-2 py-2 btn-facebook" onClick={submit}>
                       {" "}
                       <span class="icon-facebook me-3"></span> submit
                     </a>
@@ -55,4 +89,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

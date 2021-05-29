@@ -1,11 +1,20 @@
 import React from "react";
 import "./login.css";
 
-const registerHandle = () => {
-  console.log("regist");
-};
+const Login = () => {
+  const initialLogin = { username: "", email: "", password: "" };
+  const [reg, setReg] = useState(initialLogin);
 
-const Register = () => {
+  const handleChange = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    setReg({
+      ...reg,
+      [name]: value,
+    });
+  };
   return (
     <div className="d-md-flex half">
       <div id="bg_login" className="bg "></div>
@@ -63,4 +72,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
