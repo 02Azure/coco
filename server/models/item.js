@@ -18,7 +18,12 @@ module.exports = (sequelize, DataTypes) => {
   Item.init({
     UserId: DataTypes.INTEGER,
     name: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: "name cannot be empty"
+        }
+      }
     },
     image: {
       type: DataTypes.STRING
