@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "jest --detectOpenHandles --forceExit --runInBand --coverage"
+    "test": "jest --detectOpenHandles --forceExit --runInBand --coverage",
+    "dev": "SET NODE_ENV=development&& npx nodemon ./bin/server"
   },
   "keywords": [],
   "author": "",

@@ -66,6 +66,9 @@ module.exports = (sequelize, DataTypes) => {
     hooks: {
       beforeCreate(user, option){
         user.password = hashPassword(user.password)
+        user.userDesc = "new Co&Co passionate collector"
+        user.location = ""
+        user.userImage = ""
       }
     }
   });
