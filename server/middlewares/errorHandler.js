@@ -24,7 +24,7 @@ function errorHandler(err, req, res, next){
             break;
 
         case 'SequelizeUniqueConstraintError':
-            res.status(409).json({ error: [err.message] })
+            res.status(400).json({ error: err.message })
             break;
 
         case 'Unauthorized':

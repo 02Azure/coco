@@ -3,7 +3,6 @@ const { User } = require("../models")
 
 async function authenticate(req, res, next) {
   try {
-    
     if(!req.headers.access_token){
       throw {
         name: "JsonWebTokenError",

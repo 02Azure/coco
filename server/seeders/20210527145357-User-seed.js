@@ -6,6 +6,7 @@ module.exports = {
       username: 'siotong',
       password: hashPassword('abc123'),
       email: 'otong@mail.com',
+      userImage: "https://imgur.com/kHJw66Q",
       userDesc: 'Hanyalah seorang pemuda yang mengoleksi kertas karton yugioh',
       location: 'Stardew Valley',
       createdAt: new Date(),
@@ -15,6 +16,7 @@ module.exports = {
       username: 'lilynano',
       password: hashPassword('lalalili'),
       email: 'lilynano@mail.com',
+      userImage: "https://i.imgur.com/qjIemZX.png",
       userDesc: 'new Co&Co passionate collector', //default value?
       location: 'Zuzu City',
       createdAt: new Date(),
