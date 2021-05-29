@@ -84,6 +84,7 @@ class WishlistController {
     }
 
     catch(err) {
+        /* istanbul ignore next */
       next(err)
     }
   }
@@ -99,6 +100,7 @@ class WishlistController {
     }
 
     catch(err) {
+        /* istanbul ignore next */
       next(err)
     }
   }

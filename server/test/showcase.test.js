@@ -366,7 +366,7 @@ describe("PATCH /showcases/:id/star gagal - jumlah maksimum starred tercapai", (
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
-        expect(status).toBe(401);
+        expect(status).toBe(400);
         expect(body).toHaveProperty("error", "You can only have maximum 3 starred showcases at the same time");
         done();
       })
