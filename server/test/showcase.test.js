@@ -5,7 +5,7 @@ const { queryInterface } = sequelize;
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = "jwtsecret";
 
-const hashPassword = require("../helpers/hashPassword")
+const hashPassword = require("../helpers/hashPassword");
 
 function generateToken(payload) {
   return jwt.sign(payload, JWT_SECRET);
@@ -13,28 +13,28 @@ function generateToken(payload) {
 let access_token;
 let token_user_2;
 let user = {
-  username: 'siotong',
-      password: hashPassword('abc123'),
-      email: 'otong@mail.com',
-      userDesc: 'Hanyalah seorang pemuda yang mengoleksi kertas karton yugioh',
-      location: 'Stardew Valley',
-      createdAt: new Date(),
-      updatedAt: new Date()
+  username: "siotong",
+  password: hashPassword("abc123"),
+  email: "otong@mail.com",
+  userDesc: "Hanyalah seorang pemuda yang mengoleksi kertas karton yugioh",
+  location: "Stardew Valley",
+  createdAt: new Date(),
+  updatedAt: new Date(),
 };
 
 let user2 = {
-  username: 'lilynano',
-  password: hashPassword('lalalili'),
-  email: 'lilynano@mail.com',
-  userDesc: 'new Co&Co passionate collector', //default value?
-  location: 'Zuzu City',
+  username: "lilynano",
+  password: hashPassword("lalalili"),
+  email: "lilynano@mail.com",
+  userDesc: "new Co&Co passionate collector", //default value?
+  location: "Zuzu City",
   createdAt: new Date(),
-  updatedAt: new Date()
-}
+  updatedAt: new Date(),
+};
 beforeAll((done) => {
   User.create(user)
     .then((result) => {
-        access_token = generateToken({
+      access_token = generateToken({
         email: result.email,
         id: result.id,
       });
@@ -54,9 +54,12 @@ beforeAll((done) => {
 
 afterAll((done) => {
   queryInterface
-    .bulkDelete("Users",null,{truncate:true,cascade:true})  //{truncate: true}
+    .bulkDelete("Users", null, { truncate: true, cascade: true }) //{truncate: true}
     .then(() => {
-      return queryInterface.bulkDelete("Showcases",null,{truncate:true,cascade:true});
+      return queryInterface.bulkDelete("Showcases", null, {
+        truncate: true,
+        cascade: true,
+      });
     })
     .then(() => {
       done();
@@ -66,12 +69,11 @@ afterAll((done) => {
     });
 });
 
-
 describe("GET /showcases sukses", () => {
   it.only("it responds with ", (done) => {
     request(app)
       .get("/showcases")
-      .send({id:1})
+      .send({ id: 1 })
       .set({ userId: 1, Accept: "application/json" })
       .expect("Content-Type", /json/)
       .then((response) => {
@@ -89,8 +91,7 @@ describe("GET /showcases gagal, userId tidak ditemukan", () => {
   it("it responds with ", (done) => {
     request(app)
       .get("/showcases")
-
-      .set({ userId: 5582, Accept: "application/json" })
+      .send({ id: 1676923 })
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
@@ -109,15 +110,18 @@ describe("POST /showcases sukses", () => {
     request(app)
       .post("/showcases")
       .send({
-        name:'showcase',
+        name: "showcase",
       })
-      .set({access_token:access_token,"Accept": "application/json"})
+      .set({ access_token: access_token, Accept: "application/json" })
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
         console.log(body);
         expect(status).toBe(201);
-        expect(body).toHaveProperty("msg", "Showcase has been succesfully created");
+        expect(body).toHaveProperty(
+          "msg",
+          "Showcase has been succesfully created"
+        );
         done();
       })
       .catch((err) => {
@@ -188,13 +192,13 @@ describe("GET /showcases/:id sukses", () => {
 describe("GET /showcases/:id gagal, showcase id tidak ditemukan", () => {
   it("it responds with ", (done) => {
     request(app)
-      .get("/showcases/1")
+      .get("/showcases/177698")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(404);
-        expect(body).toHaveProperty("error","Showcase not found")
+        expect(body).toHaveProperty("error", "Showcase not found");
         done();
       })
       .catch((err) => {
@@ -208,9 +212,9 @@ describe("PATCH /showcases/:id sukses", () => {
     request(app)
       .patch("/showcases/1")
       .send({
-        name: "newName"
+        name: "newName",
       })
-      .set({access_token:access_token, Accept: "application/json" })
+      .set({ access_token: access_token, Accept: "application/json" })
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
@@ -228,7 +232,7 @@ describe("PATCH /showcases/:id gagal tidak membawa access token", () => {
     request(app)
       .patch("/showcases/1")
       .send({
-        name:"newName"
+        name: "newName",
       })
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
@@ -249,14 +253,17 @@ describe("PATCH /showcases/:id gagal access token tidak sesuai userId", () => {
     request(app)
       .patch("/showcases/1")
       .send({
-        name:"newName"
+        name: "newName",
       })
-      .set({access_token:token_user_2,"Accept": "application/json"})
+      .set({ access_token: token_user_2, Accept: "application/json" })
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(401);
-        expect(body).toHaveProperty("error", "You ara not authorized to perform this action");
+        expect(body).toHaveProperty(
+          "error",
+          "You ara not authorized to perform this action"
+        );
         done();
       })
       .catch((err) => {
@@ -270,9 +277,9 @@ describe("PATCH /showcases/:id gagal nama tidak diisi", () => {
     request(app)
       .patch("/showcases/1")
       .send({
-        name: ""
+        name: "",
       })
-      .set({access_token:access_token, Accept: "application/json" })
+      .set({ access_token: access_token, Accept: "application/json" })
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
@@ -286,17 +293,19 @@ describe("PATCH /showcases/:id gagal nama tidak diisi", () => {
   });
 });
 
-
 describe("DELETE /showcases/:id sukses", () => {
   it("it responds with ", (done) => {
     request(app)
       .delete("/showcases/1")
-      .set({access_token:access_token,"Accept": "application/json"})
+      .set({ access_token: access_token, Accept: "application/json" })
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(200);
-        expect(body).toHaveProperty("msg", "showcase has been successfully deleted");
+        expect(body).toHaveProperty(
+          "msg",
+          "showcase has been successfully deleted"
+        );
         done();
       })
       .catch((err) => {
@@ -323,17 +332,19 @@ describe("DELETE /showcases/:id gagal tidak membawa access token", () => {
   });
 });
 
-
 describe("DELETE /showcases/:id gagal access token tidak sesuai userId", () => {
   it("it responds with ", (done) => {
     request(app)
       .delete("/showcases/1")
-      .set({access_token:token_user_2,"Accept": "application/json"})
+      .set({ access_token: token_user_2, Accept: "application/json" })
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(401);
-        expect(body).toHaveProperty("error", "You ara not authorized to perform this action");
+        expect(body).toHaveProperty(
+          "error",
+          "You ara not authorized to perform this action"
+        );
         done();
       })
       .catch((err) => {
@@ -346,7 +357,7 @@ describe("DELETE /showcases/:id gagal showcase tidak ditemukan", () => {
   it("it responds with ", (done) => {
     request(app)
       .delete("/showcases/463463")
-      .set({access_token:access_token,"Accept": "application/json"})
+      .set({ access_token: access_token, Accept: "application/json" })
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
