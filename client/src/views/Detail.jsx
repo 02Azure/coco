@@ -50,16 +50,4 @@ function Detail(props) {
   );
 }
 
-/**
- *  UserId: 1,
-      name: '',
-      image: 'https://52f4e29a8321344e30ae-0f55c9129972ac85d6b1f4e703468e6b.ssl.cf2.rackcdn.com/products/pictures/1155848.jpg',
-      tradeable: true,
-      price: 300000,
-      tradeWith: 'Playmat Yugioh San Diego Comic-Con Exclusive Yugi & Exodia Playmat',
-      tag: 'Yugioh-TCG',
-      description: 'Unli, NM',
- * 
- */
-
 export default Detail;
