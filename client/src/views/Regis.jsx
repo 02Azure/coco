@@ -1,11 +1,13 @@
 import React from "react";
 import "./regis.css";
+import { useHistory } from 'react-router-dom'
 
-const registerHandle = () => {
-  console.log("regist");
-};
-
-const Login = () => {
+const Register = () => {
+  let history = useHistory()
+  const goLogin = () => {
+    // console.log("regist");
+    history.push('/login')
+  };
   return (
     <div class="d-md-flex half">
       <div class="bg"></div>
@@ -41,7 +43,7 @@ const Login = () => {
                       {" "}
                       <span class="icon-facebook me-3"></span> submit
                     </a>
-                    <a class="btn py-2 btn-google">
+                    <a onClick={goLogin} class="btn py-2 btn-google">
                       <span class="icon-google me-3"></span> cancel
                     </a>
                   </div>
@@ -55,4 +57,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

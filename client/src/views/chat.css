@@ -1,0 +1,24 @@
+.list__chat{
+    background-color: red;
+    height: 100vh;
+    padding: 20px
+}
+
+.another__people{
+    background-color: aqua;
+    position: relative;
+    top: 10vh;
+    padding: 20px;
+    margin-top: 3vh;
+}
+
+.main__chat{
+    background-color: aliceblue;
+    padding: 20px
+}  
+
+.box__chat{
+    background-color: red;
+    height: 60vh;
+    width: 120vh
+}

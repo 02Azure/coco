@@ -1,11 +1,14 @@
 import React from "react";
 import "./login.css";
+import { useHistory } from 'react-router-dom'
 
-const registerHandle = () => {
-  console.log("regist");
-};
 
-const Register = () => {
+const Login = () => {
+  let history = useHistory()
+  const registerHandle = () => {
+    // console.log("regist");
+    history.push('/register')
+  };
   return (
     <div className="d-md-flex half">
       <div id="bg_login" className="bg "></div>
@@ -63,4 +66,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
