@@ -45,42 +45,42 @@ const Register = () => {
   };
 
   return (
-    <div class="d-md-flex half">
-      <div class="bg"></div>
+    <div className="d-md-flex half">
+      <div className="bg"></div>
 
       <div className="contents">
         <div className="container">
           <div className="row align-items-center justify-content-center">
             <div className="col-md-12">
-              <div class="form-block mx-auto">
+              <div className="form-block mx-auto">
                 {/* heading regis */}
-                <div class="text-center mb-4">
-                  <h1 class="text-uppercase">
+                <div className="text-center mb-4">
+                  <h1 className="text-uppercase">
                     <strong>Co&Co</strong>
                   </h1>
                 </div>
                 {/* regis form */}
                 <form>
-                  <div class="form-group first mb-2">
+                  <div className="form-group first mb-2">
                     <label htmlFor="username">Username</label>
-                    <input type="text" class="form-control py-1 px-2" name="username" autoComplete="off" onChange={handleChange} value={reg.username} placeholder="Username" />
+                    <input type="text" className="form-control py-1 px-2" name="username" autoComplete="off" onChange={handleChange} value={reg.username} placeholder="Username" />
                   </div>
-                  <div class="form-group first mb-2">
+                  <div className="form-group first mb-2">
                     <label htmlFor="username">Email</label>
-                    <input type="email" class="form-control py-1 px-2" name="email" autoComplete="off" onChange={handleChange} value={reg.email} placeholder="your-email@gmail.com" />
+                    <input type="email" className="form-control py-1 px-2" name="email" autoComplete="off" onChange={handleChange} value={reg.email} placeholder="your-email@gmail.com" />
                   </div>
-                  <div class="form-group last mb-3">
+                  <div className="form-group last mb-3">
                     <label htmlFor="password">Password</label>
-                    <input type="password" class="form-control py-1 px-2" name="password" onChange={handleChange} value={reg.password} placeholder="Your Password" />
+                    <input type="password" className="form-control py-1 px-2" name="password" onChange={handleChange} value={reg.password} placeholder="Your Password" />
                   </div>
 
-                  <div class="">
-                    <a class="btn mb-2 py-2 btn-facebook" onClick={submit}>
+                  <div className="">
+                    <a className="btn mb-2 py-2 btn-facebook" onClick={submit}>
                       {" "}
-                      <span class="icon-facebook me-3"></span> submit
+                      <span className="icon-facebook me-3"></span> submit
                     </a>
-                    <a class="btn py-2 btn-google" onClick={cancel}>
-                      <span class="icon-google me-3"></span> cancel
+                    <a className="btn py-2 btn-google" onClick={cancel}>
+                      <span className="icon-google me-3"></span> cancel
                     </a>
                   </div>
                 </form>

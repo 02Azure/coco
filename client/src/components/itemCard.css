@@ -11,6 +11,10 @@
   transform: scale(1.05);
 }
 
+.card {
+  cursor: pointer;
+}
+
 .card-body .item {
   margin-top: 0.5rem;
   font-size: 20px;

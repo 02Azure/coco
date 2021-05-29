@@ -30,13 +30,13 @@ const EditProfile = () => {
               <input type="password" className="form-control py-1 px-2" placeholder="Your Password" id="password" />
             </div>
 
-            <div class="">
-              <a class="btn mb-2 py-2 btn-facebook">
+            <div className="">
+              <a className="btn mb-2 py-2 btn-facebook">
                 {" "}
-                <span class="icon-facebook me-3"></span> UPDATE
+                <span className="icon-facebook me-3"></span> UPDATE
               </a>
-              <a class="btn py-2 btn-google">
-                <span class="icon-google me-3"></span> cancel
+              <a className="btn py-2 btn-google">
+                <span className="icon-google me-3"></span> cancel
               </a>
             </div>
           </form>

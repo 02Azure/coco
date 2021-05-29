@@ -3,7 +3,8 @@ import thunk from "redux-thunk";
 
 const intialState = {
   register: false,
-  edited: { title: "", category: "" },
+  // edited: { title: "", category: "" },
+  items: [],
 };
 
 function reducer(state = intialState, action) {
@@ -11,8 +12,8 @@ function reducer(state = intialState, action) {
   switch (type) {
     case "SET_REG":
       return { ...state, register: payload };
-    case "SET_EDIT":
-      return { ...state, edited: payload };
+    case "SET_ITEM":
+      return { ...state, items: payload };
 
     default:
       return state;
