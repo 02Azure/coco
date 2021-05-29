@@ -79,13 +79,48 @@ class showcaseController {
         }
       })
 
-      res.status(200).json({ msg: "Showcase has been successfully updated" })
+      res.status(200).json({ msg: "Showcase name has been successfully updated" })
     }
 
     catch(err) {
       next(err)
     }
+  }
 
+  static async switchStarredStatus(req, res, next) {
+    try {
+      let foundShowcase = Showcase.findByPk(+req.params.id)
+      let newStarredStatus = false
+      
+      if(!foundShowcase.isStarred) {
+        let userStarredShowcases = Showcase.findAll({
+          where: {
+            UserId: +req.body.id,
+            isStarred: true
+          }
+        })
+
+        if(userStarredShowcases > 3) {
+          throw {
+            name: "MaximumStarredReached",
+            message: "You can only have maximum 3 starred showcases at the same time"
+          }
+        }
+        newStarredStatus = true
+      } 
+
+      await Showcase.update({isStarred: newStarredStatus}, {
+        where: {
+          id: +req.params.id
+        }
+      })
+
+      res.status(200).json({ msg: "Showcase starred status has been successfully updated" })
+    }
+
+    catch(err) {
+      next(err)
+    }
   }
 
   static async delete(req, res, next) {
