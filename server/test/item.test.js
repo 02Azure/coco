@@ -249,7 +249,7 @@ let user = {
             .then((response) => {
                 const { body, status } = response
                 expect(status).toBe(404)
-                expect(body).toHaveProperty("error", "Item is not found!")
+                expect(body).toHaveProperty("error", "Item not found")
                 done()
             })
             .catch(err => {
