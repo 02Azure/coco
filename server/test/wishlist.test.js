@@ -112,7 +112,7 @@ describe("GET /wishlist gagal, userId tidak ditemukan", () => {
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(404);
-        expect(body).toHaveProperty("error", "user not found");
+        expect(body).toHaveProperty("error", "User not found");
         done();
       })
       .catch((err) => {
@@ -216,7 +216,7 @@ describe("GET /wishlist/:id gagal, wishlist id tidak ditemukan", () => {
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(404);
-        expect(body).toHaveProperty("error", "Wishlist not found");
+        expect(body).toHaveProperty("error", "WishlistItem not found");
         done();
       })
       .catch((err) => {
@@ -235,7 +235,7 @@ describe("PUT /wishlist/:id sukses", () => {
       .then((response) => {
         let { body, status } = response;
         expect(status).toBe(200);
-        expect(body).toHaveProperty("msg", "success wishlist update");
+        expect(body).toHaveProperty("msg", "WishlistItem has been successfully updated");
         done();
       })
       .catch((err) => {
@@ -274,7 +274,7 @@ describe("PUT /wishlist/:id gagal access token tidak sesuai userId", () => {
         expect(status).toBe(401);
         expect(body).toHaveProperty(
           "error",
-          "You ara not authorized to perform this action"
+          "You are not authorized to perform this action"
         );
         done();
       })
