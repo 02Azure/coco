@@ -27,7 +27,7 @@ const EditProfile = () => {
 
   useEffect(() => {
     dispatch(findOneUser(id));
-  }, []);
+  }, [dispatch, id]);
 
   console.log(oneUser);
 
@@ -37,7 +37,7 @@ const EditProfile = () => {
       location: oneUser.location,
       bio: oneUser.userDesc,
     });
-  }, []);
+  }, [oneUser]);
 
   // console.log(u);
 
