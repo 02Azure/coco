@@ -5,7 +5,9 @@ class itemController{
         try {
             const items = await Item.findAll({ where: { UserId: req.user.id }})
             res.status(200).json(items)
+
         } catch (err) {
+      /* istanbul ignore next */
             next(err)
         }
     }
@@ -16,6 +18,7 @@ class itemController{
             res.status(200).json(item)
 
         } catch (err) {
+      /* istanbul ignore next */
             next(err)
         }
     }
@@ -60,6 +63,7 @@ class itemController{
             res.status(200).json({ msg: 'Item has been successfully deleted' })
 
         } catch (err) {
+      /* istanbul ignore next */
             next(err)
         }
     }

@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 let http = require('http');
 let app = require('../app')
 const port = 3000

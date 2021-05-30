@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     hooks: {
       beforeCreate: (showcaseItem, options) => {
-        if(showcaseItem.isStarred === undefined) showcase.isStarred = false
+        if(showcaseItem.isStarred === undefined) showcaseItem.isStarred = false
       }
     },
     sequelize,

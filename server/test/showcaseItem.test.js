@@ -1,6 +1,6 @@
 const request = require("supertest");
 const app = require("../app");
-const { sequelize, User, Showcase, Item } = require("../models");
+const { sequelize, User, Showcase, Item, ShowcaseItem } = require("../models");
 const { queryInterface } = sequelize;
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -12,6 +12,10 @@ function generateToken(payload) {
 }
 let access_token;
 let token_user_2;
+let token_unregistered_user = generateToken({
+  username: "iseng",
+  id: 6
+})
 let user = {
   username: "siotong",
   password: hashPassword("abc123"),
@@ -108,6 +112,7 @@ let item5 = {
   createdAt: new Date(),
   updatedAt: new Date(),
 };
+
 beforeAll((done) => {
   User.create(user)
     .then((result) => {
@@ -141,13 +146,19 @@ beforeAll((done) => {
       return Item.create(item4);
     })
     .then(() => {
-      return ShowcaseItem.create({ ShowcaseId: 1, ItemId: 1, isStarred: true });
+      return Item.create(item5);
+    })
+    .then(() => {
+      return ShowcaseItem.create({ ShowcaseId: 1, ItemId: 1, isStarred: false });
     })
     .then(() => {
       return ShowcaseItem.create({ ShowcaseId: 1, ItemId: 2, isStarred: true });
     })
     .then(() => {
       return ShowcaseItem.create({ ShowcaseId: 1, ItemId: 3, isStarred: true });
+    })
+    .then(() => {
+      return ShowcaseItem.create({ ShowcaseId: 1, ItemId: 4, isStarred: false });
     })
     .then(() => {
       return Item.create(item4);
@@ -197,15 +208,15 @@ afterAll((done) => {
     });
 });
 
-describe("GET /showcaseitem sukses", () => {
-  it("it responds with ", (done) => {
+describe("GET /showcaseitems sukses", () => {
+  it("it responds with array of showcase item or empty array", (done) => {
     request(app)
-      .post("/showcaseitem")
+      .get("/showcaseitems")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
-        expect(status).toBe(201);
+        expect(status).toBe(200);
         expect(Array.isArray(body)).toBeTruthy();
         done();
       })
@@ -214,11 +225,12 @@ describe("GET /showcaseitem sukses", () => {
       });
   });
 });
-describe("POST /showcaseitem sukses", () => {
+
+describe("POST /showcaseitems sukses", () => {
   it("it responds with ", (done) => {
     request(app)
-      .post("/showcaseitem")
-      .send({ ShowcaseId: 1, ItemId: 4 })
+      .post("/showcaseitems")
+      .send({ ShowcaseId: 1, ItemId: 5 })
       .set({ access_token: access_token, Accept: "application/json" })
       .expect("Content-Type", /json/)
       .then((response) => {
@@ -236,10 +248,10 @@ describe("POST /showcaseitem sukses", () => {
   });
 });
 
-describe("POST /showcaseitem gagal, ItemId sudah ada di showcase lain", () => {
+describe("POST /showcaseitems gagal, ItemId sudah ada di showcase lain", () => {
   it("it responds with ", (done) => {
     request(app)
-      .post("/showcaseitem")
+      .post("/showcaseitems")
       .send({ ShowcaseId: 2, ItemId: 4 })
       .set({ access_token: access_token, Accept: "application/json" })
       .expect("Content-Type", /json/)
@@ -258,70 +270,11 @@ describe("POST /showcaseitem gagal, ItemId sudah ada di showcase lain", () => {
   });
 });
 
-describe("POST /showcaseitem gagal, tidak membawa access token", () => {
+describe("POST /showcaseitems gagal, tidak membawa access token", () => {
   it("it responds with ", (done) => {
     request(app)
-      .post("/showcaseitem")
+      .post("/showcaseitems")
       .send({ ShowcaseId: 1, ItemId: 5 })
-      .set("Accept", "application/json")
-      .expect("Content-Type", /json/)
-      .then((response) => {
-        let { body, status } = response;
-        expect(status).toBe(401);
-        expect(body).toHaveProperty("error", "Inavalid access token");
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
-});
-describe("POST /showcaseitem gagal, menggunakan access token yang bukan pemilik showcase", () => {
-  it("it responds with ", (done) => {
-    request(app)
-      .post("/showcaseitem")
-      .send({ ShowcaseId: 1, ItemId: 5 })
-      .set({ access_token: token_user_2, Accept: "application/json" })
-      .expect("Content-Type", /json/)
-      .then((response) => {
-        let { body, status } = response;
-        expect(status).toBe(401);
-        expect(body).toHaveProperty(
-          "error",
-          "You are not authorized to perform this action"
-        );
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
-});
-
-describe("PATCH /showcaseitem gagal, menggunakan access token yang bukan pemilik showcase", () => {
-  it("it responds with ", (done) => {
-    request(app)
-      .patch("/showcaseitem/1")
-      .set({ access_token: token_user_2, Accept: "application/json" })
-      .expect("Content-Type", /json/)
-      .then((response) => {
-        let { body, status } = response;
-        expect(status).toBe(401);
-        expect(body).toHaveProperty(
-          "error",
-          "You are not authorized to perform this action"
-        );
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
-});
-describe("PATCH /showcaseitem gagal, tidak membawa access token", () => {
-  it("it responds with ", (done) => {
-    request(app)
-      .patch("/showcaseitem/1")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .then((response) => {
@@ -336,10 +289,115 @@ describe("PATCH /showcaseitem gagal, tidak membawa access token", () => {
   });
 });
 
-describe("PATCH /showcaseitem gagal, id showcaseItem tidak ditemukan", () => {
+describe("POST /showcaseitems gagal, menggunakan access token yang bukan pemilik showcase", () => {
   it("it responds with ", (done) => {
     request(app)
-      .patch("/showcaseitem/19986")
+      .post("/showcaseitems")
+      .send({ ShowcaseId: 1, ItemId: 5 })
+      .set({ access_token: token_user_2, Accept: "application/json" })
+      .expect("Content-Type", /json/)
+      .then((response) => {
+        let { body, status } = response;
+        expect(status).toBe(401);
+        expect(body).toHaveProperty(
+          "error",
+          "You are not authorized to perform this action"
+        );
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+});
+
+describe("POST /showcaseitems gagal, Item tidak ditemukan", () => {
+  it("it responds with error - 'That Item and/or Showcase is not found' message", (done) => {
+    request(app)
+      .post("/showcaseitems")
+      .send({ ShowcaseId: 1, ItemId: 97 })
+      .set({ access_token: token_user_2, Accept: "application/json" })
+      .expect("Content-Type", /json/)
+      .then((response) => {
+        let { body, status } = response;
+        expect(status).toBe(404);
+        expect(body).toHaveProperty(
+          "error",
+          "That Item and/or Showcase is not found"
+        );
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+});
+
+describe("POST /showcaseitems gagal, unregistered token", () => {
+  it("it responds with error - 'Invalid access token", (done) => {
+    request(app)
+      .post("/showcaseitems")
+      .send({ ShowcaseId: 1, ItemId: 97 })
+      .set({ access_token: token_unregistered_user, Accept: "application/json" })
+      .expect("Content-Type", /json/)
+      .then((response) => {
+        let { body, status } = response;
+        expect(status).toBe(401);
+        expect(body).toHaveProperty(
+          "error",
+          "Invalid access token"
+        );
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+});
+
+describe("PATCH /showcaseitems gagal, menggunakan access token yang bukan pemilik showcase", () => {
+  it("it responds with ", (done) => {
+    request(app)
+      .patch("/showcaseitems/1")
+      .set({ access_token: token_user_2, Accept: "application/json" })
+      .expect("Content-Type", /json/)
+      .then((response) => {
+        let { body, status } = response;
+        expect(status).toBe(401);
+        expect(body).toHaveProperty(
+          "error",
+          "You are not authorized to perform this action"
+        );
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+});
+
+describe("PATCH /showcaseitems gagal, tidak membawa access token", () => {
+  it("it responds with ", (done) => {
+    request(app)
+      .patch("/showcaseitems/1")
+      .set("Accept", "application/json")
+      .expect("Content-Type", /json/)
+      .then((response) => {
+        let { body, status } = response;
+        expect(status).toBe(401);
+        expect(body).toHaveProperty("error", "Invalid access token");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+});
+
+describe("PATCH /showcaseitems gagal, id showcaseItem tidak ditemukan", () => {
+  it("it responds with ", (done) => {
+    request(app)
+      .patch("/showcaseitems/19986")
       .set({ access_token: access_token, Accept: "application/json" })
       .expect("Content-Type", /json/)
       .then((response) => {
@@ -353,10 +411,11 @@ describe("PATCH /showcaseitem gagal, id showcaseItem tidak ditemukan", () => {
       });
   });
 });
-describe("PATCH /showcaseitem sukses", () => {
+
+describe("PATCH /showcaseitems sukses", () => {
   it("it responds with ", (done) => {
     request(app)
-      .patch("/showcaseitem/1")
+      .patch("/showcaseitems/1")
       .set({ access_token: access_token, Accept: "application/json" })
       .expect("Content-Type", /json/)
       .then((response) => {
@@ -374,10 +433,31 @@ describe("PATCH /showcaseitem sukses", () => {
   });
 });
 
-describe("DELETE /showcaseitem gagal, menggunakan access token yang bukan pemilik showcase", () => {
+describe("PATCH /showcaseitems sukses", () => {
   it("it responds with ", (done) => {
     request(app)
-      .delete("/showcaseitem/1")
+      .patch("/showcaseitems/4")
+      .set({ access_token: access_token, Accept: "application/json" })
+      .expect("Content-Type", /json/)
+      .then((response) => {
+        let { body, status } = response;
+        expect(status).toBe(400);
+        expect(body).toHaveProperty(
+          "error",
+          "You can only have maximum 3 starred item in one showcase at the same time"
+        );
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+});
+
+describe("DELETE /showcaseitems gagal, menggunakan access token yang bukan pemilik showcase", () => {
+  it("it responds with ", (done) => {
+    request(app)
+      .delete("/showcaseitems/1")
       .set({ access_token: token_user_2, Accept: "application/json" })
       .expect("Content-Type", /json/)
       .then((response) => {
@@ -394,10 +474,10 @@ describe("DELETE /showcaseitem gagal, menggunakan access token yang bukan pemili
       });
   });
 });
-describe("DELETE /showcaseitem gagal, tidak membawa access token", () => {
+describe("DELETE /showcaseitems gagal, tidak membawa access token", () => {
   it("it responds with ", (done) => {
     request(app)
-      .delete("/showcaseitem/1")
+      .delete("/showcaseitems/1")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .then((response) => {
@@ -412,10 +492,10 @@ describe("DELETE /showcaseitem gagal, tidak membawa access token", () => {
   });
 });
 
-describe("DELETE /showcaseitem gagal, id showcaseItem tidak ditemukan", () => {
+describe("DELETE /showcaseitems gagal, id showcaseItem tidak ditemukan", () => {
   it("it responds with ", (done) => {
     request(app)
-      .delete("/showcaseitem/19986")
+      .delete("/showcaseitems/19986")
       .set({ access_token: access_token, Accept: "application/json" })
       .expect("Content-Type", /json/)
       .then((response) => {
@@ -430,10 +510,10 @@ describe("DELETE /showcaseitem gagal, id showcaseItem tidak ditemukan", () => {
   });
 });
 
-describe("Delete /showcaseitem sukses", () => {
+describe("Delete /showcaseitems sukses", () => {
   it("it responds with ", (done) => {
     request(app)
-      .delete("/showcaseitem/1")
+      .delete("/showcaseitems/1")
       .set({ access_token: access_token, Accept: "application/json" })
       .expect("Content-Type", /json/)
       .then((response) => {
@@ -441,7 +521,7 @@ describe("Delete /showcaseitem sukses", () => {
         expect(status).toBe(200);
         expect(body).toHaveProperty(
           "msg",
-          "Showcase has been successfully deleted"
+          "ShowcaseItem has been successfully deleted"
         );
         done();
       })

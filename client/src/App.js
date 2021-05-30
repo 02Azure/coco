@@ -6,17 +6,19 @@ import Discovery from "./views/Discovery";
 import EditProfile from "./views/EditProfile";
 import Login from "./views/Login";
 import Register from "./views/Register";
-import ShowCase from "./views/showCase"
-import ChatPage from "./views/Chat.jsx"
+import ShowCase from "./views/showCase";
+import ChatPage from "./views/Chat.jsx";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Trending from "./views/Trending";
 import ProtectedRoute from "./views/protected.route"
-import PageNotFound from "./views/notFound.jsx"
 import { useSelector } from "react-redux"
+
+import NotFound from "./views/NotFound";
+
 function App() {
   const isLogin = useSelector((state) => state.isLogin)
-  return (
+  return 
       <Router>
         <Navbar />
           <Switch>
@@ -41,22 +43,3 @@ function App() {
 }
 
 export default App;
-
-{/* <Route path="/discovery">
-              <Discovery />
-            </Route>
-            <Route path="/edit">
-              <EditProfile />
-            </Route>
-            <Route path="/trending">
-              <Trending />
-            </Route>
-            <Route path="/profile">
-              <Profile />
-            </Route>
-            <Route path="/showCase">
-              <ShowCase />
-            </Route>
-            <Route path="/chat">
-              <ChatPage />
-            </Route> */}
