@@ -59,6 +59,10 @@ export function register(payload) {
   };
 }
 
+export function setLogin(payload){
+  console.log(payload, "<<< payload set login");
+  return { type: "SET_LOGIN", payload: payload}
+}
 export function findOneUser(id) {
   return function (dispatch) {
     dispatch(setLoading(true));
@@ -70,3 +74,4 @@ export function findOneUser(id) {
       });
   };
 }
+

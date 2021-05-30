@@ -41,7 +41,7 @@ const Register = () => {
   };
 
   const cancel = () => {
-    history.push("/login");
+    history.push("/");
   };
 
   return (

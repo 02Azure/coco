@@ -1,21 +1,18 @@
 import "./login.css";
 
 import React, { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-
+import { setLogin as isAuth} from "../store/action"
 const Login = () => {
   const initialLogin = { email: "", password: "" };
   const [login, setLogin] = useState(initialLogin);
   const history = useHistory();
-
+  const dispatch = useDispatch()
   const handleChange = (event) => {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-    console.log(target, '<<<<');
-    console.log(value);
-    console.log(name, "<<< name");
     setLogin({
       ...login,
       [name]: value,
@@ -24,6 +21,8 @@ const Login = () => {
 
   function loginWeb(){
     console.log(login);
+    dispatch(isAuth(true))
+    history.push('/profile')
   }
 
   const registerHandle = () => {

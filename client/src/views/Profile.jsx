@@ -1,16 +1,20 @@
 import React from "react";
 import "./profile.css";
 import oke from ".././images/002.png";
-import ok from "../images/bg_1.jpg";
-import { useHistory } from "react-router-dom";
-import { useState } from "react";
-import ModalWishList from "../components/Modal.jsx";
-export const Profile = () => {
-  let history = useHistory();
-  const [showItem, setShowItem] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  function hideItems() {
-    setShowItem(false);
+import ok from "../images/bg_1.jpg"
+import { useHistory, withRouter } from 'react-router-dom'
+import { useState } from 'react'
+import ModalWishList from "../components/Modal.jsx"
+import { useDispatch, useSelector } from 'react-redux'
+import { setLogin } from '../store/action'
+const Profile = () => {
+  let history = useHistory()
+  const [showItem, setShowItem] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const dispatch = useDispatch()
+  // const isLogin = useSelector((state) => state.isLogin)
+  function hideItems(){
+    setShowItem(false)
   }
   function itemsShow() {
     setShowItem(true);
@@ -160,3 +164,5 @@ export const Profile = () => {
     </section>
   );
 };
+
+export default withRouter(Profile)
