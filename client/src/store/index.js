@@ -3,7 +3,6 @@ import thunk from "redux-thunk";
 
 const intialState = {
   register: false,
-  // edited: { title: "", category: "" },
   items: [],
 };
 

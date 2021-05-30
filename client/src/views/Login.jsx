@@ -13,12 +13,18 @@ const Login = () => {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-
+    console.log(target, '<<<<');
+    console.log(value);
+    console.log(name, "<<< name");
     setLogin({
       ...login,
       [name]: value,
     });
   };
+
+  function loginWeb(){
+    console.log(login);
+  }
 
   const registerHandle = () => {
     history.push("/register");
@@ -57,7 +63,7 @@ const Login = () => {
                     </span>
                   </div>
 
-                  <a className="btn my-1 py-2 btn-login"> Login</a>
+                  <a onClick={loginWeb} className="btn my-1 py-2 btn-login"> Login</a>
 
                   <span className="text-center my-3 d-block">or</span>
 
