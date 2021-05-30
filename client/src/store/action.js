@@ -46,3 +46,9 @@ export function register(payload) {
       });
   };
 }
+
+
+export function setLogin(payload){
+  console.log(payload, "<<< payload set login");
+  return { type: "SET_LOGIN", payload: payload}
+}
