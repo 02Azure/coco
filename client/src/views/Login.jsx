@@ -3,10 +3,11 @@ import "./login.css";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { setLogin as isAuth} from "../store/action"
+import { login as setUser } from "../store/action"
 const Login = () => {
   const initialLogin = { email: "", password: "" };
   const [login, setLogin] = useState(initialLogin);
+  const checkStatus = useSelector((state) => state.isLogin)
   const history = useHistory();
   const dispatch = useDispatch()
   const handleChange = (event) => {
@@ -20,9 +21,13 @@ const Login = () => {
   };
 
   function loginWeb(){
-    console.log(login);
-    dispatch(isAuth(true))
-    history.push('/profile')
+    // console.log(login);
+    dispatch(setUser(login))
+    if(!checkStatus){
+      alert('username or password invalid')
+    }else {
+      history.push('/profile')
+    }
   }
 
   const registerHandle = () => {

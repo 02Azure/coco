@@ -11,7 +11,7 @@ const Profile = () => {
   let history = useHistory()
   const [showItem, setShowItem] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const dispatch = useDispatch()
+  const users = useSelector((state) => state.user)
   // const isLogin = useSelector((state) => state.isLogin)
   function hideItems(){
     setShowItem(false)
@@ -24,18 +24,27 @@ const Profile = () => {
   }
   function showChat() {
     history.push("/chat");
+    // const temp = localStorage.getItem('data')
+    // console.log(temp, "temp");
+    // const www = JSON.parse(temp)
+    // console.log(www, "<<<");
   }
 
   function editUserInfo() {
     history.push("/edit/1");
   }
+  function goDiscovery(){
+    // history.push("/discovery")
+    localStorage.getItem()
+  }
   return (
     <section className="profile">
       {/* navbar image */}
       <div className="header__image__container">
-        <a href="#" className="navbar__anchor">
+        <a onClick={goDiscovery} className="navbar__anchor">
           Home
         </a>
+        <p>{JSON.stringify(users)}</p>
       </div>
 
       {/* profile side */}

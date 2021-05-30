@@ -2,10 +2,15 @@ import './chat.css'
 import pp from '../images/002.png'
 import { Form } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 export default function ChatPage(){
+    const user = useSelector((state) => state.user)
     let history = useHistory()
-    function goHome(){
+    const data = JSON.parse(localStorage.getItem('data'))
 
+    function goHome(){
+        // console.log(data);
+        // console.log(user);
     }
 
     function goProfile(){
@@ -16,7 +21,7 @@ export default function ChatPage(){
             {/* <p>ini chat page</p> */}
             <section className="chat">
                 <div className="row">
-                    {/* list chat */}
+                    {/* list chat side */}
                     <div className="col-md-4 list__chat">
                         <div className="people__content">
                             <div className="another__people">
@@ -59,7 +64,34 @@ export default function ChatPage(){
                             <a onClick={goProfile} className="nav">Profile</a>
                         </div>
                         <div className="box__chat">
+                        {/* ini nanti buat chat dari kita */}
+                        {user.email === data.email && 
                             <div className="box__sent">
+                                <div className="row">
+                                    <div className="col-md-2">
+                                        <img src={pp} className="profile__user__chat"/>
+                                    </div>
+                                    <div className="col-md-10 text__handle">
+                                        <p className="text__chat">haii</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        {/* ini nanti buat dari orang lain */}
+                        {user.email !== data.email &&
+                            <div className="box__sent">
+                                <div className="row">
+                                    <div className="col-md-2">
+                                        <img src={pp} className="profile__user__chat"/>
+                                    </div>
+                                    <div className="col-md-10 text__handle">
+                                        <p className="text__chat">hai juga</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                            
+                            {/* <div className="box__sent">
                                 <div className="row">
                                     <div className="col-md-2">
                                         <img src={pp} className="profile__user__chat"/>
@@ -78,27 +110,7 @@ export default function ChatPage(){
                                         <p className="text__chat">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis modi nihil quibusdam, alias officiis corporis commodi consequuntur itaque mollitia nisi quos quis atque suscipit laudantium!</p>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="box__sent">
-                                <div className="row">
-                                    <div className="col-md-2">
-                                        <img src={pp} className="profile__user__chat"/>
-                                    </div>
-                                    <div className="col-md-10 text__handle">
-                                        <p className="text__chat">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis modi nihil quibusdam, alias officiis corporis commodi consequuntur itaque mollitia nisi quos quis atque suscipit laudantium!</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="box__sent">
-                                <div className="row">
-                                    <div className="col-md-2">
-                                        <img src={pp} className="profile__user__chat"/>
-                                    </div>
-                                    <div className="col-md-10 text__handle">
-                                        <p className="text__chat">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis modi nihil quibusdam, alias officiis corporis commodi consequuntur itaque mollitia nisi quos quis atque suscipit laudantium!</p>
-                                    </div>
-                                </div>
-                            </div>
+                            </div> */}
                             <div className="text__input">
                                 <Form>
                                     <Form.Group className="mb-3" controlId="formBasicEmail">

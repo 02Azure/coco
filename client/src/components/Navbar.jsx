@@ -1,7 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux"
+import { checkLogin } from "../store/action"
 import './navbar.css'
 const Navbar = () => {
+  const dispatch = useDispatch();
+  function logout(){
+    dispatch(checkLogin(false))
+    
+  }
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-transparent">
       <div className="container">
@@ -27,7 +34,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link ">Logout</a>
+              <a onClick={logout} className="nav-link ">Logout</a>
             </li>
           </ul>
         </div>

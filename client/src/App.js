@@ -18,7 +18,7 @@ import NotFound from "./views/NotFound";
 
 function App() {
   const isLogin = useSelector((state) => state.isLogin)
-  return 
+  return (
       <Router>
         <Navbar />
           <Switch>
@@ -34,7 +34,7 @@ function App() {
             <ProtectedRoute path="/showCase" component={ShowCase} isAuth={isLogin} />
             <ProtectedRoute path="/trending" component={Trending} isAuth={isLogin} />
             <ProtectedRoute path="/editProfile" component={EditProfile} isAuth={isLogin} />
-            <Route component={PageNotFound}>
+            <Route component={NotFound}>
 
             </Route>
           </Switch>

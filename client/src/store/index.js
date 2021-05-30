@@ -5,9 +5,10 @@ const intialState = {
   register: false,
   // edited: { title: "", category: "" },
   items: [],
-  isLogin: false
+  isLogin: false,
   loading: false,
   oneUser: {},
+  user: []
 };
 
 function reducer(state = intialState, action) {
@@ -17,12 +18,15 @@ function reducer(state = intialState, action) {
       return { ...state, register: payload };
     case "SET_ITEM":
       return { ...state, items: payload };
-    case "SET_LOGIN":
-      return { ...state, isLogin: payload };
+    case "SET_USER":
+      // console.log(payload, 'di store index');
+      return { ...state, user: payload };
     case "SET_LOADING":
       return { ...state, loading: payload };
     case "SET_ONE_USER":
       return { ...state, oneUser: payload };
+    case "IS_AUTH":
+      return { ...state, isLogin: payload}
     default:
       return state;
   }
