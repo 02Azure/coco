@@ -3,18 +3,18 @@
   margin: 0 auto;
   /* background-color: red */
   background-image: url(../images/bg_1.jpg);
-  height: 25em
+  height: 25em;
 }
 .row {
   --bs-gutter-x: 0;
 }
 
-.user__container{
+.user__container {
   position: relative;
-  bottom: 7em
+  bottom: 7em;
 }
 
-.user__info__container{
+.user__info__container {
   background-color: #eee;
   padding: 20px;
   border-radius: 20px;
@@ -22,28 +22,28 @@
   top: 0;
   padding-top: 20px;
   width: 25em;
-  left: 5em
+  left: 5em;
 }
 
-.header__image{
+.header__image {
   width: 140px;
   position: relative;
   left: 36%;
   border-radius: 50%;
   background-color: #333;
-  padding: 8px
+  padding: 8px;
 }
 
-.username__text{
+.username__text {
   font-size: 30px;
   text-align: center;
 }
 
-.text{
-  font-size:18px
+.text {
+  font-size: 18px;
 }
 
-.btn__chat{
+.btn__chat {
   height: 55px;
   width: 150px;
   /* justify-self:center */
@@ -51,29 +51,29 @@
   font-size: 20px;
   font-weight: 800;
   position: relative;
-  left: 5em
+  left: 5em;
 }
 
-.main__content{
+/* .main__content{
   position: relative;
   left: 20px
-}
+} */
 
-.items__container{
+.items__container {
   /* background-color: red; */
   padding-top: 30px;
 }
 
-.items__images{
+.items__images {
   display: flex;
   flex-direction: row;
 }
 
-.item__image{
-  width: 200px
+.item__image {
+  width: 200px;
 }
 
-.see__all{
+.see__all {
   position: absolute;
   left: 85%;
   text-decoration: none;
@@ -81,33 +81,37 @@
   font-size: 20px;
 }
 
-.btn{
+.btn {
   margin: 2px 4px;
   font-size: 20px;
   font-weight: 800;
 }
 
-.buttons{
+.buttons {
   justify-content: space-between;
 }
 
-.navbar__anchor{
-  padding:20px;
+.navbar__anchor {
+  padding: 20px;
   text-decoration: none;
   font-size: 20px;
   /* margin-top: 20px; */
   color: black;
 }
 
-.add__showCase{
-  position:absolute;
+.add__showCase {
+  position: absolute;
   right: 14em;
   /* top:1px */
 }
 
-.imgCase{
+.imgCase {
   position: relative;
   bottom: 2.1em;
-  width:40px;
+  width: 40px;
   /* background-color: ; */
+}
+
+.fa-edit {
+  cursor: pointer;
 }

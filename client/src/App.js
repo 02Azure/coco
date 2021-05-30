@@ -21,7 +21,7 @@ function App() {
         <Route exact path="/">
           <Discovery />
         </Route>
-        <Route path="/edit">
+        <Route path="/edit/:id">
           <EditProfile />
         </Route>
         <Route path="/trending">
