@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { findOneUser } from "../store/action";
 import "./edit.css";
 
 const EditProfile = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
   const loading = useSelector((state) => state.loading);
 
   const oneUser = useSelector((state) => state.oneUser);
@@ -28,6 +29,8 @@ const EditProfile = () => {
     dispatch(findOneUser(id));
   }, []);
 
+  console.log(oneUser);
+
   useEffect(() => {
     setInitialUser({
       username: oneUser.username,
@@ -36,7 +39,7 @@ const EditProfile = () => {
     });
   }, []);
 
-  console.log(u);
+  // console.log(u);
 
   if (loading) {
     return (
@@ -45,6 +48,10 @@ const EditProfile = () => {
       </div>
     );
   }
+
+  const cancelEdit = () => {
+    history.push("/profile");
+  };
 
   return (
     <div className="edit__profile">
@@ -68,7 +75,7 @@ const EditProfile = () => {
             </div>
             <div className="form-group first mb-2 d-flex flex-column">
               <label htmlFor="username">Bio</label>
-              <textarea onChange={handleChange} name="bio" value={u.bio} />
+              <textarea className="py-1 px-2" onChange={handleChange} name="bio" value={u.bio} />
             </div>
 
             <div className="">
@@ -76,7 +83,7 @@ const EditProfile = () => {
                 {" "}
                 <span className="icon-facebook me-3"></span> UPDATE
               </a>
-              <a className="btn py-2 btn-google">
+              <a onClick={cancelEdit} className="btn py-2 btn-google">
                 <span className="icon-google me-3"></span> cancel
               </a>
             </div>
