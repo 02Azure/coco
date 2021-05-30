@@ -17,6 +17,15 @@ export function setOneUser(payload) {
   return { type: "SET_ONE_USER", payload };
 }
 
+export function setLogin(payload){
+  // console.log(payload, "<<< payload action"); 
+  return { type: "SET_USER", payload };
+}
+
+export function checkLogin(payload){
+  return { type: "IS_AUTH", payload}
+}
+
 export function fetchItems() {
   return function (dispatch) {
     dispatch(setLoading(true));
@@ -30,6 +39,7 @@ export function fetchItems() {
 }
 
 export function register(payload) {
+  console.log(payload);
   return function (dispatch) {
     fetch(URL_USER + "/register", {
       method: "POST",
@@ -44,7 +54,7 @@ export function register(payload) {
         if (response.ok) {
           return response.json();
         } else {
-          console.log(response);
+          console.log(response, "<<<");
           throw new Error(response.statusText);
         }
       })
@@ -59,9 +69,22 @@ export function register(payload) {
   };
 }
 
-export function setLogin(payload){
-  console.log(payload, "<<< payload set login");
-  return { type: "SET_LOGIN", payload: payload}
+export function login(payload){
+  // console.log(payload, "<<< payload set login");
+  return function (dispatch) {
+    fetch(URL_USER + '/login', {
+      method: 'POST',
+      body: payload,
+    })
+    .then((response) =>{
+      console.log(response, 'response di store > action > line 76');
+      dispatch(setLogin(payload))
+      localStorage.setItem('data', JSON.stringify(payload))
+      dispatch(checkLogin(true))
+    }).catch((error) => {
+      console.log(error, "<<< error");
+    })
+  }
 }
 export function findOneUser(id) {
   return function (dispatch) {
@@ -75,3 +98,6 @@ export function findOneUser(id) {
   };
 }
 
+// export function checkLogin(payload){
+//   return { type: "IS_AUTH", payload}
+// }

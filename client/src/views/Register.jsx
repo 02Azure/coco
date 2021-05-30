@@ -20,7 +20,7 @@ const Register = () => {
     }
   }, [regist]);
 
-  console.log(regist);
+  // console.log(regist);
 
   const initialRegister = { username: "", email: "", password: "" };
   const [reg, setReg] = useState(initialRegister);
@@ -37,7 +37,8 @@ const Register = () => {
   };
 
   const submit = () => {
-    dispatch(register(reg));
+    // dispatch(register(reg));
+    console.log(reg, "<<<");
   };
 
   const cancel = () => {
