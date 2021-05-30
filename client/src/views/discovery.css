@@ -11,3 +11,13 @@
 .photos {
   padding: 1rem;
 }
+
+.loading__discovery {
+  min-height: 100vh;
+  background-color: #171717;
+  padding: 20rem;
+}
+
+.loading__discovery h3 {
+  display: block;
+}
