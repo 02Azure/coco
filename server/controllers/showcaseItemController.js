@@ -8,7 +8,7 @@ class showcaseItemController {
           model: Item,
           include: [{
             model: User,
-            attributes: ["id", "username"]
+            attributes: ["id", "username", "userImage"]
           }]
         }]
       })
