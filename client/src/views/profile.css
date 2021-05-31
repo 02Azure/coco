@@ -67,6 +67,9 @@
 .items__images {
   display: flex;
   flex-direction: row;
+  background-color: crimson;
+
+  padding: 0.5rem;
 }
 
 .item__image {
@@ -114,4 +117,8 @@
 
 .fa-edit {
   cursor: pointer;
+}
+
+.items__showcase {
+  background-color: black;
 }
