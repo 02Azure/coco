@@ -10,8 +10,6 @@ class showcaseController {
       userId = +userId
     }
 
-    console.log(userId)
-
     try {
       let user = await User.findByPk(userId)
 

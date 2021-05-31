@@ -164,7 +164,6 @@ describe("POST /showcases sukses", () => {
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
-        console.log(body);
         expect(status).toBe(201);
         expect(body).toHaveProperty("msg", "Showcase has been succesfully created");
         done();

@@ -1442,7 +1442,7 @@ not needed
 
 &nbsp;
 
-> Get user's WishlistItems
+> Get user's WishlistItems if userId specified, or all wishlistItems if not
 
 &nbsp;
 
