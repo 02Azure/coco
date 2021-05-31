@@ -3,31 +3,33 @@ const { WishlistItem, User } = require('../models')
 class WishlistController {
   static async getAll(req, res, next) {
     let { userId } = req.query
-    
-    if(isNaN(+userId)) {
-      userId = 0
-    } else {
-      userId = +userId
-    }
+    let wishlistItems = []
 
     try {
-      let user = await User.findByPk(userId)
-
-      if(!user) {
-        throw({
-          name: "UserNotFound",
-          message: "User not found"
+      if(userId === undefined) {
+        wishlistItems = await WishlistItem.findAll({
+          include: [{
+            model: User,
+            attributes: ["id", "username", "userImage"]
+          }]
         })
+      } else {
+        let user = await User.findByPk(+userId || 0)
+
+        if(user) {
+          wishlistItems = await WishlistItem.findAll({
+            where: { 
+              UserId: userId
+            },
+            include: [{
+              model: User,
+              attributes: ["id", "username", "userImage"]
+            }]
+          })
+        } else {
+          throw { status: 404, message: 'User not found' }
+        }
       }
-      let wishlistItems = await WishlistItem.findAll({
-        where: { 
-          UserId: userId
-        },
-        include: [{
-          model: User,
-          attributes: ["id", "username", "userImage"]
-        }]
-      })
 
       res.status(200).json(wishlistItems)
     }
@@ -60,7 +62,12 @@ class WishlistController {
 
   static async getOne(req, res, next) {
     try {
-      let wishlistItem = await WishlistItem.findByPk(+req.params.id)
+      let wishlistItem = await WishlistItem.findByPk(+req.params.id, {
+        include: [{
+          model: User,
+          attributes: ["id", "username", "userImage"]
+        }]
+      })
 
       if(!wishlistItem) {
         throw {

@@ -120,8 +120,7 @@ afterAll((done) => {
 describe("GET /showcases sukses", () => {
   it("it responds with ", (done) => {
     request(app)
-      .get("/showcases")
-      .send({id:1})
+      .get("/showcases?userId=1")
       .set({ userId: 1, Accept: "application/json" })
       .expect("Content-Type", /json/)
       .then((response) => {
@@ -139,8 +138,7 @@ describe("GET /showcases sukses", () => {
 describe("GET /showcases gagal, userId tidak ditemukan", () => {
   it("it responds with ", (done) => {
     request(app)
-      .get("/showcases")
-      .send({id:432})
+      .get("/showcases?userId=12342")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .then((response) => {
@@ -166,7 +164,6 @@ describe("POST /showcases sukses", () => {
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
-        console.log(body);
         expect(status).toBe(201);
         expect(body).toHaveProperty("msg", "Showcase has been succesfully created");
         done();

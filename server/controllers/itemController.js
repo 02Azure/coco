@@ -37,8 +37,8 @@ class itemController{
 
     static async putItem(req, res, next){
         try {
-            const { name, image, tradeable, price, tradeWith, tag, description } = req.body
-            const updateItem = await Item.update({ name, image, tradeable, price, tradeWith, tag, description }, { where: { id: +req.params.id }})
+            const { name, image, price, tradeWith, tag, description } = req.body
+            const updateItem = await Item.update({ name, image, price, tradeWith, tag, description }, { where: { id: +req.params.id }})
             res.status(200).json({ msg: "Item has been successfully updated" })
 
         } catch (err) {

@@ -1,4 +1,4 @@
-const { Showcase, ShowcaseItem, User } = require('../models')
+const { Showcase, ShowcaseItem, User, Item } = require('../models')
 
 class showcaseController {
   static async getAll(req, res, next) {
@@ -9,8 +9,6 @@ class showcaseController {
     } else {
       userId = +userId
     }
-
-    console.log(userId)
 
     try {
       let user = await User.findByPk(userId)
@@ -26,7 +24,10 @@ class showcaseController {
         where: { 
           UserId: userId
         },
-        include: ShowcaseItem
+        include: [{
+          model: ShowcaseItem,
+          include: Item
+        }]
       })
       
       res.status(200).json(showcases)
@@ -59,7 +60,10 @@ class showcaseController {
   static async getOne(req, res, next) {
     try {
       let showcase = await Showcase.findByPk(+req.params.id, {
-        include: ShowcaseItem
+        include: [{
+          model: ShowcaseItem,
+          include: Item
+        }]
       })
 
       if(!showcase) {
