@@ -9,14 +9,14 @@ const intialState = {
   loading: false,
   oneUser: {},
   user: [],
+  oneShow: {},
+  allShow: [],
+  discovery: [],
+  wish: [],
   oneShow: { name: "jsfks" },
-  oneItem: {
-    
-  },
+  oneItem: {},
   wishlists: [],
-  wishlist: {
-
-  }
+  wishlist: {},
 };
 
 function reducer(state = intialState, action) {
@@ -31,20 +31,26 @@ function reducer(state = intialState, action) {
       return { ...state, user: payload };
     case "SET_LOADING":
       return { ...state, loading: payload };
+    case "SET_DISCO":
+      return { ...state, discovery: payload };
     case "SET_ONE_USER":
       return { ...state, oneUser: payload };
     case "SET_ONE_SHOW":
       return { ...state, oneShow: payload };
+    case "SET_ALL_SHOW":
+      return { ...state, allShow: payload };
     case "IS_AUTH":
       return { ...state, isLogin: payload };
+    case "SET_WISH":
+      return { ...state, wish: payload };
     case "GET_DETAIL_ITEM":
       return { ...state, oneItem: payload };
     case "CREATE_WISHLIST":
-      return { ...state, wishlists: state.wishlists.concat( payload )};
+      return { ...state, wishlists: state.wishlists.concat(payload) };
     case "SET_WISHLIST":
-      return { ...state, wishlists: payload};
+      return { ...state, wishlists: payload };
     case "GET_DETAIL_WISHLIST":
-      return { ...state, wishlist: payload }
+      return { ...state, wishlist: payload };
     default:
       return state;
   }

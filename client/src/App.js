@@ -1,7 +1,7 @@
 // import Login from "./views/Login";
 import React from "react";
 import Profile from "./views/Profile";
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
 import Discovery from "./views/Discovery";
 import EditProfile from "./views/EditProfile";
 import Login from "./views/Login";
@@ -11,24 +11,21 @@ import ChatPage from "./views/Chat.jsx";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Trending from "./views/Trending";
-import Wishlist from "./views/WishList"
-import DetailItemPage from "./views/detail.item.jsx"
-import DetailWishlist from "./views/detail.wishlist.jsx"
-import EditWishlist from "./views/edit.wishlist"
+import Wishlist from "./views/WishList";
+import DetailItemPage from "./views/detail.item.jsx";
+import DetailWishlist from "./views/detail.wishlist.jsx";
+import EditWishlist from "./views/edit.wishlist";
 import ProtectedRoute from "./views/protected.route";
 
 import NotFound from "./views/NotFound";
+import SeeAll from "./views/SeeAll";
 
 function App() {
-  
   // const isLogin = localStorage.getItem('userLog')
-  const isLogin = useSelector((state) => state.isLogin)
+  const isLogin = useSelector((state) => state.isLogin);
   return (
     <Router>
-      {
-        isLogin && 
-        <Navbar />
-      }
+      {isLogin && <Navbar />}
       <Switch>
         <Route exact path="/">
           <Login />
@@ -42,6 +39,7 @@ function App() {
         <ProtectedRoute path="/showCase" component={ShowCase} isAuth={isLogin} />
         <ProtectedRoute path="/trending" component={Trending} isAuth={isLogin} />
         <ProtectedRoute path="/editProfile/:id" component={EditProfile} isAuth={isLogin} />
+        <ProtectedRoute path="/seeall/:id" component={SeeAll} isAuth={isLogin} />
         <ProtectedRoute path="/wishlist" component={Wishlist} isAuth={isLogin} />
         <ProtectedRoute path="/editItem/:id" component={DetailItemPage} isAuth={isLogin} />
         <ProtectedRoute path="/detailWishlist/:id" component={DetailWishlist} isAuth={isLogin} />

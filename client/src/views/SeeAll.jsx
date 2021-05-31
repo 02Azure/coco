@@ -1,21 +1,21 @@
 import React, { useEffect } from "react";
-import ItemCard from "../components/ItemCard";
-import "./discovery.css";
-
+import "./seeAll.css";
+import ShowcaseCard from "../components/ShowcaseCard";
 import { useDispatch, useSelector } from "react-redux";
-import { getDisco } from "../store/action";
-// import { fetchItems } from "../store/action";
+import { oneShow } from "../store/action";
+import { useParams } from "react-router";
 
-const Discovery = () => {
+const SeeAll = () => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.loading);
-  const items = useSelector((state) => state.items);
-  const discovery = useSelector((state) => state.discovery);
+  const showcase = useSelector((state) => state.oneShow);
+  const { id } = useParams();
+
   useEffect(() => {
-    dispatch(getDisco());
+    dispatch(oneShow(+id));
   }, []);
 
-  console.log(discovery, "DISCOO");
+  console.log(id, "<<<<<");
 
   if (loading) {
     return (
@@ -29,8 +29,8 @@ const Discovery = () => {
     <div className="discovery">
       <div className="discovery__container">
         <div className="row row-eq-height">
-          {discovery.map((e, i) => (
-            <ItemCard key={i} discovery={e.Item} />
+          {showcase.ShowcaseItems?.map((e, i) => (
+            <ShowcaseCard fromSeeAll={true} key={i} ShowcaseId={id} see={e} />
           ))}
         </div>
       </div>
@@ -38,4 +38,4 @@ const Discovery = () => {
   );
 };
 
-export default Discovery;
+export default SeeAll;

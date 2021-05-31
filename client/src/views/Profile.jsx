@@ -1,41 +1,53 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./profile.css";
-import oke from ".././images/002.png";
-import ok from "../images/bg_1.jpg"
-import { useHistory, withRouter } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import ModalWishList from "../components/Modal.jsx"
-import FormAdd from "../components/formAddItem"
-import { useDispatch, useSelector } from 'react-redux'
-import { readItems, findOneUser } from '../store/action'
+import { useHistory, withRouter } from "react-router-dom";
+import { useState, useEffect } from "react";
+import ModalWishList from "../components/Modal.jsx";
+import FormAdd from "../components/formAddItem";
+import { useDispatch, useSelector } from "react-redux";
+import { readItems, findOneUser, getAllShow, setLogin } from "../store/action";
 import ShowcaseModal from "../components/AddShowCaseModal.jsx";
 import ShowCase from "./ShowCase";
 const Profile = () => {
-  let history = useHistory()
-  const dispatch = useDispatch()
-  const [showItem, setShowItem] = useState(false)
-  const [showModal, setShowModal] = useState(false)
-  const [showFormAdd, setShowFormAdd] = useState(false)
+  let history = useHistory();
+  const dispatch = useDispatch();
+  const [showItem, setShowItem] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showFormAdd, setShowFormAdd] = useState(false);
   const [sModal, setSModal] = useState(false);
-  const user = useSelector((state) => state.oneUser)
-  const items = useSelector((state) => state.items)
-  const userLogged = JSON.parse(localStorage.getItem('userLog'))
+  const user = useSelector((state) => state.oneUser);
+  const items = useSelector((state) => state.items);
+  const userLogged = JSON.parse(localStorage.getItem("userLog"));
+
+  const allShow = useSelector((state) => state.allShow);
+
+  // console.log(allShow);
+
+  useEffect(() => {
+    dispatch(getAllShow(3));
+  }, []);
+
+  const users = useSelector((state) => state.user);
+  // const isLogin = useSelector((state) => state.isLogin)
+  function hideItems() {
+    setShowItem(false);
+  }
   // console.log(userLogged);
   useEffect(() => {
-    dispatch(readItems())
-  }, [items])
-  useEffect(() =>{
-    dispatch(findOneUser(JSON.stringify(userLogged.id)))
-  }, [])
-  function hideItems(){
-    setShowItem(false)
+    dispatch(readItems());
+  }, [items]);
+  useEffect(() => {
+    dispatch(findOneUser(JSON.stringify(userLogged.id)));
+  }, []);
+  function hideItems() {
+    setShowItem(false);
   }
   function itemsShow() {
     setShowItem(true);
   }
   function pageWishList() {
     // setShowModal(!showModal);
-    history.push('/wishlist')
+    history.push("/wishlist");
   }
   function showChat() {
     history.push("/chat");
@@ -46,10 +58,10 @@ const Profile = () => {
   }
   function goDiscovery() {
     // history.push("/discovery")
-    localStorage.getItem('data')
+    localStorage.getItem("data");
   }
-  function showModalForm(){
-    setShowFormAdd(true)
+  function showModalForm() {
+    setShowFormAdd(true);
     // localStorage.getItem();
   }
 
@@ -57,7 +69,7 @@ const Profile = () => {
     setSModal(true);
   }
 
-  function detailItem(id){
+  function detailItem(id) {
     // console.log(id, "<<<");
     history.push(`editItem/${id}`);
   }
@@ -77,14 +89,8 @@ const Profile = () => {
         <div className="user__container col-md-4 p-3">
           <div className="user__info__container">
             <div className="content__image">
-              {
-                user.image&&
-                  <img src={user.image} alt="" className="header__image" />
-              }
-              {
-                !user.image &&
-                <img src={user.image} alt="" className="header__image__test" />
-              }
+              {user.image && <img src={user.image} alt="" className="header__image" />}
+              {!user.image && <img src={user.image} alt="" className="header__image__test" />}
             </div>
             <div className="username d-flex align-items-center justify-content-between">
               <p className="username__text">@{user.username}</p>
@@ -102,11 +108,15 @@ const Profile = () => {
         {/* navigation anchor */}
         <div className="showcase col-md-8 p-3">
           <div className="buttons d-flex">
-            <div>
-              <a onClick={hideItems} className="btn">
-                show case
-              </a>
-              <i onClick={addToShowcase} class="far fa-plus-square"></i>
+            <div className="d-flex align-items-center">
+              <div>
+                <a onClick={hideItems} className="btn">
+                  show case
+                </a>
+              </div>
+              <div>
+                <i onClick={addToShowcase} class="far fa-plus-square"></i>
+              </div>
             </div>
             <div>
               <a onClick={itemsShow} className="btn">
@@ -138,28 +148,26 @@ const Profile = () => {
           {!showItem && (
             <div className="showcase__container">
               <div className="items__container">
-                <ShowCase />
-                <ShowCase />
-                <ShowCase />
+                {allShow.map((e, i) => (
+                  <ShowCase key={i} show={e} />
+                ))}
               </div>
             </div>
           )}
           {showItem && (
             <div className="showcase__container">
               <div className="items__container">
-                        {/* <h5>My Item</h5> */}
-                      <a className="see__all">see all</a>
-                      <div className="items__images">
-                {
-                  items.map(item => {
+                {/* <h5>My Item</h5> */}
+                <a className="see__all">see all</a>
+                <div className="items__images">
+                  {items.map((item) => {
                     return (
-                        <a key={item.id} onClick={e => detailItem(item.id)}>
-                          <img src={item.image} alt="" className="item__image" />
-                        </a>
-                      )
-                    })
-                  }
-                  </div>
+                      <a key={item.id} onClick={(e) => detailItem(item.id)}>
+                        <img src={item.image} alt="" className="item__image" />
+                      </a>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           )}

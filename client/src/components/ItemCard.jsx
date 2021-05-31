@@ -2,31 +2,51 @@ import React from "react";
 import "./itemCard.css";
 import Detail from "../views/Detail";
 
-const ItemCard = ({ discovery }) => {
+const ItemCard = ({ discovery, data, wish }) => {
   const [modalShow, setModalShow] = React.useState(false);
 
   console.log(discovery);
-  return (
+  return !wish ? (
     <div className="col-md-4 align-items-stretch">
-      <h1>ini otem card</h1>
-      {/* <Detail discovery={discovery} show={modalShow} onHide={() => setModalShow(false)} />
+      <Detail discovery={discovery} show={modalShow} onHide={() => setModalShow(false)} />
       <div className="card__item">
         <div onClick={() => setModalShow(true)} className="card text-white bg-dark p-2">
           <img src={discovery.image} alt="" />
           <div className="card-body">
-            <h5 className="card-title">{discovery.name}</h5>
+            {/* <h5 className="card-title">{discovery.name}</h5> */}
 
             <div className="d-flex content__card my-1 justify-content-between">
-              <strong className="card-text">Price</strong>
-              <p className="card-text">{discovery.price}</p>
+              <strong className="card-text">Tradable</strong>
+              <p className="card-text">{discovery.tradeable ? <i style={{ color: "green" }} class="far fa-check-circle"></i> : <i style={{ color: "red" }} class="far fa-times-circle"></i>}</p>
             </div>
             <div className="d-flex content__card my-1 justify-content-between">
               <strong className="card-text"> Tag</strong>
-              <p className="card-text">Yugioh-TCG</p>
+              <p className="card-text">{discovery.tag}</p>
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
+    </div>
+  ) : (
+    <div className="col-md-4 align-items-stretch">
+      {/* <Detail data={data} show={modalShow} onHide={() => setModalShow(false)} /> */}
+      <div className="card__item">
+        <div className="card text-white bg-dark p-2">
+          <img src={data.image} alt="" />
+          <div className="card-body">
+            {/* <h5 className="card-title">{data.name}</h5> */}
+
+            <div className="d-flex content__card my-1 justify-content-between">
+              <strong className="card-text">Tradable</strong>
+              <p className="card-text">{data.tradeable ? <i style={{ color: "green" }} class="far fa-check-circle"></i> : <i style={{ color: "red" }} class="far fa-times-circle"></i>}</p>
+            </div>
+            <div className="d-flex content__card my-1 justify-content-between">
+              <strong className="card-text"> Tag</strong>
+              <p className="card-text">{data.tag}</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
