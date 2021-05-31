@@ -3,7 +3,7 @@ const { WishlistItem, User } = require('../models')
 class WishlistController {
   static async getAll(req, res, next) {
     let { userId } = req.query
-    
+  
     if(isNaN(+userId)) {
       userId = 0
     } else {
@@ -12,22 +12,27 @@ class WishlistController {
 
     try {
       let user = await User.findByPk(userId)
+      let wishlistItems = []
 
-      if(!user) {
-        throw({
-          name: "UserNotFound",
-          message: "User not found"
+      if(user) {
+        wishlistItems = await WishlistItem.findAll({
+          where: { 
+            UserId: userId
+          },
+          include: [{
+            model: User,
+            attributes: ["id", "username", "userImage"]
+          }]
+        })
+
+      } else {
+        wishlistItems = await WishlistItem.findAll({
+          include: [{
+            model: User,
+            attributes: ["id", "username", "userImage"]
+          }]
         })
       }
-      let wishlistItems = await WishlistItem.findAll({
-        where: { 
-          UserId: userId
-        },
-        include: [{
-          model: User,
-          attributes: ["id", "username", "userImage"]
-        }]
-      })
 
       res.status(200).json(wishlistItems)
     }
