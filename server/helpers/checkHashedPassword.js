@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 
 function checkPassword(plainPassword, encryptedPassword){
     return bcrypt.compareSync(plainPassword, encryptedPassword)

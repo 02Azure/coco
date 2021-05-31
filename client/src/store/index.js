@@ -12,6 +12,7 @@ const intialState = {
   oneShow: {},
   allShow: [],
   discovery: [],
+  wish: [],
 };
 
 function reducer(state = intialState, action) {
@@ -36,6 +37,8 @@ function reducer(state = intialState, action) {
       return { ...state, allShow: payload };
     case "IS_AUTH":
       return { ...state, isLogin: payload };
+    case "SET_WISH":
+      return { ...state, wish: payload };
     default:
       return state;
   }

@@ -1,9 +1,17 @@
-const { Showcase, ShowcaseItem, User } = require('../models')
+const { Showcase, ShowcaseItem, User, Item } = require('../models')
 
 class showcaseController {
   static async getAll(req, res, next) {
+    let { userId } = req.query
+    
+    if(isNaN(+userId)) {
+      userId = 0
+    } else {
+      userId = +userId
+    }
+
     try {
-      let user = await User.findByPk(+req.body.id)
+      let user = await User.findByPk(userId)
 
       if(!user) {
         throw({
@@ -14,9 +22,12 @@ class showcaseController {
 
       let showcases = await Showcase.findAll({
         where: { 
-          UserId: +req.body.id
+          UserId: userId
         },
-        include: ShowcaseItem
+        include: [{
+          model: ShowcaseItem,
+          include: Item
+        }]
       })
       
       res.status(200).json(showcases)
@@ -49,7 +60,10 @@ class showcaseController {
   static async getOne(req, res, next) {
     try {
       let showcase = await Showcase.findByPk(+req.params.id, {
-        include: ShowcaseItem
+        include: [{
+          model: ShowcaseItem,
+          include: Item
+        }]
       })
 
       if(!showcase) {

@@ -15,9 +15,11 @@ import ProtectedRoute from "./views/protected.route";
 import { useSelector } from "react-redux";
 
 import NotFound from "./views/NotFound";
+import SeeAll from "./views/SeeAll";
 
 function App() {
-  const isLogin = useSelector((state) => state.isLogin);
+  // const isLogin = useSelector((state) => state.isLogin);
+  const isLogin = true;
   return (
     <Router>
       <Navbar />
@@ -34,6 +36,7 @@ function App() {
         <ProtectedRoute path="/showCase" component={ShowCase} isAuth={isLogin} />
         <ProtectedRoute path="/trending" component={Trending} isAuth={isLogin} />
         <ProtectedRoute path="/editProfile/:id" component={EditProfile} isAuth={isLogin} />
+        <ProtectedRoute path="/seeall/:id" component={SeeAll} isAuth={isLogin} />
         <Route component={NotFound}></Route>
       </Switch>
     </Router>

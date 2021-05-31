@@ -2,20 +2,34 @@ const { WishlistItem, User } = require('../models')
 
 class WishlistController {
   static async getAll(req, res, next) {
-    try {
-      let user = await User.findByPk(+req.body.id)
+    let { userId } = req.query
+    let wishlistItems = []
 
-      if(!user) {
-        throw({
-          name: "UserNotFound",
-          message: "User not found"
+    try {
+      if(userId === undefined) {
+        wishlistItems = await WishlistItem.findAll({
+          include: [{
+            model: User,
+            attributes: ["id", "username", "userImage"]
+          }]
         })
-      }
-      let wishlistItems = await WishlistItem.findAll({
-        where: { 
-          UserId: +req.body.id
+      } else {
+        let user = await User.findByPk(+userId || 0)
+
+        if(user) {
+          wishlistItems = await WishlistItem.findAll({
+            where: { 
+              UserId: userId
+            },
+            include: [{
+              model: User,
+              attributes: ["id", "username", "userImage"]
+            }]
+          })
+        } else {
+          throw { status: 404, message: 'User not found' }
         }
-      })
+      }
 
       res.status(200).json(wishlistItems)
     }
@@ -48,7 +62,12 @@ class WishlistController {
 
   static async getOne(req, res, next) {
     try {
-      let wishlistItem = await WishlistItem.findByPk(+req.params.id)
+      let wishlistItem = await WishlistItem.findByPk(+req.params.id, {
+        include: [{
+          model: User,
+          attributes: ["id", "username", "userImage"]
+        }]
+      })
 
       if(!wishlistItem) {
         throw {

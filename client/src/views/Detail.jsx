@@ -1,8 +1,13 @@
 import React from "react";
 
 import { Button, Modal } from "react-bootstrap";
-
+import { useHistory } from "react-router-dom";
 function Detail({ discovery, ...props }) {
+  const h = useHistory();
+
+  const changePage = () => {
+    h.push("/profile/" + discovery.UserId);
+  };
   return (
     <Modal {...props} size="md" aria-labelledby="contained-modal-title-vcenter" centered>
       {/* <Modal.Header>
@@ -45,7 +50,14 @@ function Detail({ discovery, ...props }) {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button
+          onClick={() => {
+            props.onHide();
+            changePage();
+          }}
+        >
+          See Profile
+        </Button>
       </Modal.Footer>
     </Modal>
   );

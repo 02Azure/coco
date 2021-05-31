@@ -4,9 +4,13 @@ import { useDispatch } from "react-redux";
 import { oneShow, removeShowcase, updateShowName } from "../store/action";
 import EditShowName from "../components/EditShowName";
 import ListItemModal from "../components/ListItemModal";
+import CardProfile from "../components/CardProfile";
+import { useHistory } from "react-router";
 
 const ShowCase = ({ show }) => {
   const dispatch = useDispatch();
+
+  const history = useHistory();
 
   const deleteShowcase = (id) => {
     dispatch(removeShowcase(id));
@@ -28,6 +32,13 @@ const ShowCase = ({ show }) => {
   const [IModal, setIModal] = useState(false);
 
   const [all, setAll] = useState(false);
+
+  const toPageSeeAll = () => {
+    history.push("/seeall/" + show.id);
+  };
+
+  const starredItems = show.ShowcaseItems.filter((e) => e.isStarred === true);
+
   return (
     <div className="items__images m-1 d-flex flex-column">
       <div className="d-flex justify-content-between p-2 align-items-center">
@@ -46,21 +57,16 @@ const ShowCase = ({ show }) => {
         </div>
         <div>
           <i onClick={itemToShow} class="fas fa-plus mx-2"></i>
-          <a onClick={() => setAll(!all)}>see all</a>
+          <a onClick={() => toPageSeeAll()}>see all</a>
         </div>
       </div>
 
       <EditShowName updateFrom={(name) => handleUpdate({ id: show.id, name })} deleteFrom={() => deleteShowcase(show.id)} show={sModal} onHide={() => setSModal(false)} />
       <ListItemModal ShowcaseId={show.id} show={IModal} onHide={() => setIModal(false)} />
 
-      <div className="row justify-content-center">
-        {show.ShowcaseItems.map((e, i) => {
-          // console.log(e);
-          return (
-            <div key={i} className="col-md-4 p-2 text-center">
-              <img src={e.Item.image} alt="" className="item__image " />
-            </div>
-          );
+      <div className="row">
+        {starredItems.map((e, i) => {
+          return <CardProfile key={i} discovery={e}></CardProfile>;
         })}
       </div>
     </div>

@@ -11,7 +11,7 @@ class userController{
       res.status(201).json({ id: user.id, email: user.email, username: user.username })
 
     } catch (err) {
-      next(err)
+      next(err ,"<<<")
     }
   }
 
