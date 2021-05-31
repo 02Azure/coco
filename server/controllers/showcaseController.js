@@ -2,8 +2,18 @@ const { Showcase, ShowcaseItem, User } = require('../models')
 
 class showcaseController {
   static async getAll(req, res, next) {
+    let { userId } = req.query
+    
+    if(isNaN(+userId)) {
+      userId = 0
+    } else {
+      userId = +userId
+    }
+
+    console.log(userId)
+
     try {
-      let user = await User.findByPk(+req.body.id)
+      let user = await User.findByPk(userId)
 
       if(!user) {
         throw({
@@ -14,7 +24,7 @@ class showcaseController {
 
       let showcases = await Showcase.findAll({
         where: { 
-          UserId: +req.body.id
+          UserId: userId
         },
         include: ShowcaseItem
       })

@@ -4,7 +4,13 @@ class showcaseItemController {
   static async getAll(req, res, next) {
     try {
       let showcaseItem = await ShowcaseItem.findAll({
-        include: Item 
+        include: [{
+          model: Item,
+          include: [{
+            model: User,
+            attributes: ["id", "username"]
+          }]
+        }]
       })
 
       res.status(200).json(showcaseItem)
