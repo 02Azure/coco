@@ -5,12 +5,14 @@ import ok from "../images/bg_1.jpg"
 import { useHistory, withRouter } from 'react-router-dom'
 import { useState } from 'react'
 import ModalWishList from "../components/Modal.jsx"
+import FormAdd from "../components/formAddItem"
 import { useDispatch, useSelector } from 'react-redux'
 import { setLogin } from '../store/action'
 const Profile = () => {
   let history = useHistory()
   const [showItem, setShowItem] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [showFormAdd, setShowFormAdd] = useState(false)
   const users = useSelector((state) => state.user)
   // const isLogin = useSelector((state) => state.isLogin)
   function hideItems(){
@@ -24,10 +26,6 @@ const Profile = () => {
   }
   function showChat() {
     history.push("/chat");
-    // const temp = localStorage.getItem('data')
-    // console.log(temp, "temp");
-    // const www = JSON.parse(temp)
-    // console.log(www, "<<<");
   }
 
   function editUserInfo() {
@@ -35,7 +33,10 @@ const Profile = () => {
   }
   function goDiscovery(){
     // history.push("/discovery")
-    localStorage.getItem()
+    localStorage.getItem('data')
+  }
+  function addItems(){
+    setShowFormAdd(true)
   }
   return (
     <section className="profile">
@@ -80,7 +81,7 @@ const Profile = () => {
             <a onClick={showModalWishlist} className="btn">
               wishlist
             </a>
-            <a href="#" className="add__showCase">
+            <a onClick={addItems} className="add__showCase">
               <img
                 className="imgCase"
                 src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0xMSAxMXYtMTFoMXYxMWgxMXYxaC0xMXYxMWgtMXYtMTFoLTExdi0xaDExeiIvPjwvc3ZnPg=="
@@ -89,6 +90,7 @@ const Profile = () => {
           </div>
           {/* show modal */}
           <ModalWishList show={showModal} onHide={() => setShowModal(false)} />
+          <FormAdd show={showFormAdd} onHide={() => setShowFormAdd(false)} />
           {/* end of show modal */}
           {/* list shocases */}
           {!showItem && (
