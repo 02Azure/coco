@@ -1,23 +1,17 @@
 import { Modal, Button, Form } from 'react-bootstrap'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { addItem } from '../store/action'
-export default function FormAdd(props){
-    const dispatch = useDispatch()
-    const [item, setItem] = useState({
+export default function WishlistForm(props){
+    const [wishlist, setWishlist] = useState({
         name: '',
         image: '',
         price: '',
-        tradeable: '',
-        tradeWith: '',
         tag: '',
         description: ''
     })
-    function submitForm(e){
-        e.preventDefault();
-        dispatch(addItem(item))
+    function submitForm(){
+        
     }
-    return (
+    return(
         <Modal
         {...props}
         size="lg"
@@ -34,43 +28,31 @@ export default function FormAdd(props){
             <Form.Group>
                 <Form.Label>Name</Form.Label>
                 <Form.Control 
-                onChange={e => setItem({...item, name:e.target.value})}
+                onChange={e => setWishlist({...wishlist, name:e.target.value})}
                 type="text" placeholder="user" />
             </Form.Group>
             <Form.Group>
                 <Form.Label>image</Form.Label>
                 <Form.Control type="text" placeholder="image" 
-                onChange={e => setItem({...item, image:e.target.value})}
+                onChange={e => setWishlist({...wishlist, image:e.target.value})}
                 />
             </Form.Group>
             <Form.Group>
                 <Form.Label>price</Form.Label>
                 <Form.Control type="text" placeholder="5000" 
-                onChange={e => setItem({...item, price:e.target.value})}
-                />
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>tradeable</Form.Label>
-                <Form.Control type="text" placeholder="tradeable" 
-                onChange={e => setItem({...item, tradeable:e.target.value})}
-                />
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>trade with</Form.Label>
-                <Form.Control type="text" placeholder="card" 
-                onChange={e => setItem({...item, tradeWith:e.target.value})}
+                onChange={e => setWishlist({...wishlist, price:e.target.value})}
                 />
             </Form.Group>
             <Form.Group>
                 <Form.Label>tag</Form.Label>
                 <Form.Control type="text" placeholder="rare" 
-                onChange={e => setItem({...item, tag:e.target.value})}
+                onChange={e => setWishlist({...wishlist, tag:e.target.value})}
                 />
             </Form.Group>
             <Form.Group>
                 <Form.Label>description</Form.Label>
                 <Form.Control type="text" placeholder="a simple card"
-                onChange={e => setItem({...item, description:e.target.value})}
+                onChange={e => setWishlist({...wishlist, description:e.target.value})}
                 />
             </Form.Group>
         </Form>

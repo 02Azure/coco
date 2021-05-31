@@ -31,17 +31,21 @@ export function setOneShow(payload) {
   return { type: "SET_ONE_SHOW", payload };
 }
 
-export function fetchItems() {
-  return function (dispatch) {
-    dispatch(setLoading(true));
-    fetch(jsonServer + "/items")
-      .then((res) => res.json())
-      .then((item) => {
-        dispatch(setItem(item));
-        dispatch(setLoading(false));
-      });
-  };
+export function getDetail(payload) {
+  return { type: "GET_DETAIL_ITEM", payload }
 }
+
+// export function fetchItems() {
+//   return function (dispatch) {
+//     dispatch(setLoading(true));
+//     fetch(jsonServer + "/items")
+//       .then((res) => res.json())
+//       .then((item) => {
+//         dispatch(setItem(item));
+//         dispatch(setLoading(false));
+//       });
+//   };
+// }
 
 export function register(payload) {
   console.log(payload);
@@ -56,6 +60,7 @@ export function register(payload) {
       },
     })
       .then((response) => {
+        console.log(response);
         if (response.ok) {
           return response.json();
         } else {
@@ -64,8 +69,6 @@ export function register(payload) {
         }
       })
       .then((result) => {
-        // Do something with the response
-        localStorage.setItem("token", result.email);
         dispatch(setRegister(true));
       })
       .catch((error) => {
@@ -75,17 +78,27 @@ export function register(payload) {
 }
 
 export function login(payload) {
-  // console.log(payload, "<<< payload set login");
   return function (dispatch) {
-    fetch(URL_USER + "/login", {
+    fetch("http://52.207.207.52:3000/users/login", {
       method: "POST",
-      body: payload,
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      }
     })
       .then((response) => {
-        console.log(response, "response di store > action > line 76");
-        dispatch(setLogin(payload));
-        localStorage.setItem("data", JSON.stringify(payload));
-        dispatch(checkLogin(true));
+        const success = response.status === 200
+        if(success){
+          console.log('success');
+          return response.json()
+        }else{
+          // console.log();
+          throw new Error(response.statusText)
+        }
+      })
+      .then((result) => {
+        localStorage.setItem('userLog', JSON.stringify(result));
+        dispatch(checkLogin(true))
       })
       .catch((error) => {
         console.log(error, "<<< error");
@@ -187,3 +200,113 @@ export function removeShowcase(id) {
 }
 
 // ! SHOWCASES
+
+
+// ! items
+
+export function addItem(payload){
+  // console.log(payload, 'pay add item');
+  const localStorageCheck = JSON.parse(localStorage.getItem('userLog')) 
+  const data = {
+    name : payload.name,
+    image: payload.image, 
+    tradeable: payload.tradeable, 
+    price : payload.price, 
+    tradeWith : payload.tradeWith, 
+    tag : payload.tag, 
+    description : payload.description
+  }
+  // console.log(data, "<< data");
+  // console.log(localStorageCheck)
+  return function (dispatch) {
+    fetch(server + '/items', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        access_token: localStorageCheck.access_token,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      console.log(response, "<<< res");
+      return response.json()
+    })
+    .then(result => {
+      console.log(result, 'ini result');
+    })
+    .catch(err => {
+      console.log(err, "<<< eerr");
+    })
+  }
+}
+
+export function readItems(){
+  const localStorageCheck = JSON.parse(localStorage.getItem('userLog')) 
+  return (dispatch) => {
+    fetch(server + '/items', {
+      headers: {
+        access_token: localStorageCheck.access_token,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      return response.json()
+    }) 
+    .then(data => {
+      return  dispatch(setItem(data))
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+}
+
+export function showDetailItem(payload){
+  const localStorageCheck = JSON.parse(localStorage.getItem('userLog'))
+  return (dispatch) => {
+    fetch(server + `/items/${payload}`, {
+      method: 'get',
+      headers: {
+        access_token: localStorageCheck.access_token,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
+      console.log(data, 'ini di action');
+      return dispatch(getDetail(data))
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+}
+
+export function deleteItem(payload){
+  const localStorageCheck = JSON.parse(localStorage.getItem('userLog'))
+  return (dispatch) => {
+    fetch(server + `/items/${payload}`, {
+      method: 'delete',
+      headers: {
+        access_token: localStorageCheck.access_token,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response =>{
+      return response.json()
+    })
+    .then(result =>{
+      console.log(result);
+      return result
+    })
+    .catch(err =>{
+      console.log(err);
+    })
+  }
+}

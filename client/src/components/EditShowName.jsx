@@ -7,7 +7,7 @@ export default function EditShowName(props) {
   const oneShow = useSelector((state) => state.oneShow);
   const dispatch = useDispatch();
 
-  console.log(oneShow, "<<<<");
+  // console.log(oneShow, "<<<<");
 
   useEffect(() => {
     if (oneShow.name) {

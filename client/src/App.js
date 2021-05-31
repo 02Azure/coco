@@ -11,13 +11,14 @@ import ChatPage from "./views/Chat.jsx";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Trending from "./views/Trending";
+import Wishlist from "./views/WishList"
+import DetailItemPage from "./views/detail.item.jsx"
 import ProtectedRoute from "./views/protected.route";
-import { useSelector } from "react-redux";
 
 import NotFound from "./views/NotFound";
 
 function App() {
-  const isLogin = useSelector((state) => state.isLogin);
+  const isLogin = localStorage.getItem('userLog')
   return (
     <Router>
       <Navbar />
@@ -34,6 +35,8 @@ function App() {
         <ProtectedRoute path="/showCase" component={ShowCase} isAuth={isLogin} />
         <ProtectedRoute path="/trending" component={Trending} isAuth={isLogin} />
         <ProtectedRoute path="/editProfile/:id" component={EditProfile} isAuth={isLogin} />
+        <ProtectedRoute path="/wishlist" component={Wishlist} isAuth={isLogin} />
+        <ProtectedRoute path="/editItem/:id" component={DetailItemPage} isAuth={isLogin} />
         <Route component={NotFound}></Route>
       </Switch>
     </Router>

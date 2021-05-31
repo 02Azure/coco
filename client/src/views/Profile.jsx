@@ -3,36 +3,41 @@ import "./profile.css";
 import oke from ".././images/002.png";
 import ok from "../images/bg_1.jpg"
 import { useHistory, withRouter } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ModalWishList from "../components/Modal.jsx"
 import FormAdd from "../components/formAddItem"
 import { useDispatch, useSelector } from 'react-redux'
-import { setLogin } from '../store/action'
+import { readItems } from '../store/action'
 import ShowcaseModal from "../components/AddShowCaseModal.jsx";
 import ShowCase from "./ShowCase";
 const Profile = () => {
   let history = useHistory()
+  const dispatch = useDispatch()
   const [showItem, setShowItem] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [showFormAdd, setShowFormAdd] = useState(false)
   const [sModal, setSModal] = useState(false);
-  
-  const users = useSelector((state) => state.user)
+  const items = useSelector((state) => state.items)
+
+  useEffect(() => {
+    dispatch(readItems())
+  }, [items])
   function hideItems(){
     setShowItem(false)
   }
   function itemsShow() {
     setShowItem(true);
   }
-  function showModalWishlist() {
-    setShowModal(!showModal);
+  function pageWishList() {
+    // setShowModal(!showModal);
+    history.push('/wishlist')
   }
   function showChat() {
     history.push("/chat");
   }
 
   function editUserInfo() {
-    history.push("/editProfile/1");
+    history.push("/editProfile/10");
   }
   function goDiscovery() {
     // history.push("/discovery")
@@ -46,6 +51,11 @@ const Profile = () => {
   function addToShowcase() {
     setSModal(true);
   }
+
+  function detailItem(id){
+    // console.log(id, "<<<");
+    history.push(`editItem/${id}`);
+  }
   return (
     <section className="profile">
       {/* navbar image */}
@@ -53,7 +63,7 @@ const Profile = () => {
         <a onClick={goDiscovery} className="navbar__anchor">
           Home
         </a>
-        <p>{JSON.stringify(users)}</p>
+        {/* <p>{JSON.stringify(items)}</p> */}
       </div>
 
       {/* profile side */}
@@ -93,7 +103,7 @@ const Profile = () => {
             </div>
 
             <div>
-              <a onClick={showModalWishlist} className="btn">
+              <a onClick={pageWishList} className="btn">
                 wishlist
               </a>
             </div>
@@ -125,36 +135,19 @@ const Profile = () => {
           {showItem && (
             <div className="showcase__container">
               <div className="items__container">
-                <div className="items__images">
-                  <h5>judul 1</h5>
-                  <a className="see__all">see all</a>
-                  <img src={ok} alt="" className="item__image" />
-                  <img src={ok} alt="" className="item__image" />
-                </div>
-                <div className="items__images">
-                  <h5>judul 2</h5>
-                  <a className="see__all">see all</a>
-                  <img src={ok} alt="" className="item__image" />
-                  <img src={ok} alt="" className="item__image" />
-                </div>
-                <div className="items__images">
-                  <h5>judul 3</h5>
-                  <a className="see__all">see all</a>
-                  <img src={ok} alt="" className="item__image" />
-                  <img src={ok} alt="" className="item__image" />
-                </div>
-                <div className="items__images">
-                  <h5>judul 4</h5>
-                  <a className="see__all">see all</a>
-                  <img src={ok} alt="" className="item__image" />
-                  <img src={ok} alt="" className="item__image" />
-                </div>
-                <div className="items__images">
-                  <h5>judul 5</h5>
-                  <a className="see__all">see all</a>
-                  <img src={ok} alt="" className="item__image" />
-                  <img src={ok} alt="" className="item__image" />
-                </div>
+                        {/* <h5>My Item</h5> */}
+                      <a className="see__all">see all</a>
+                      <div className="items__images">
+                {
+                  items.map(item => {
+                    return (
+                        <a key={item.id} onClick={e => detailItem(item.id)}>
+                          <img src={item.image} alt="" className="item__image" />
+                        </a>
+                      )
+                    })
+                  }
+                  </div>
               </div>
             </div>
           )}

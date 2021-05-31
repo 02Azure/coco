@@ -38,7 +38,6 @@ const Register = () => {
 
   const submit = () => {
     dispatch(register(reg));
-    console.log(reg, "<<<");
   };
 
   const cancel = () => {
