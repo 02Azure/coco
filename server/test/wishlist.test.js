@@ -87,12 +87,11 @@ afterAll((done) => {
     });
 });
 
-describe("GET /wishlist sukses", () => {
+describe("GET /wishlist ( semua wishlist ) sukses", () => {
   it("it responds with ", (done) => {
     request(app)
       .get("/wishlist")
       .set("Accept", "application/json")
-      .send({ id: 1 })
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
@@ -106,16 +105,16 @@ describe("GET /wishlist sukses", () => {
   });
 });
 
-describe("GET /wishlist gagal, userId tidak ditemukan", () => {
+describe("GET /wishlist ( satu user ) sukses", () => {
   it("it responds with ", (done) => {
     request(app)
-      .get("/wishlist")
-      .send({ id: 1676923 })
+      .get("/wishlist?userId=1")
+      .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .then((response) => {
         let { body, status } = response;
-        expect(status).toBe(404);
-        expect(body).toHaveProperty("error", "User not found");
+        expect(status).toBe(200);
+        expect(Array.isArray(body)).toBeTruthy();
         done();
       })
       .catch((err) => {
@@ -123,6 +122,7 @@ describe("GET /wishlist gagal, userId tidak ditemukan", () => {
       });
   });
 });
+
 
 describe("POST /wishlist sukses", () => {
   it("it responds with ", (done) => {
