@@ -89,6 +89,7 @@ export function register(payload) {
 }
 
 export function login(payload) {
+  // console.log(payload, "<<");
   return function (dispatch) {
     fetch("http://52.207.207.52:3000/users/login", {
       method: "POST",
@@ -100,7 +101,7 @@ export function login(payload) {
       .then((response) => {
         const success = response.status === 200
         if(success){
-          console.log('success');
+          // console.log('success');
           return response.json()
         }else{
           // console.log();

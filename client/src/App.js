@@ -1,7 +1,7 @@
 // import Login from "./views/Login";
 import React from "react";
 import Profile from "./views/Profile";
-
+import { useSelector } from "react-redux"
 import Discovery from "./views/Discovery";
 import EditProfile from "./views/EditProfile";
 import Login from "./views/Login";
@@ -20,10 +20,15 @@ import ProtectedRoute from "./views/protected.route";
 import NotFound from "./views/NotFound";
 
 function App() {
-  const isLogin = localStorage.getItem('userLog')
+  
+  // const isLogin = localStorage.getItem('userLog')
+  const isLogin = useSelector((state) => state.isLogin)
   return (
     <Router>
-      <Navbar />
+      {
+        isLogin && 
+        <Navbar />
+      }
       <Switch>
         <Route exact path="/">
           <Login />

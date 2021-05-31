@@ -12,11 +12,12 @@ const Login = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const localStorageCheck = localStorage.getItem('userLog')
     if(checkStatus){
       history.push('/profile')
+    }else{
+      history.push('/')
     }
-  })
+  }, [checkStatus])
   const handleChange = (event) => {
     const target = event.target;
     const value = target.value;
