@@ -117,14 +117,19 @@ export function login(payload) {
   };
 }
 export function findOneUser(id) {
-  return function (dispatch) {
+  console.log(id);
+  return (dispatch) => {
     dispatch(setLoading(true));
-    fetch(userEndpoint + "/" + id)
+    fetch(server + "/users/" + id)
       .then((res) => res.json())
       .then((user) => {
+        console.log(user,"<<");
         dispatch(setOneUser(user));
         dispatch(setLoading(false));
-      });
+      })
+      .catch((err) => {
+        console.log(err, "<<");
+      })
   };
 }
 
