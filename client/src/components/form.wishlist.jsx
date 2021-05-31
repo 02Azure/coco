@@ -1,5 +1,7 @@
 import { Modal, Button, Form } from 'react-bootstrap'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addWishlist } from '../store/action'
 export default function WishlistForm(props){
     const [wishlist, setWishlist] = useState({
         name: '',
@@ -8,8 +10,11 @@ export default function WishlistForm(props){
         tag: '',
         description: ''
     })
+    const dispatch = useDispatch()
     function submitForm(){
-        
+        // console.log(wishlist);
+        dispatch(addWishlist(wishlist))
+        props.onHide()
     }
     return(
         <Modal
