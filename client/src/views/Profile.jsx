@@ -1,20 +1,24 @@
 import React from "react";
 import "./profile.css";
 import oke from ".././images/002.png";
-import ok from "../images/bg_1.jpg"
-import { useHistory, withRouter } from 'react-router-dom'
-import { useState } from 'react'
-import ModalWishList from "../components/Modal.jsx"
-import { useDispatch, useSelector } from 'react-redux'
-import { setLogin } from '../store/action'
+import ok from "../images/bg_1.jpg";
+import { useHistory, withRouter } from "react-router-dom";
+import { useState } from "react";
+import ModalWishList from "../components/Modal.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { setLogin } from "../store/action";
+import ShowcaseModal from "../components/AddShowCaseModal.jsx";
+import ShowCase from "./ShowCase";
 const Profile = () => {
-  let history = useHistory()
-  const [showItem, setShowItem] = useState(false)
-  const [showModal, setShowModal] = useState(false)
-  const users = useSelector((state) => state.user)
+  let history = useHistory();
+  const [showItem, setShowItem] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [sModal, setSModal] = useState(false);
+
+  const users = useSelector((state) => state.user);
   // const isLogin = useSelector((state) => state.isLogin)
-  function hideItems(){
-    setShowItem(false)
+  function hideItems() {
+    setShowItem(false);
   }
   function itemsShow() {
     setShowItem(true);
@@ -31,11 +35,15 @@ const Profile = () => {
   }
 
   function editUserInfo() {
-    history.push("/edit/1");
+    history.push("/editProfile/1");
   }
-  function goDiscovery(){
+  function goDiscovery() {
     // history.push("/discovery")
-    localStorage.getItem()
+    localStorage.getItem();
+  }
+
+  function addToShowcase() {
+    setSModal(true);
   }
   return (
     <section className="profile">
@@ -70,65 +78,45 @@ const Profile = () => {
         </div>
         {/* navigation anchor */}
         <div className="showcase col-md-8 p-3">
-          <div className="buttons">
-            <a onClick={hideItems} className="btn">
-              show case
-            </a>
-            <a onClick={itemsShow} className="btn">
-              items
-            </a>
-            <a onClick={showModalWishlist} className="btn">
-              wishlist
-            </a>
-            <a href="#" className="add__showCase">
-              <img
-                className="imgCase"
-                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0xMSAxMXYtMTFoMXYxMWgxMXYxaC0xMXYxMWgtMXYtMTFoLTExdi0xaDExeiIvPjwvc3ZnPg=="
-              />
-            </a>
+          <div className="buttons d-flex">
+            <div>
+              <a onClick={hideItems} className="btn">
+                show case
+              </a>
+              <i onClick={addToShowcase} class="far fa-plus-square"></i>
+            </div>
+            <div>
+              <a onClick={itemsShow} className="btn">
+                items
+              </a>
+            </div>
+
+            <div>
+              <a onClick={showModalWishlist} className="btn">
+                wishlist
+              </a>
+            </div>
+
+            <div>
+              <a href="#" className="add__showCase">
+                <img
+                  className="imgCase"
+                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0xMSAxMXYtMTFoMXYxMWgxMXYxaC0xMXYxMWgtMXYtMTFoLTExdi0xaDExeiIvPjwvc3ZnPg=="
+                />
+              </a>
+            </div>
           </div>
           {/* show modal */}
           <ModalWishList show={showModal} onHide={() => setShowModal(false)} />
+          <ShowcaseModal show={sModal} onHide={() => setSModal(false)} />
           {/* end of show modal */}
           {/* list shocases */}
           {!showItem && (
             <div className="showcase__container">
               <div className="items__container">
-                <div className="items__images">
-                  <h5>judul 1</h5>
-                  <a className="see__all">see all</a>
-                  <img src={oke} alt="" className="item__image" />
-                  <img src={oke} alt="" className="item__image" />
-                  <img src={oke} alt="" className="item__image" />
-                </div>
-                <div className="items__images">
-                  <h5>judul 2</h5>
-                  <a className="see__all">see all</a>
-                  <img src={oke} alt="" className="item__image" />
-                  <img src={oke} alt="" className="item__image" />
-                  <img src={oke} alt="" className="item__image" />
-                </div>
-                <div className="items__images">
-                  <h5>judul 3</h5>
-                  <a className="see__all">see all</a>
-                  <img src={oke} alt="" className="item__image" />
-                  <img src={oke} alt="" className="item__image" />
-                  <img src={oke} alt="" className="item__image" />
-                </div>
-                <div className="items__images">
-                  <h5>judul 4</h5>
-                  <a className="see__all">see all</a>
-                  <img src={oke} alt="" className="item__image" />
-                  <img src={oke} alt="" className="item__image" />
-                  <img src={oke} alt="" className="item__image" />
-                </div>
-                <div className="items__images">
-                  <h5>judul 5</h5>
-                  <a className="see__all">see all</a>
-                  <img src={oke} alt="" className="item__image" />
-                  <img src={oke} alt="" className="item__image" />
-                  <img src={oke} alt="" className="item__image" />
-                </div>
+                <ShowCase />
+                <ShowCase />
+                <ShowCase />
               </div>
             </div>
           )}
@@ -174,4 +162,4 @@ const Profile = () => {
   );
 };
 
-export default withRouter(Profile)
+export default withRouter(Profile);

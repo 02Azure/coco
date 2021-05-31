@@ -8,7 +8,8 @@ const intialState = {
   isLogin: false,
   loading: false,
   oneUser: {},
-  user: []
+  user: [],
+  oneShow: { name: "jsfks" },
 };
 
 function reducer(state = intialState, action) {
@@ -25,8 +26,10 @@ function reducer(state = intialState, action) {
       return { ...state, loading: payload };
     case "SET_ONE_USER":
       return { ...state, oneUser: payload };
+    case "SET_ONE_SHOW":
+      return { ...state, oneShow: payload };
     case "IS_AUTH":
-      return { ...state, isLogin: payload}
+      return { ...state, isLogin: payload };
     default:
       return state;
   }

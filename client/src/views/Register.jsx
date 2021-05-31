@@ -15,7 +15,7 @@ const Register = () => {
 
   useEffect(() => {
     if (regist) {
-      history.push("/login");
+      history.push("/");
       dispatch(setRegister(false));
     }
   }, [regist]);
@@ -37,7 +37,7 @@ const Register = () => {
   };
 
   const submit = () => {
-    // dispatch(register(reg));
+    dispatch(register(reg));
     console.log(reg, "<<<");
   };
 
