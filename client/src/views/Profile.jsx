@@ -13,8 +13,8 @@ const Profile = () => {
   const [showItem, setShowItem] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [showFormAdd, setShowFormAdd] = useState(false)
+  
   const users = useSelector((state) => state.user)
-  // const isLogin = useSelector((state) => state.isLogin)
   function hideItems(){
     setShowItem(false)
   }

@@ -1,10 +1,22 @@
 import { Modal, Button, Form } from 'react-bootstrap'
 import { useState } from 'react'
 export default function FormAdd(props){
-
+    const [item, setItem] = useState({
+        name: '',
+        image: '',
+        price: '',
+        tradeable: '',
+        tradeWith: '',
+        tag: '',
+        description: ''
+    })
     function submitForm(e){
         e.preventDefault();
+        console.log(item);
         // console.log('hsai');
+    }
+    function handleChange(e){
+        console.log(e.target.value);
     }
     return (
         <Modal
@@ -22,7 +34,9 @@ export default function FormAdd(props){
         <Form>
             <Form.Group>
                 <Form.Label>Name</Form.Label>
-                <Form.Control type="text" placeholder="user" />
+                <Form.Control 
+                onChange={handleChange}
+                type="text" placeholder="user" />
             </Form.Group>
             <Form.Group>
                 <Form.Label>image</Form.Label>
