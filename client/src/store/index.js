@@ -11,6 +11,7 @@ const intialState = {
   user: [],
   oneShow: {},
   allShow: [],
+  discovery: [],
 };
 
 function reducer(state = intialState, action) {
@@ -25,6 +26,8 @@ function reducer(state = intialState, action) {
       return { ...state, user: payload };
     case "SET_LOADING":
       return { ...state, loading: payload };
+    case "SET_DISCO":
+      return { ...state, discovery: payload };
     case "SET_ONE_USER":
       return { ...state, oneUser: payload };
     case "SET_ONE_SHOW":

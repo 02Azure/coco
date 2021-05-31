@@ -4,7 +4,7 @@ import { Button, Modal } from "react-bootstrap";
 
 function Detail({ discovery, ...props }) {
   return (
-    <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+    <Modal {...props} size="md" aria-labelledby="contained-modal-title-vcenter" centered>
       {/* <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">Modal heading</Modal.Title>
       </Modal.Header> */}
@@ -14,30 +14,31 @@ function Detail({ discovery, ...props }) {
 
           <div className="d-flex">
             <div className="align-self-center">
-              <img src={discovery.image} alt="" />
+              <img style={{ width: "75%", margin: "auto" }} src={discovery.image} alt="" />
             </div>
 
             <div className="px-3 items__detail">
               <div>
                 <p>Description</p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas quibusdam amet culpa dicta ipsa iure quaerat ullam minima, similique nam?
+                {discovery.description}
               </div>
               <div>
                 <p>Tag</p>
-                Lorem ipsum dolor,
+                {discovery.tag}
               </div>
+
+              {discovery.tradeable ? (
+                <div>
+                  <p>Trade With</p>
+                  {discovery.tradeWith}
+                </div>
+              ) : (
+                ""
+              )}
 
               <div>
                 <p>Price</p>
-                150000
-              </div>
-              <div>
-                <p>Price</p>
-                150000
-              </div>
-              <div>
-                <p>Price</p>
-                150000
+                {discovery.price}
               </div>
             </div>
           </div>

@@ -3,13 +3,18 @@ import ItemCard from "../components/ItemCard";
 import "./discovery.css";
 
 import { useDispatch, useSelector } from "react-redux";
+import { getDisco } from "../store/action";
 
 const Discovery = () => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.loading);
   const items = useSelector((state) => state.items);
+  const discovery = useSelector((state) => state.discovery);
+  useEffect(() => {
+    dispatch(getDisco());
+  }, []);
 
-  useEffect(() => {}, []);
+  console.log(discovery, "DISCOO");
 
   if (loading) {
     return (
@@ -19,13 +24,12 @@ const Discovery = () => {
     );
   }
 
-  console.log(items);
   return (
     <div className="discovery">
       <div className="discovery__container">
         <div className="row row-eq-height">
-          {items.map((e, i) => (
-            <ItemCard key={i} discovery={e} />
+          {discovery.map((e, i) => (
+            <ItemCard key={i} discovery={e.Item} />
           ))}
         </div>
       </div>

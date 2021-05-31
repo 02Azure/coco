@@ -55,7 +55,7 @@ const ShowCase = ({ show }) => {
 
       <div className="row justify-content-center">
         {show.ShowcaseItems.map((e, i) => {
-          console.log(e);
+          // console.log(e);
           return (
             <div key={i} className="col-md-4 p-2 text-center">
               <img src={e.Item.image} alt="" className="item__image " />

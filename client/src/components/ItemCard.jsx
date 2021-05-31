@@ -13,15 +13,15 @@ const ItemCard = ({ discovery }) => {
         <div onClick={() => setModalShow(true)} className="card text-white bg-dark p-2">
           <img src={discovery.image} alt="" />
           <div className="card-body">
-            <h5 className="card-title">{discovery.name}</h5>
+            {/* <h5 className="card-title">{discovery.name}</h5> */}
 
             <div className="d-flex content__card my-1 justify-content-between">
-              <strong className="card-text">Price</strong>
-              <p className="card-text">{discovery.price}</p>
+              <strong className="card-text">Tradable</strong>
+              <p className="card-text">{discovery.tradeable ? <i class="far fa-check-circle"></i> : <i class="far fa-times-circle"></i>}</p>
             </div>
             <div className="d-flex content__card my-1 justify-content-between">
               <strong className="card-text"> Tag</strong>
-              <p className="card-text">Yugioh-TCG</p>
+              <p className="card-text">{discovery.tag}</p>
             </div>
           </div>
         </div>

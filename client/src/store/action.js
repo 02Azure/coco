@@ -34,6 +34,10 @@ export function setAllShow(payload) {
   return { type: "SET_ALL_SHOW", payload };
 }
 
+export function setDisco(payload) {
+  return { type: "SET_DISCO", payload };
+}
+
 export function register(payload) {
   console.log(payload);
   return function (dispatch) {
@@ -262,9 +266,11 @@ export function getItems(id) {
       })
       .then((result) => {
         dispatch(setItem(result));
+        dispatch(setLoading(false));
       })
       .catch((error) => {
         console.log(error);
+        dispatch(setLoading(false));
       });
   };
 }
@@ -294,6 +300,7 @@ export function postShowToItems(payload) {
       })
       .then((result) => {
         console.log(result);
+        dispatch(setLoading(false));
       })
       .catch((error) => {
         console.log(error);
@@ -301,3 +308,33 @@ export function postShowToItems(payload) {
   };
 }
 // SHOCASE TO ITEMS
+
+// shocase items
+export function getDisco(id) {
+  return function (dispatch) {
+    dispatch(setLoading(true));
+    fetch(server + "/showcaseitems", {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.log(response, "<<<");
+          throw new Error(response.statusText);
+        }
+      })
+      .then((result) => {
+        // Do something with the response
+        dispatch(setDisco(result));
+        dispatch(setLoading(false));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+// shocase items
