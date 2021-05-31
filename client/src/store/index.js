@@ -12,6 +12,10 @@ const intialState = {
   oneShow: { name: "jsfks" },
   oneItem: {
     
+  },
+  wishlists: [],
+  wishlist: {
+
   }
 };
 
@@ -35,6 +39,12 @@ function reducer(state = intialState, action) {
       return { ...state, isLogin: payload };
     case "GET_DETAIL_ITEM":
       return { ...state, oneItem: payload };
+    case "CREATE_WISHLIST":
+      return { ...state, wishlists: state.wishlists.concat( payload )};
+    case "SET_WISHLIST":
+      return { ...state, wishlists: payload};
+    case "GET_DETAIL_WISHLIST":
+      return { ...state, wishlist: payload }
     default:
       return state;
   }
