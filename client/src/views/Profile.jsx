@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react'
 import ModalWishList from "../components/Modal.jsx"
 import FormAdd from "../components/formAddItem"
 import { useDispatch, useSelector } from 'react-redux'
-import { readItems } from '../store/action'
+import { readItems, findOneUser } from '../store/action'
 import ShowcaseModal from "../components/AddShowCaseModal.jsx";
 import ShowCase from "./ShowCase";
 const Profile = () => {
@@ -17,11 +17,16 @@ const Profile = () => {
   const [showModal, setShowModal] = useState(false)
   const [showFormAdd, setShowFormAdd] = useState(false)
   const [sModal, setSModal] = useState(false);
+  const user = useSelector((state) => state.oneUser)
   const items = useSelector((state) => state.items)
-
+  const userLogged = JSON.parse(localStorage.getItem('userLog'))
+  // console.log(userLogged);
   useEffect(() => {
     dispatch(readItems())
   }, [items])
+  useEffect(() =>{
+    dispatch(findOneUser(JSON.stringify(userLogged.id)))
+  }, [])
   function hideItems(){
     setShowItem(false)
   }
@@ -63,7 +68,7 @@ const Profile = () => {
         <a onClick={goDiscovery} className="navbar__anchor">
           Home
         </a>
-        {/* <p>{JSON.stringify(items)}</p> */}
+        <p>{JSON.stringify(user)}</p>
       </div>
 
       {/* profile side */}
@@ -72,14 +77,21 @@ const Profile = () => {
         <div className="user__container col-md-4 p-3">
           <div className="user__info__container">
             <div className="content__image">
-              <img src={oke} alt="" className="header__image" />
+              {
+                user.image&&
+                  <img src={user.image} alt="" className="header__image" />
+              }
+              {
+                !user.image &&
+                <img src={user.image} alt="" className="header__image__test" />
+              }
             </div>
             <div className="username d-flex align-items-center justify-content-between">
-              <p className="username__text">@username</p>
+              <p className="username__text">@{user.username}</p>
               <i onClick={editUserInfo} class="far fa-edit"></i>
             </div>
             <div className="main__content">
-              <p className="text">Full Stack Javascript Developer</p>
+              <p className="text">{user.userDesc}</p>
               <p className="text">location</p>
             </div>
             <button onClick={showChat} className="btn__chat">

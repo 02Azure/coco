@@ -34,6 +34,16 @@
   padding: 8px;
 }
 
+.header__image__test{
+  width: 140px;
+  height: 140px;
+  position: relative;
+  left: 36%;
+  border-radius: 50%;
+  background-color: red;
+  padding: 8px;
+}
+
 .username__text {
   font-size: 30px;
   text-align: center;
