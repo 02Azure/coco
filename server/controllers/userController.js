@@ -5,13 +5,14 @@ const { generateToken } = require('../helpers/jwt')
 class userController{
   static async register(req, res, next){
     try {
+      console.log(req.body);
       const { username, email, password } = req.body
 
       const user = await User.create({ username, email, password })
       res.status(201).json({ id: user.id, email: user.email, username: user.username })
 
     } catch (err) {
-      next(err)
+      next(err ,"<<<")
     }
   }
 
