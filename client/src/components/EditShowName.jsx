@@ -7,8 +7,6 @@ export default function EditShowName({ updateFrom, deleteFrom, ...props }) {
   const oneShow = useSelector((state) => state.oneShow);
   const dispatch = useDispatch();
 
-  console.log(oneShow, "<<<<");
-
   useEffect(() => {
     if (oneShow.name) {
       setName(oneShow.name);
@@ -42,13 +40,14 @@ export default function EditShowName({ updateFrom, deleteFrom, ...props }) {
           }}
           type="submit"
         >
-          update
+          Update
         </Button>
         <Button
           onClick={() => {
             deleteFrom();
             props.onHide();
           }}
+          className="btn-danger"
         >
           Delete
         </Button>

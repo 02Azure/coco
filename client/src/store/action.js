@@ -34,18 +34,6 @@ export function setAllShow(payload) {
   return { type: "SET_ALL_SHOW", payload };
 }
 
-export function fetchItems() {
-  return function (dispatch) {
-    dispatch(setLoading(true));
-    fetch(jsonServer + "/items")
-      .then((res) => res.json())
-      .then((item) => {
-        dispatch(setItem(item));
-        dispatch(setLoading(false));
-      });
-  };
-}
-
 export function register(payload) {
   console.log(payload);
   return function (dispatch) {
@@ -251,3 +239,65 @@ export function updateShowName(payload) {
 }
 
 // ! SHOWCASES
+
+// ? ITEMS
+// get all
+export function getItems(id) {
+  return function (dispatch) {
+    dispatch(setLoading(true));
+    fetch(server + "/items", {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJzaGFrIiwiZW1haWwiOiJzQG1haWwuY29tIiwiaWF0IjoxNjIyNDEyMzM4fQ.O8T9gQHTcPWiiSKUW4bf3yMokfnQbc0EZMhcM49q0KA",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.log(response, "<<<");
+          throw new Error(response.statusText);
+        }
+      })
+      .then((result) => {
+        dispatch(setItem(result));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+// ? ITEMS
+
+// SHOCASE TO ITEMS
+export function postShowToItems(payload) {
+  const { ItemId, ShowcaseId } = payload;
+  return function (dispatch) {
+    dispatch(setLoading(true));
+    fetch(server + "/showcaseitems", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJzaGFrIiwiZW1haWwiOiJzQG1haWwuY29tIiwiaWF0IjoxNjIyNDEyMzM4fQ.O8T9gQHTcPWiiSKUW4bf3yMokfnQbc0EZMhcM49q0KA",
+      },
+
+      body: JSON.stringify({ ItemId, ShowcaseId }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.log(response, "<<<");
+          throw new Error(response.statusText);
+        }
+      })
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+// SHOCASE TO ITEMS

@@ -8,8 +8,7 @@ const ItemCard = ({ discovery }) => {
   console.log(discovery);
   return (
     <div className="col-md-4 align-items-stretch">
-      <h1>ini otem card</h1>
-      {/* <Detail discovery={discovery} show={modalShow} onHide={() => setModalShow(false)} />
+      <Detail discovery={discovery} show={modalShow} onHide={() => setModalShow(false)} />
       <div className="card__item">
         <div onClick={() => setModalShow(true)} className="card text-white bg-dark p-2">
           <img src={discovery.image} alt="" />
@@ -26,7 +25,7 @@ const ItemCard = ({ discovery }) => {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };

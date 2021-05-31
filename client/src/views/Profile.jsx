@@ -18,6 +18,8 @@ const Profile = () => {
 
   const allShow = useSelector((state) => state.allShow);
 
+  // console.log(allShow);
+
   useEffect(() => {
     dispatch(getAllShow(3));
   }, []);

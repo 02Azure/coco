@@ -3,16 +3,13 @@ import ItemCard from "../components/ItemCard";
 import "./discovery.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { fetchItems } from "../store/action";
 
 const Discovery = () => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.loading);
   const items = useSelector((state) => state.items);
 
-  useEffect(() => {
-    dispatch(fetchItems());
-  }, []);
+  useEffect(() => {}, []);
 
   if (loading) {
     return (
