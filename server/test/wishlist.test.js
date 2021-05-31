@@ -123,6 +123,24 @@ describe("GET /wishlist ( satu user ) sukses", () => {
   });
 });
 
+describe("GET /wishlist ( satu user ) gagal - user tidak ditemukan", () => {
+  it("it responds with ", (done) => {
+    request(app)
+      .get("/wishlist?userId=1231")
+      .set("Accept", "application/json")
+      .expect("Content-Type", /json/)
+      .then((response) => {
+        let { body, status } = response;
+        expect(status).toBe(404);
+        expect(body).toHaveProperty("error", "User not found");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+});
+
 
 describe("POST /wishlist sukses", () => {
   it("it responds with ", (done) => {
