@@ -22,7 +22,11 @@ class WishlistController {
       let wishlistItems = await WishlistItem.findAll({
         where: { 
           UserId: userId
-        }
+        },
+        include: [{
+          model: User,
+          attributes: ["id", "username", "userImage"]
+        }]
       })
 
       res.status(200).json(wishlistItems)
