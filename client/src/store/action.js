@@ -30,6 +30,9 @@ export function checkLogin(payload) {
 export function setOneShow(payload) {
   return { type: "SET_ONE_SHOW", payload };
 }
+export function setAllShow(payload) {
+  return { type: "SET_ALL_SHOW", payload };
+}
 
 export function fetchItems() {
   return function (dispatch) {
@@ -125,18 +128,14 @@ export function oneShow(id) {
       });
   };
 }
-// add
-export function AddNewShowcase(payload) {
+// get all
+export function getAllShow(id) {
   return function (dispatch) {
-    fetch(server + "/showcases", {
-      method: "POST",
-
-      body: JSON.stringify(payload),
-
+    dispatch(setLoading(true));
+    fetch(server + "/showcases/?userId=" + id, {
+      method: "GET",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        // Authorization: `Bearer ${token}`,
-        Authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJzaGFrIiwiZW1haWwiOiJzQG1haWwuY29tIiwiaWF0IjoxNjIyNDEyMzM4fQ.O8T9gQHTcPWiiSKUW4bf3yMokfnQbc0EZMhcM49q0KA",
       },
     })
       .then((response) => {
@@ -149,7 +148,41 @@ export function AddNewShowcase(payload) {
       })
       .then((result) => {
         // Do something with the response
-        console.log(result);
+        dispatch(setAllShow(result));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+// add
+
+export function AddNewShowcase(payload) {
+  console.log(payload, "DARI ADDNEWSHOWCASE");
+  return function (dispatch) {
+    fetch(server + "/showcases", {
+      method: "POST",
+
+      body: JSON.stringify({ name: payload }),
+
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        // Authorization: `Bearer ${token}`,
+        access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJzaGFrIiwiZW1haWwiOiJzQG1haWwuY29tIiwiaWF0IjoxNjIyNDEyMzM4fQ.O8T9gQHTcPWiiSKUW4bf3yMokfnQbc0EZMhcM49q0KA",
+        Accept: "application/json",
+      },
+      mode: "cors",
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.log(response, "<<<");
+          throw new Error(response.statusText);
+        }
+      })
+      .then((result) => {
+        dispatch(getAllShow(3));
       })
       .catch((error) => {
         console.log(error);
@@ -178,7 +211,38 @@ export function removeShowcase(id) {
       })
       .then((result) => {
         // Do something with the response
-        console.log(result);
+        dispatch(getAllShow(3));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+// update
+export function updateShowName(payload) {
+  const { id, name } = payload;
+  return function (dispatch) {
+    fetch(server + "/showcases/" + id, {
+      method: "PATCH",
+
+      body: JSON.stringify({ name }),
+
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJzaGFrIiwiZW1haWwiOiJzQG1haWwuY29tIiwiaWF0IjoxNjIyNDEyMzM4fQ.O8T9gQHTcPWiiSKUW4bf3yMokfnQbc0EZMhcM49q0KA",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.log(response, "<<<");
+          throw new Error(response.statusText);
+        }
+      })
+      .then((result) => {
+        // Do something with the response
+        dispatch(getAllShow(3));
       })
       .catch((error) => {
         console.log(error);

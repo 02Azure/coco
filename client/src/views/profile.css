@@ -59,17 +59,13 @@
   left: 20px
 } */
 
-.items__container {
-  /* background-color: red; */
-  padding-top: 30px;
-}
-
 .items__images {
   display: flex;
   flex-direction: row;
-  background-color: crimson;
-
+  background-color: #191919;
+  border-radius: 5px;
   padding: 0.5rem;
+  color: #eee;
 }
 
 .item__image {

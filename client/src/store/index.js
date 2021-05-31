@@ -9,7 +9,8 @@ const intialState = {
   loading: false,
   oneUser: {},
   user: [],
-  oneShow: { name: "jsfks" },
+  oneShow: {},
+  allShow: [],
 };
 
 function reducer(state = intialState, action) {
@@ -28,6 +29,8 @@ function reducer(state = intialState, action) {
       return { ...state, oneUser: payload };
     case "SET_ONE_SHOW":
       return { ...state, oneShow: payload };
+    case "SET_ALL_SHOW":
+      return { ...state, allShow: payload };
     case "IS_AUTH":
       return { ...state, isLogin: payload };
     default:

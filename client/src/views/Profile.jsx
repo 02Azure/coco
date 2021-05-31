@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./profile.css";
 import oke from ".././images/002.png";
 import ok from "../images/bg_1.jpg";
@@ -6,14 +6,21 @@ import { useHistory, withRouter } from "react-router-dom";
 import { useState } from "react";
 import ModalWishList from "../components/Modal.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { setLogin } from "../store/action";
+import { getAllShow, setLogin } from "../store/action";
 import ShowcaseModal from "../components/AddShowCaseModal.jsx";
 import ShowCase from "./ShowCase";
 const Profile = () => {
   let history = useHistory();
+  const dispatch = useDispatch();
   const [showItem, setShowItem] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [sModal, setSModal] = useState(false);
+
+  const allShow = useSelector((state) => state.allShow);
+
+  useEffect(() => {
+    dispatch(getAllShow(3));
+  }, []);
 
   const users = useSelector((state) => state.user);
   // const isLogin = useSelector((state) => state.isLogin)
@@ -79,11 +86,15 @@ const Profile = () => {
         {/* navigation anchor */}
         <div className="showcase col-md-8 p-3">
           <div className="buttons d-flex">
-            <div>
-              <a onClick={hideItems} className="btn">
-                show case
-              </a>
-              <i onClick={addToShowcase} class="far fa-plus-square"></i>
+            <div className="d-flex align-items-center">
+              <div>
+                <a onClick={hideItems} className="btn">
+                  show case
+                </a>
+              </div>
+              <div>
+                <i onClick={addToShowcase} class="far fa-plus-square"></i>
+              </div>
             </div>
             <div>
               <a onClick={itemsShow} className="btn">
@@ -114,15 +125,15 @@ const Profile = () => {
           {!showItem && (
             <div className="showcase__container">
               <div className="items__container">
-                <ShowCase />
-                <ShowCase />
-                <ShowCase />
+                {allShow.map((e, i) => (
+                  <ShowCase key={i} show={e} />
+                ))}
               </div>
             </div>
           )}
           {showItem && (
             <div className="showcase__container">
-              <div className="items__container">
+              <div className="items__container pt-1">
                 <div className="items__images">
                   <h5>judul 1</h5>
                   <a className="see__all">see all</a>
