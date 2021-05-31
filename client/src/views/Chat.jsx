@@ -65,7 +65,7 @@ export default function ChatPage(){
                         </div>
                         <div className="box__chat">
                         {/* ini nanti buat chat dari kita */}
-                        {user.email === data.email && 
+                        {/* {user.email === data.email && 
                             <div className="box__sent">
                                 <div className="row">
                                     <div className="col-md-2">
@@ -76,9 +76,9 @@ export default function ChatPage(){
                                     </div>
                                 </div>
                             </div>
-                        }
+                        } */}
                         {/* ini nanti buat dari orang lain */}
-                        {user.email !== data.email &&
+                        {/* {user.email !== data.email &&
                             <div className="box__sent">
                                 <div className="row">
                                     <div className="col-md-2">
@@ -89,7 +89,7 @@ export default function ChatPage(){
                                     </div>
                                 </div>
                             </div>
-                        }
+                        } */}
                             
                             {/* <div className="box__sent">
                                 <div className="row">

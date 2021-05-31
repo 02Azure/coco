@@ -1,13 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux"
 import { checkLogin } from "../store/action"
+import { useSelector } from 'react-redux'
 import './navbar.css'
 const Navbar = () => {
+  
   const dispatch = useDispatch();
+  const history = useHistory();
   function logout(){
-    dispatch(checkLogin(false))
-    
+    localStorage.clear()
+    dispatch(checkLogin(false));
+    history.push('/')
   }
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-transparent">

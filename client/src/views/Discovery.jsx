@@ -4,6 +4,7 @@ import "./discovery.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getDisco } from "../store/action";
+// import { fetchItems } from "../store/action";
 
 const Discovery = () => {
   const dispatch = useDispatch();

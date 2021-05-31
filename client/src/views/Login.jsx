@@ -10,6 +10,14 @@ const Login = () => {
   const checkStatus = useSelector((state) => state.isLogin)
   const history = useHistory();
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if(checkStatus){
+      history.push('/profile')
+    }else{
+      history.push('/')
+    }
+  }, [checkStatus])
   const handleChange = (event) => {
     const target = event.target;
     const value = target.value;
@@ -21,13 +29,7 @@ const Login = () => {
   };
 
   function loginWeb(){
-    // console.log(login);
     dispatch(setUser(login))
-    if(!checkStatus){
-      alert('username or password invalid')
-    }else {
-      history.push('/profile')
-    }
   }
 
   const registerHandle = () => {
