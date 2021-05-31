@@ -60,7 +60,12 @@ class WishlistController {
 
   static async getOne(req, res, next) {
     try {
-      let wishlistItem = await WishlistItem.findByPk(+req.params.id)
+      let wishlistItem = await WishlistItem.findByPk(+req.params.id, {
+        include: [{
+          model: User,
+          attributes: ["id", "username", "userImage"]
+        }]
+      })
 
       if(!wishlistItem) {
         throw {

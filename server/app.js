@@ -19,11 +19,11 @@ app.use("/", index)
 app.use(errorHandler)
 
   /* istanbul ignore next */
-// if(process.env.NODE_ENV == 'production'){
+if(process.env.NODE_ENV == 'production'){
 
   app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`)
   })
-// }
+}
 
 module.exports = app;
