@@ -1,24 +1,34 @@
 import "./login.css";
 
 import React, { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-
+import { login as setUser } from "../store/action"
 const Login = () => {
   const initialLogin = { email: "", password: "" };
   const [login, setLogin] = useState(initialLogin);
+  const checkStatus = useSelector((state) => state.isLogin)
   const history = useHistory();
-
+  const dispatch = useDispatch()
   const handleChange = (event) => {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-
     setLogin({
       ...login,
       [name]: value,
     });
   };
+
+  function loginWeb(){
+    // console.log(login);
+    dispatch(setUser(login))
+    if(!checkStatus){
+      alert('username or password invalid')
+    }else {
+      history.push('/profile')
+    }
+  }
 
   const registerHandle = () => {
     history.push("/register");
@@ -57,7 +67,7 @@ const Login = () => {
                     </span>
                   </div>
 
-                  <a className="btn my-1 py-2 btn-login"> Login</a>
+                  <a onClick={loginWeb} className="btn my-1 py-2 btn-login"> Login</a>
 
                   <span className="text-center my-3 d-block">or</span>
 

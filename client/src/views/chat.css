@@ -1,0 +1,99 @@
+.list__chat{
+    /* background-color: red; */
+    height: 100vh;
+    padding: 20px
+}
+
+/* .people__content{
+    background-color:white;
+    height: 60vh;
+} */
+
+.people__photo{
+    width: 10vh;
+    background-color:wheat;
+    border-radius:50%;
+    padding: 10px
+}
+
+.people__name{
+    padding:10px
+}
+
+.people__chat{
+    font-size: 25px;
+}
+
+.another__people{
+    background-color: aqua;
+    /* position: relative; */
+    /* top: 10vh; */
+    /* left: 13vh; */
+    padding: 20px;
+    margin-top: 3vh;
+    width: 55vh;
+    border-radius: 50px;
+    /* height:  */
+}
+
+.main__chat{
+    background-color: aliceblue;
+    padding: 20px
+}  
+
+.box__chat{
+    background-color: #eee;
+    height: 80vh;
+    width: 120vh;
+    padding: 20px;
+    /* position: relative; */
+    margin-top: 4vh;
+    overflow: scroll;
+    /* top: 18vh; */
+}
+
+.box__sent{
+    margin: 10px;
+    width: 70vh;
+    /* height:10vh; */
+    padding: 20px;
+}
+
+.profile__user__chat{
+    width: 4em;
+    background-color:wheat;
+    border-radius: 40%;
+    padding: 10px
+}
+
+.text__handle{
+    background-color:aliceblue;
+    padding: 10px;
+    /* margin : 2px */
+}
+
+.text__chat{
+    font-size: 20px;
+    padding: 10px;
+    color: black;
+}
+.person__name{
+    padding: 10px
+}
+
+.text__input{
+    background-color:white;
+    position: sticky;
+    bottom: 0;
+    width: 90vh;
+    left: 10vh
+}
+
+.input__message{
+    /* width: 50vh */
+    border: none;
+}
+
+.nav{
+    
+}

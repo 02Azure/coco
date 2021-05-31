@@ -1,9 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import { useDispatch } from "react-redux"
+import { checkLogin } from "../store/action"
+import './navbar.css'
 const Navbar = () => {
+  const dispatch = useDispatch();
+  function logout(){
+    dispatch(checkLogin(false))
+    
+  }
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-transparent">
       <div className="container">
         <a className="navbar-brand">Navbar</a>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,7 +19,7 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <Link to="/" className="nav-link">
+              <Link to="/discovery" className="nav-link">
                 Home
               </Link>
             </li>
@@ -27,7 +34,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link ">Logout</a>
+              <a onClick={logout} className="nav-link ">Logout</a>
             </li>
           </ul>
         </div>
