@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { AddNewShowcase } from "../store/action";
 
-export default function ShowcaseModal(props) {
+export default function EditShowName(props) {
   const [name, setName] = useState("");
+  const oneShow = useSelector((state) => state.oneShow);
   const dispatch = useDispatch();
+
+  console.log(oneShow, "<<<<");
+
+  useEffect(() => {
+    if (oneShow.name) {
+      setName(oneShow.name);
+    }
+  }, [oneShow]);
 
   const handleChange = (e) => {
     setName(e.target.value);
@@ -13,13 +21,14 @@ export default function ShowcaseModal(props) {
 
   const submit = (e) => {
     e.preventDefault();
-    dispatch(AddNewShowcase(name));
+    // dispatch(AddNewShowcase(name));
+    console.log("update");
   };
 
   return (
     <Modal {...props} size="sm" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header>
-        <Modal.Title id="contained-modal-title-vcenter"> Add New Showcase</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter"> Edit show name</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={submit}>
@@ -27,7 +36,7 @@ export default function ShowcaseModal(props) {
             <input onChange={handleChange} value={name} className="form-control" type="text" />
           </div>
           <button onClick={props.onHide} className="btn btn-primary mt-2 mx-auto" type="submit">
-            submit
+            update
           </button>
         </form>
       </Modal.Body>
