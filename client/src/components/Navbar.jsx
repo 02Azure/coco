@@ -4,9 +4,8 @@ import { useDispatch } from "react-redux"
 import { checkLogin } from "../store/action"
 import './navbar.css'
 const Navbar = () => {
-  const dispatch = useDispatch();
   function logout(){
-    dispatch(checkLogin(false))
+    localStorage.clear()
     
   }
   return (

@@ -10,6 +10,9 @@ const intialState = {
   oneUser: {},
   user: [],
   oneShow: { name: "jsfks" },
+  oneItem: {
+    
+  }
 };
 
 function reducer(state = intialState, action) {
@@ -30,6 +33,8 @@ function reducer(state = intialState, action) {
       return { ...state, oneShow: payload };
     case "IS_AUTH":
       return { ...state, isLogin: payload };
+    case "GET_DETAIL_ITEM":
+      return { ...state, oneItem: payload };
     default:
       return state;
   }
