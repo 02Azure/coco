@@ -2,6 +2,7 @@ import React from "react";
 import "./profile.css";
 import { useHistory, useParams, withRouter } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { CardColumns } from "react-bootstrap"
 import ModalWishList from "../components/Modal.jsx";
 import FormAdd from "../components/formAddItem";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,31 +19,35 @@ const Profile = () => {
   const [sModal, setSModal] = useState(false);
   const user = useSelector((state) => state.oneUser);
   const items = useSelector((state) => state.items);
+  // const users = useSelector((state) => state.user);
   const userLogged = JSON.parse(localStorage.getItem("userLog"));
-
+  // console.log(id, 'use params');
   const allShow = useSelector((state) => state.allShow);
 
   // console.log(allShow);
 
-  useEffect(() => {
-    dispatch(getAllShow(id));
-  }, [id]);
-
-  const users = useSelector((state) => state.user);
   // const isLogin = useSelector((state) => state.isLogin)
   function hideItems() {
     setShowItem(false);
   }
+  // useEffect(() => {
+  //   dispatch(getAllShow(id));
+  // }, []);
+
   // console.log(userLogged);
   useEffect(() => {
     dispatch(readItems());
-  }, [items]);
+  }, []);
+  // useEffect(() => {
+  //   dispatch(findOneUser(id))
+  // })
 
-  useEffect(() => {
-    console.log(id);
-    dispatch(findOneUser(id));
-  }, [id]);
-
+  // useEffect(() => {
+  //   // console.log(id);
+  //   dispatch(findOneUser(id));
+  //   dispatch(readItems());
+  //   dispatch(getAllShow(id))
+  // }, ); // [items,id]
   function hideItems() {
     setShowItem(false);
   }
@@ -74,8 +79,8 @@ const Profile = () => {
   }
 
   function detailItem(id) {
-    // console.log(id, "<<<");
-    history.push(`editItem/${id}`);
+    console.log(id, "<<<");
+    history.push(`/editItem/${id}`);
   }
   return (
     <section className="profile">
@@ -163,6 +168,7 @@ const Profile = () => {
           <ShowcaseModal show={sModal} onHide={() => setSModal(false)} />
           <FormAdd show={showFormAdd} onHide={() => setShowFormAdd(false)} />
           {/* end of show modal */}
+
           {/* list shocases */}
           {!showItem && (
             <div className="showcase__container">
@@ -174,25 +180,30 @@ const Profile = () => {
             </div>
           )}
           {showItem && (
-            <div className="showcase__container">
               <div className="items__container">
                 {/* <h5>My Item</h5> */}
-                <a className="see__all">see all</a>
-                <div className="items__images">
-                  {items.map((item) => {
-                    return (
-                      <a key={item.id} onClick={(e) => detailItem(item.id)}>
-                        <img src={item.image} alt="" className="item__image" />
-                      </a>
-                    );
-                  })}
+                {/* <a className="see__all">see all</a> */}
+                <div className="items__image">
+                  {/* <CardColumns> */}
+                    {items.map((item) => {
+                      return (
+                        <>
+                          <div>
+                              {/* <p>Click To See Detail</p> */}
+                              <img 
+                              key={item.id} onClick={(e) => detailItem(item.id)}
+                              src={item.image} alt="" className="item__image" />
+                          </div>
+                          </>
+                      );
+                    })}
+                  {/* </CardColumns> */}
                 </div>
               </div>
-            </div>
           )}
         </div>
       </div>
-    </section>
+      </section>
   );
 };
 

@@ -21,8 +21,9 @@ import NotFound from "./views/NotFound";
 import SeeAll from "./views/SeeAll";
 
 function App() {
-  // const isLogin = localStorage.getItem('userLog')
-  const isLogin = useSelector((state) => state.isLogin);
+  const isLogin = localStorage.getItem('isLogin')
+  // const isLogin = useSelector((state) => state.isLogin);
+  // console.log(isLogin, 'islogin');
   return (
     <Router>
       {isLogin && <Navbar />}
