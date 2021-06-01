@@ -26,7 +26,8 @@
 }
 
 .header__image {
-  width: 140px;
+  width: 34%;
+  height: 10vh;
   position: relative;
   left: 36%;
   border-radius: 50%;
@@ -40,17 +41,21 @@
   position: relative;
   left: 36%;
   border-radius: 50%;
-  background-color: red;
+  /* background-color: red; */
+  background-image: url('https://www.mugi.co.id/assets/images/img_def.png');
+  background-size: cover;
+  background-repeat: no-repeat;
   padding: 8px;
 }
 
 .username__text {
-  font-size: 30px;
+  font-size: 40px;
+  /* text-align: center; */
   text-align: center;
 }
 
 .text {
-  font-size: 18px;
+  font-size: 28px;
 }
 
 .btn__chat {

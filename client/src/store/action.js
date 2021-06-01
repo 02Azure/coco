@@ -45,6 +45,7 @@ export function setDisco(payload) {
   return { type: "SET_DISCO", payload };
 }
 export function getDetail(payload) {
+  console.log(payload, "line 45 action js");
   return { type: "GET_DETAIL_ITEM", payload };
 }
 
@@ -159,7 +160,7 @@ export function updateUserInfo(payload) {
       headers: {
         "Content-type": "application/json; charset=UTF-8",
         // Authorization: `Bearer ${token}`,
-        access_token: userInfo.access_token,
+        access_token:  JSON.parse(localStorage.getItem('userLog')).access_token_token,
       },
       mode: "cors",
     })
@@ -245,7 +246,7 @@ export function AddNewShowcase(payload) {
       headers: {
         "Content-type": "application/json; charset=UTF-8",
         // Authorization: `Bearer ${token}`,
-        access_token: userInfo.access_token,
+        access_token:  JSON.parse(localStorage.getItem('userLog')).access_token_token,
       },
       mode: "cors",
     })
@@ -274,7 +275,7 @@ export function removeShowcase(id) {
 
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token: userInfo.access_token,
+        access_token:  JSON.parse(localStorage.getItem('userLog')).access_token_token,
       },
     })
       .then((response) => {
@@ -305,7 +306,7 @@ export function updateShowName(payload) {
 
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token: userInfo.access_token,
+        access_token:  JSON.parse(localStorage.getItem('userLog')).access_token_token,
       },
     })
       .then((response) => {
@@ -369,7 +370,7 @@ export function postShowToItems(payload) {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token: userInfo.access_token,
+        access_token:  JSON.parse(localStorage.getItem('userLog')).access_token_token,
       },
 
       body: JSON.stringify({ ItemId, ShowcaseId }),
@@ -597,12 +598,11 @@ export function showDetailItem(payload) {
 }
 
 export function deleteItem(payload) {
-  const localStorageCheck = JSON.parse(localStorage.getItem("userLog"));
   return (dispatch) => {
     fetch(server + `/items/${payload}`, {
       method: "delete",
       headers: {
-        access_token: localStorageCheck.access_token,
+        access_token: JSON.parse(localStorage.getItem('userLog')).access_token,
         Accept: "application/json",
         "Content-Type": "application/json",
       },
@@ -619,6 +619,34 @@ export function deleteItem(payload) {
         console.log(err);
       });
   };
+}
+
+export function editItem(payload){
+  console.log(payload, 'action line 614');
+  const { id } = payload
+  console.log(id, 'id');
+  return (dispatch) => {
+    fetch(server + `/items/${id}`, {
+      method: 'put',
+      body: JSON.stringify(payload.updated),
+      headers: {
+        access_token: JSON.parse(localStorage.getItem('userLog')).access_token,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      // console.log(respons);
+      return response.json();
+    })
+    .then(res => {
+      console.log(res, "<<< line 632");
+      return dispatch(getDetail(res))
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
 }
 
 // ! wishlist
