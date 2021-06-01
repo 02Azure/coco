@@ -3,11 +3,23 @@ import "./lastMessage.css";
 import { useHistory } from "react-router-dom"
 import socket from "../socket/socket"
 
-export default function LastMessage({ id, username, message, timestamp }) {
+export default function LastMessage({ id, username, image, message, timestamp }) {
   const history = useHistory()
 
   timestamp = new Date(timestamp)
-  timestamp = timestamp.toLocaleTimeString("en-GB").slice(0,5)
+  let today = new Date()
+  
+  let date = timestamp.toLocaleDateString("en-GB")
+  if(today.toLocaleDateString("en-GB") === date) {
+    date = "Today"
+  }
+  
+  let time = timestamp.toLocaleTimeString("en-GB").slice(0,5)
+
+  if(message.length > 53) {
+    message = message.slice(0, 52)
+    message += " ..."
+  }
 
   function toUserTargetChat() {
     socket.off("receiveHistory")
@@ -15,13 +27,17 @@ export default function LastMessage({ id, username, message, timestamp }) {
   }
   return(
     <div className="history-chat" onClick={ toUserTargetChat }>
-      <div className="row">
-        <div className="col-md-2">
+      <div className="contact-picture">
+        <img src={ image } alt={ username + "avatar" } />
+      </div>
+      <div className="row history-content">
+        <div className="col-md-2 header-chatbox">
           <p className="username">{ username }</p>
+          <span>{ date }</span>
         </div>
-        <div className="col-md-12 text__handle chatbox">
-          <span className="text__chat">{ message }</span>
-          <span>{ timestamp }</span>
+        <div className="col-md-12 chatbox">
+          <span className="channel-chat">{ message }</span>
+          <span>{ time }</span>
         </div>
       </div>
     </div>

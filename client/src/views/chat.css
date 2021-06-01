@@ -53,10 +53,10 @@
 }
 
 .box__sent{
-    margin: 10px;
-    width: 70vh;
+    margin: 0.25em;
+    width: 100%;
     /* height:10vh; */
-    padding: 20px;
+
 }
 
 .profile__user__chat{
@@ -67,15 +67,17 @@
 }
 
 .text__handle{
-    background-color:aliceblue;
     padding: 10px;
+    width: 60%;
+    display: flex;
     /* margin : 2px */
 }
 
 .text__chat{
+    word-break: break-all;
     font-size: 20px;
     padding: 10px;
-    color: black;
+    color: black
 }
 .person__name{
     padding: 10px
@@ -98,6 +100,13 @@
   display:flex;
   flex-direction: column;
   align-items:center;
-  height: 100px !important;
-  overflow-y: scroll;
+  height: 80vh !important;
+  overflow-y: auto;
+}
+
+.chat-title {
+  text-align: center;
+  font-size: 1.5em !important;
+  font-weight: bolder;
+  margin-bottom: 1em;
 }

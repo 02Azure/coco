@@ -50,6 +50,9 @@ io.on("connection", socket => {
 
   socket.on("send-message", ({ message, recipient }) => {
 
+    if(messageDB.length >1500) {
+      messageDB.shift()
+    }
     messageDB.push(message)
 
     let foundrecipient = usersOnline.find(user => user.username == recipient)

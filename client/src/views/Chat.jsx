@@ -69,23 +69,36 @@ export default function ChatPage(){
   
           //mempermudah mengambil pesan terakhir
           data.reverse()
+          console.log(data)
   
           //buat array contact dari pesan terakhir dari/ke user yang unik pada loggedUser ini
           data.forEach(message => {
             if(message.from.username !== loggedUser.username) {
               if(uniqueUser.indexOf(message.from.username) < 0) {
                 uniqueUser.push(message.from.username)
-                userContacts.push({ id: message.from.id, username: message.from.username, message: message.message, timestamp: message.timestamp })
+                userContacts.push({ 
+                  id: message.from.id, 
+                  username: message.from.username, 
+                  image: message.from.image,
+                  message: message.message, 
+                  timestamp: message.timestamp 
+                })
               }
             }
             else {
               if(uniqueUser.indexOf(message.recipient.username) < 0) {
                 uniqueUser.push(message.recipient.username)
-                userContacts.push({ id: message.recipient.id, username: message.recipient.username, message: message.message, timestamp: message.timestamp })
+                userContacts.push({ 
+                  id: message.recipient.id, 
+                  username: message.recipient.username,
+                  image: message.recipient.image, 
+                  message: message.message, 
+                  timestamp: message.timestamp 
+                })
               }
             }
           })
-
+          console.log(userContacts)
           setContacts(userContacts)
         }
       })  
@@ -127,10 +140,12 @@ export default function ChatPage(){
       from: {
         id: loggedUser.id,
         username: loggedUser.username,
+        image: loggedUser.image
       },
       recipient: {
         id: recipient.id,
         username: recipient.username,
+        image: recipient.userImage
       },
       message,
       timestamp: new Date()
@@ -142,7 +157,6 @@ export default function ChatPage(){
   }
 
   function scrollToBottom() {
-    console.log("trigger kebawah!")
     messagesEndRef.current?.scrollIntoView({
       behavior: "smooth"
     })
@@ -183,10 +197,10 @@ export default function ChatPage(){
             <div className="another__people">
               <div className="row">
                 <div className="col-md-3">
-                    <img src={pp} className="people__photo"></img>
+                    <img src={recipient.userImage} className="people__photo"></img>
                 </div>
                 <div className="col-md-9  people__name">
-                    <p className="people__chat">John Doe</p>
+                    <p className="people__chat">{ recipient.username }</p>
                 </div>
               </div>
             </div>
@@ -220,10 +234,10 @@ export default function ChatPage(){
 
       </div> :
         <>
-        <h2>Chat</h2>
-        <div className="last-message-container">
-          { lastMessages }
-        </div>
+          <h2 className="chat-title">Chat</h2>
+          <div className="last-message-container">
+            { lastMessages }
+          </div>
         </>
 
     }
