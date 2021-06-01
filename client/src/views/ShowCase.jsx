@@ -44,22 +44,28 @@ const ShowCase = ({ show }) => {
     <div className="items__images m-1 d-flex flex-column">
       <div className="d-flex justify-content-between p-2 align-items-center">
         <div className="d-flex align-items-center">
-          <p className="">{show.name}</p>
+          <h5 className="mb-0">{show.name}</h5>
 
           <div>
-            <i
-              onClick={() => {
-                getOneShow(show.id);
-                setSModal(true);
-              }}
-              class="far fa-edit p-2"
-            ></i>
+            {userLogged.id == show.UserId ? (
+              <i
+                onClick={() => {
+                  getOneShow(show.id);
+                  setSModal(true);
+                }}
+                class="far fa-edit p-2"
+              ></i>
+            ) : (
+              ""
+            )}
           </div>
         </div>
         {userLogged.id == show.UserId ? (
           <div>
-            <i onClick={itemToShow} class="fas fa-plus mx-2"></i>
-            <a onClick={() => toPageSeeAll()}>see all</a>
+            <i style={{ cursor: "pointer" }} onClick={itemToShow} class="fas fa-plus mx-2"></i>
+            <a style={{ cursor: "pointer" }} onClick={() => toPageSeeAll()}>
+              See All
+            </a>
           </div>
         ) : (
           ""
