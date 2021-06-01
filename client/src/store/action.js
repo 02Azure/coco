@@ -4,14 +4,17 @@ const URL_USER = "http://localhost:3000/users";
 const jsonServer = "http://localhost:8000";
 const userEndpoint = "http://localhost:8000/users";
 const server = "http://52.207.207.52:3000";
-const u = JSON.parse(localStorage.getItem("userLog"));
-console.log(u, "userloggedddd");
+const userInfo = JSON.parse(localStorage.getItem("userLog"));
 
 export function setRegister(payload) {
   return { type: "SET_REG", payload };
 }
 export function setWish(payload) {
   return { type: "SET_WISH", payload };
+}
+
+export function setNotFound(payload) {
+  return { type: "SET_NOT_FOUND", payload };
 }
 
 export function setItem(payload) {
@@ -124,7 +127,16 @@ export function findOneUser(id) {
   return (dispatch) => {
     dispatch(setLoading(true));
     fetch(server + "/users/" + id)
-      .then((res) => res.json())
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          if (response.status == 404) {
+            dispatch(setNotFound(true));
+          }
+          throw new Error(response.statusText);
+        }
+      })
       .then((user) => {
         console.log(user, "<<");
         dispatch(setOneUser(user));
@@ -147,7 +159,7 @@ export function updateUserInfo(payload) {
       headers: {
         "Content-type": "application/json; charset=UTF-8",
         // Authorization: `Bearer ${token}`,
-        access_token: u.access_token,
+        access_token: userInfo.access_token,
       },
       mode: "cors",
     })
@@ -161,7 +173,7 @@ export function updateUserInfo(payload) {
       })
       .then((result) => {
         console.log(result);
-        // Redirect("/profile/" + u.id);
+        // Redirect("/profile/" + userInfo.id);
       })
       .catch((error) => {
         console.log(error);
@@ -206,7 +218,6 @@ export function getAllShow(id) {
         if (response.ok) {
           return response.json();
         } else {
-          console.log(response, "<<<");
           throw new Error(response.statusText);
         }
       })
@@ -234,7 +245,7 @@ export function AddNewShowcase(payload) {
       headers: {
         "Content-type": "application/json; charset=UTF-8",
         // Authorization: `Bearer ${token}`,
-        access_token: u.access_token,
+        access_token: userInfo.access_token,
       },
       mode: "cors",
     })
@@ -247,7 +258,7 @@ export function AddNewShowcase(payload) {
         }
       })
       .then((result) => {
-        dispatch(getAllShow(u.id));
+        dispatch(getAllShow(userInfo.id));
       })
       .catch((error) => {
         console.log(error);
@@ -263,7 +274,7 @@ export function removeShowcase(id) {
 
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token: u.access_token,
+        access_token: userInfo.access_token,
       },
     })
       .then((response) => {
@@ -276,7 +287,7 @@ export function removeShowcase(id) {
       })
       .then((result) => {
         // Do something with the response
-        dispatch(getAllShow(u.id));
+        dispatch(getAllShow(userInfo.id));
       })
       .catch((error) => {
         console.log(error);
@@ -294,7 +305,7 @@ export function updateShowName(payload) {
 
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token: u.access_token,
+        access_token: userInfo.access_token,
       },
     })
       .then((response) => {
@@ -307,7 +318,7 @@ export function updateShowName(payload) {
       })
       .then((result) => {
         // Do something with the response
-        dispatch(getAllShow(u.id));
+        dispatch(getAllShow(userInfo.id));
       })
       .catch((error) => {
         console.log(error);
@@ -326,7 +337,7 @@ export function getItems(id) {
       method: "GET",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token: u.access_token,
+        access_token: userInfo.access_token,
       },
     })
       .then((response) => {
@@ -358,7 +369,7 @@ export function postShowToItems(payload) {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token: u.access_token,
+        access_token: userInfo.access_token,
       },
 
       body: JSON.stringify({ ItemId, ShowcaseId }),
@@ -418,7 +429,7 @@ export function switchStarItems({ id, ShowcaseId }) {
       method: "PATCH",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token: u.access_token,
+        access_token: userInfo.access_token,
       },
     })
       .then((response) => {
@@ -449,7 +460,7 @@ export function removeItemsFromShowcase({ id, ShowcaseId }) {
       method: "DELETE",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token: u.access_token,
+        access_token: userInfo.access_token,
       },
     })
       .then((response) => {

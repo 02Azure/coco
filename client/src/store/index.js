@@ -17,6 +17,7 @@ const intialState = {
   oneItem: {},
   wishlists: [],
   wishlist: {},
+  userNotFound: false,
 };
 
 function reducer(state = intialState, action) {
@@ -35,6 +36,8 @@ function reducer(state = intialState, action) {
       return { ...state, discovery: payload };
     case "SET_ONE_USER":
       return { ...state, oneUser: payload };
+    case "SET_NOT_FOUND":
+      return { ...state, userNotFound: payload };
     case "SET_ONE_SHOW":
       return { ...state, oneShow: payload };
     case "SET_ALL_SHOW":

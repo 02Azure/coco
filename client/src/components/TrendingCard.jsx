@@ -5,6 +5,8 @@ import "./trending.css";
 const TrendingCard = ({ data }) => {
   const [modalShow, setModalShow] = React.useState(false);
 
+  console.log(data, "trending!!!!");
+
   return (
     <div className="col-md-4 align-items-stretch">
       <TrendingDetail trending={data} show={modalShow} onHide={() => setModalShow(false)} />
@@ -19,8 +21,8 @@ const TrendingCard = ({ data }) => {
               <p className="card-text">{data.tradeable ? <i style={{ color: "green" }} class="far fa-check-circle"></i> : <i style={{ color: "red" }} class="far fa-times-circle"></i>}</p>
             </div>
             <div className="d-flex content__card my-1 justify-content-between">
-              <strong className="card-text"> Tag</strong>
-              <p className="card-text">{data.tag}</p>
+              <strong className="card-text"> Price</strong>
+              <p className="card-text">{data.price}</p>
             </div>
           </div>
         </div>

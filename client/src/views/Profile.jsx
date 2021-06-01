@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import ModalWishList from "../components/Modal.jsx";
 import FormAdd from "../components/formAddItem";
 import { useDispatch, useSelector } from "react-redux";
-import { readItems, findOneUser, getAllShow, setLogin } from "../store/action";
+import { readItems, findOneUser, getAllShow, setLogin, setNotFound } from "../store/action";
 import ShowcaseModal from "../components/AddShowCaseModal.jsx";
 import ShowCase from "./ShowCase";
 const Profile = () => {
@@ -16,6 +16,7 @@ const Profile = () => {
   const [showModal, setShowModal] = useState(false);
   const [showFormAdd, setShowFormAdd] = useState(false);
   const [sModal, setSModal] = useState(false);
+  const userNotFound = useSelector((state) => state.userNotFound);
   const user = useSelector((state) => state.oneUser);
   const items = useSelector((state) => state.items);
   const userLogged = JSON.parse(localStorage.getItem("userLog"));
@@ -77,6 +78,9 @@ const Profile = () => {
     // console.log(id, "<<<");
     history.push(`editItem/${id}`);
   }
+
+  console.log(user.userImage, "<<<<OTONG");
+
   return (
     <section className="profile">
       {/* navbar image */}
@@ -92,8 +96,7 @@ const Profile = () => {
         <div className="user__container col-md-4 p-3">
           <div className="user__info__container">
             <div className="content__image">
-              {user.userImage && <img src={user.userImage} alt="" className="header__image" />}
-              {!user.userImage && <img src={user.image} alt="" className="header__image__test" />}
+              <img src={user.userImage ? user.userImage : ""} alt="" className="header__image" />
             </div>
             <div className="username d-flex align-items-center p-1 justify-content-between">
               <p className="username__text">@{user.username}</p>
@@ -116,7 +119,7 @@ const Profile = () => {
           </div>
         </div>
         {/* navigation anchor */}
-        <div className="showcase col-md-8 p-3">
+        <div className="showcase pt-0 col-md-8 p-3">
           <div className="buttons d-flex justify-content-start">
             <div className="d-flex align-items-center">
               <div className="d-flex align-items-center">
@@ -166,7 +169,7 @@ const Profile = () => {
           {/* list shocases */}
           {!showItem && (
             <div className="showcase__container">
-              <div className="items__container">
+              <div className="items__container pt-0">
                 {allShow.map((e, i) => (
                   <ShowCase key={i} show={e} />
                 ))}

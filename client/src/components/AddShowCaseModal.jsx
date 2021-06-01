@@ -22,11 +22,11 @@ export default function ShowcaseModal(props) {
         <Modal.Title id="contained-modal-title-vcenter"> Add New Showcase</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <form onSubmit={submit}>
+        <form onSubmit={submit} className="d-flex justify-content-between align-items-center">
           <div className="form-group">
             <input onChange={handleChange} value={name} className="form-control" type="text" />
           </div>
-          <button onClick={props.onHide} className="btn btn-primary mt-2 mx-auto" type="submit">
+          <button onClick={props.onHide} className="btn btn-primary d-block" type="submit">
             submit
           </button>
         </form>
