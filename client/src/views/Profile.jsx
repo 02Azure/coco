@@ -84,7 +84,6 @@ const Profile = () => {
         <a onClick={goDiscovery} className="navbar__anchor">
           Home
         </a>
-        <p>{JSON.stringify(user)}</p>
       </div>
 
       {/* profile side */}
@@ -120,19 +119,18 @@ const Profile = () => {
         <div className="showcase col-md-8 p-3">
           <div className="buttons d-flex justify-content-start">
             <div className="d-flex align-items-center">
-              <div>
-                <a onClick={hideItems} className="btn">
+              <div className="d-flex align-items-center">
+                <a onClick={hideItems} className="btn p-0">
                   Showcases
                 </a>
+                {userLogged.id == id ? (
+                  <div>
+                    <i onClick={addToShowcase} class="far fa-plus-square"></i>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
-
-              {userLogged.id == id ? (
-                <div>
-                  <i onClick={addToShowcase} class="far fa-plus-square"></i>
-                </div>
-              ) : (
-                ""
-              )}
             </div>
 
             {userLogged.id == id ? (

@@ -29,7 +29,7 @@ const ShowcaseCard = ({ see, ShowcaseId }) => {
               </button> */}
             {see.isStarred ? (
               <div className="mx-1">
-                <i style={{ color: "red" }} onClick={() => star(see.id)} class="fas fa-star fa-lg"></i>
+                <i style={{ color: "#FFDF00" }} onClick={() => star(see.id)} class="fas fa-star fa-lg"></i>
               </div>
             ) : (
               <div className="mx-1">

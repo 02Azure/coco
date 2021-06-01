@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { getWish } from "../store/action";
-import ItemCard from "../components/ItemCard";
 import "./trending.css";
 
 import { useSelector, useDispatch } from "react-redux";
+import TrendingCard from "../components/TrendingCard";
 
 const Trending = () => {
   const wish = useSelector((state) => state.wish);
@@ -18,7 +18,7 @@ const Trending = () => {
       <div className="trending__container">
         <div className="row">
           {wish.map((e, i) => (
-            <ItemCard data={e} wish={true} key={i}></ItemCard>
+            <TrendingCard data={e} key={i}></TrendingCard>
           ))}
         </div>
       </div>
