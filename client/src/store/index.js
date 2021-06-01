@@ -27,7 +27,6 @@ function reducer(state = intialState, action) {
     case "SET_ITEM":
       return { ...state, items: payload };
     case "SET_USER":
-      // console.log(payload, 'di store index');
       return { ...state, user: payload };
     case "SET_LOADING":
       return { ...state, loading: payload };
