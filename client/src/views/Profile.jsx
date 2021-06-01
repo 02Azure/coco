@@ -24,23 +24,23 @@ const Profile = () => {
   // console.log(id, 'use params');
   const allShow = useSelector((state) => state.allShow);
 
-  // console.log(allShow);
+  // console.log(userLogged, "<<< use params");
 
   // const isLogin = useSelector((state) => state.isLogin)
   function hideItems() {
     setShowItem(false);
   }
-  // useEffect(() => {
-  //   dispatch(getAllShow(id));
-  // }, []);
+  useEffect(() => {
+    dispatch(getAllShow(id));
+  }, [id]);
 
   // console.log(userLogged);
   useEffect(() => {
     dispatch(readItems());
-  }, []);
-  // useEffect(() => {
-  //   dispatch(findOneUser(id))
-  // })
+  }, [items]);
+  useEffect(() => {
+    dispatch(findOneUser(id))
+  }, [id])
 
   // useEffect(() => {
   //   // console.log(id);
@@ -86,9 +86,9 @@ const Profile = () => {
     <section className="profile">
       {/* navbar image */}
       <div className="header__image__container">
-        <a onClick={goDiscovery} className="navbar__anchor">
+        {/* <a onClick={goDiscovery} className="navbar__anchor">
           Home
-        </a>
+        </a> */}
       </div>
 
       {/* profile side */}
@@ -96,28 +96,26 @@ const Profile = () => {
         {/* user info */}
         <div className="user__container col-md-4 p-3">
           <div className="user__info__container">
+              {userLogged.id == id ? <i onClick={editUserInfo} className="far fa-edit"></i> : ""}
             <div className="content__image">
               {user.userImage && <img src={user.userImage} alt="" className="header__image" />}
               {!user.userImage && <img src={user.image} alt="" className="header__image__test" />}
             </div>
             <div className="username d-flex align-items-center p-1 justify-content-between">
               <p className="username__text">@{user.username}</p>
-              {userLogged.id == id ? <i onClick={editUserInfo} className="far fa-edit"></i> : ""}
             </div>
             <div className="main__content p-1">
               <p className="text">{user.userDesc}</p>
             </div>
             <div className="main__content p-1 d-flex align-items-center">
               <i className="fas fa-map-marker-alt"></i>
-              <p className="text mx-1">{user.location}</p>
+              <p className="text mx-1">{user.location ? user.location : 'unknown'}</p>
             </div>
-            {userLogged.id !== id ? (
+            {userLogged.id !== +id &&
               <button onClick={showChat} className="btn__chat">
-                Chat
+              Chat
               </button>
-            ) : (
-              ""
-            )}
+            }
           </div>
         </div>
         {/* navigation anchor */}
@@ -166,7 +164,7 @@ const Profile = () => {
           {/* show modal */}
           <ModalWishList show={showModal} onHide={() => setShowModal(false)} />
           <ShowcaseModal show={sModal} onHide={() => setSModal(false)} />
-          <FormAdd show={showFormAdd} onHide={() => setShowFormAdd(false)} />
+          <FormAdd show={showFormAdd} onHide={() => setShowFormAdd(false)} pathname="profile" />
           {/* end of show modal */}
 
           {/* list shocases */}
@@ -188,10 +186,10 @@ const Profile = () => {
                     {items.map((item) => {
                       return (
                         <>
-                          <div>
+                          <div key={item.id}>
                               {/* <p>Click To See Detail</p> */}
                               <img 
-                              key={item.id} onClick={(e) => detailItem(item.id)}
+                              onClick={(e) => detailItem(item.id)}
                               src={item.image} alt="" className="item__image" />
                           </div>
                           </>

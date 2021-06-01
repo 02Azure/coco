@@ -5,9 +5,11 @@ import { AddNewShowcase, getItems, postShowToItems } from "../store/action";
 
 export default function ListItemModal({ ShowcaseId, ...props }) {
   const items = useSelector((state) => state.items);
-
   const [ItemId, setItem] = useState("");
 
+                        {/* <Form.Control type="text" placeholder="tradeable" 
+                        onChange={e => setItemAdd({...itemAdd, tradeable:e.target.value})}
+                        /> */}
   const dispatch = useDispatch();
 
   useEffect(() => {
