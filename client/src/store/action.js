@@ -1,14 +1,17 @@
 import { Redirect } from "react-router";
 
 const server = "http://52.207.207.52:3000";
-let u 
-// console.log(u, "userloggedddd");
-
+const userInfo = JSON.parse(localStorage.getItem("userLog"));
+let u = "";
 export function setRegister(payload) {
   return { type: "SET_REG", payload };
 }
 export function setWish(payload) {
   return { type: "SET_WISH", payload };
+}
+
+export function setNotFound(payload) {
+  return { type: "SET_NOT_FOUND", payload };
 }
 
 export function setItem(payload) {
@@ -96,23 +99,23 @@ export function login(payload) {
         "Content-type": "application/json; charset=UTF-8",
       },
     })
-    .then((response) => {
-      const success = response.status === 200;
-      if (success) {
-        // console.log('success');
-        return response.json();
-      } else {
-        // console.log();
-        throw new Error(response.statusText);
-      }
-    })
-    .then((result) => {
-      localStorage.setItem("userLog", JSON.stringify(result));
-      localStorage.setItem("isLogin", true)
-      u = JSON.parse(localStorage.getItem("userLog"))
-      // console.log(temp.access_token, 'toen');
-      dispatch(checkLogin(true));
-    })
+      .then((response) => {
+        const success = response.status === 200;
+        if (success) {
+          // console.log('success');
+          return response.json();
+        } else {
+          // console.log();
+          throw new Error(response.statusText);
+        }
+      })
+      .then((result) => {
+        localStorage.setItem("userLog", JSON.stringify(result));
+        localStorage.setItem("isLogin", true);
+        u = JSON.parse(localStorage.getItem("userLog"));
+        // console.log(temp.access_token, 'toen');
+        dispatch(checkLogin(true));
+      })
       .catch((error) => {
         console.log(error, "<<< error");
       });
@@ -124,7 +127,16 @@ export function findOneUser(id) {
   return (dispatch) => {
     dispatch(setLoading(true));
     fetch(server + "/users/" + id)
-      .then((res) => res.json())
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          if (response.status == 404) {
+            dispatch(setNotFound(true));
+          }
+          throw new Error(response.statusText);
+        }
+      })
       .then((user) => {
         console.log(user, "<<");
         dispatch(setOneUser(user));
@@ -147,7 +159,7 @@ export function updateUserInfo(payload) {
       headers: {
         "Content-type": "application/json; charset=UTF-8",
         // Authorization: `Bearer ${token}`,
-        access_token: u.access_token,
+        access_token: userInfo.access_token,
       },
       mode: "cors",
     })
@@ -161,7 +173,7 @@ export function updateUserInfo(payload) {
       })
       .then((result) => {
         console.log(result);
-        // Redirect("/profile/" + u.id);
+        // Redirect("/profile/" + userInfo.id);
       })
       .catch((error) => {
         console.log(error);
@@ -206,7 +218,6 @@ export function getAllShow(id) {
         if (response.ok) {
           return response.json();
         } else {
-          console.log(response, "<<<");
           throw new Error(response.statusText);
         }
       })
@@ -234,7 +245,7 @@ export function AddNewShowcase(payload) {
       headers: {
         "Content-type": "application/json; charset=UTF-8",
         // Authorization: `Bearer ${token}`,
-        access_token: u.access_token,
+        access_token: userInfo.access_token,
       },
       mode: "cors",
     })
@@ -247,7 +258,7 @@ export function AddNewShowcase(payload) {
         }
       })
       .then((result) => {
-        dispatch(getAllShow(u.id));
+        dispatch(getAllShow(userInfo.id));
       })
       .catch((error) => {
         console.log(error);
@@ -263,7 +274,7 @@ export function removeShowcase(id) {
 
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token: u.access_token,
+        access_token: userInfo.access_token,
       },
     })
       .then((response) => {
@@ -276,7 +287,7 @@ export function removeShowcase(id) {
       })
       .then((result) => {
         // Do something with the response
-        dispatch(getAllShow(u.id));
+        dispatch(getAllShow(userInfo.id));
       })
       .catch((error) => {
         console.log(error);
@@ -294,7 +305,7 @@ export function updateShowName(payload) {
 
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token: u.access_token,
+        access_token: userInfo.access_token,
       },
     })
       .then((response) => {
@@ -307,7 +318,7 @@ export function updateShowName(payload) {
       })
       .then((result) => {
         // Do something with the response
-        dispatch(getAllShow(u.id));
+        dispatch(getAllShow(userInfo.id));
       })
       .catch((error) => {
         console.log(error);
@@ -326,7 +337,7 @@ export function getItems(id) {
       method: "GET",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token: JSON.parse(localStorage.getItem('userLog')).access_token,
+        access_token: userInfo.access_token,
       },
     })
       .then((response) => {
@@ -358,7 +369,7 @@ export function postShowToItems(payload) {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token: u.access_token,
+        access_token: userInfo.access_token,
       },
 
       body: JSON.stringify({ ItemId, ShowcaseId }),
@@ -418,7 +429,7 @@ export function switchStarItems({ id, ShowcaseId }) {
       method: "PATCH",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token: JSON.parse(localStorage.getItem('userLog')).access_token,
+        access_token: userInfo.access_token,
       },
     })
       .then((response) => {
@@ -449,7 +460,7 @@ export function removeItemsFromShowcase({ id, ShowcaseId }) {
       method: "DELETE",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token: JSON.parse(localStorage.getItem('userLog')).access_token,
+        access_token: userInfo.access_token,
       },
     })
       .then((response) => {
@@ -522,7 +533,7 @@ export function addItem(payload) {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
-        access_token: JSON.parse(localStorage.getItem('userLog')).access_token,
+        access_token: JSON.parse(localStorage.getItem("userLog")).access_token,
         Accept: "application/json",
         "Content-Type": "application/json",
       },
@@ -544,7 +555,7 @@ export function readItems() {
   return (dispatch) => {
     fetch(server + "/items", {
       headers: {
-        access_token: JSON.parse(localStorage.getItem('userLog')).access_token,
+        access_token: JSON.parse(localStorage.getItem("userLog")).access_token,
         Accept: "application/json",
         "Content-Type": "application/json",
       },
@@ -567,7 +578,7 @@ export function showDetailItem(payload) {
     fetch(server + `/items/${payload}`, {
       method: "get",
       headers: {
-        access_token: JSON.parse(localStorage.getItem('userLog')).access_token,
+        access_token: JSON.parse(localStorage.getItem("userLog")).access_token,
         Accept: "application/json",
         "Content-Type": "application/json",
       },
@@ -597,7 +608,7 @@ export function deleteItem(payload) {
       },
     })
       .then((response) => {
-        console.log(response, 'res');
+        console.log(response, "res");
         return response.json();
       })
       .then((result) => {

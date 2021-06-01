@@ -71,7 +71,7 @@ const Login = () => {
 
                   <a onClick={loginWeb} className="btn my-1 py-2 btn-login">
                     {" "}
-                    Login
+                    SIGN IN
                   </a>
 
                   <span className="text-center my-3 d-block">or</span>
