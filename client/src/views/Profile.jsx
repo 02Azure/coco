@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./profile.css";
-import { useHistory, withRouter } from "react-router-dom";
+import { useHistory, useParams, withRouter } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ModalWishList from "../components/Modal.jsx";
 import FormAdd from "../components/formAddItem";
@@ -11,6 +11,7 @@ import ShowCase from "./ShowCase";
 const Profile = () => {
   let history = useHistory();
   const dispatch = useDispatch();
+  const { id } = useParams();
   const [showItem, setShowItem] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showFormAdd, setShowFormAdd] = useState(false);
@@ -24,8 +25,8 @@ const Profile = () => {
   // console.log(allShow);
 
   useEffect(() => {
-    dispatch(getAllShow(3));
-  }, []);
+    dispatch(getAllShow(id));
+  }, [id]);
 
   const users = useSelector((state) => state.user);
   // const isLogin = useSelector((state) => state.isLogin)
@@ -36,9 +37,12 @@ const Profile = () => {
   useEffect(() => {
     dispatch(readItems());
   }, [items]);
+
   useEffect(() => {
-    dispatch(findOneUser(JSON.stringify(userLogged.id)));
-  }, []);
+    console.log(id);
+    dispatch(findOneUser(id));
+  }, [id]);
+
   function hideItems() {
     setShowItem(false);
   }
@@ -54,7 +58,7 @@ const Profile = () => {
   }
 
   function editUserInfo() {
-    history.push("/editProfile/10");
+    history.push("/editProfile/" + userLogged.id);
   }
   function goDiscovery() {
     // history.push("/discovery")
@@ -89,44 +93,61 @@ const Profile = () => {
         <div className="user__container col-md-4 p-3">
           <div className="user__info__container">
             <div className="content__image">
-              {user.image && <img src={user.image} alt="" className="header__image" />}
-              {!user.image && <img src={user.image} alt="" className="header__image__test" />}
+              {user.userImage && <img src={user.userImage} alt="" className="header__image" />}
+              {!user.userImage && <img src={user.image} alt="" className="header__image__test" />}
             </div>
-            <div className="username d-flex align-items-center justify-content-between">
+            <div className="username d-flex align-items-center p-1 justify-content-between">
               <p className="username__text">@{user.username}</p>
-              <i onClick={editUserInfo} class="far fa-edit"></i>
+              {userLogged.id == id ? <i onClick={editUserInfo} className="far fa-edit"></i> : ""}
             </div>
-            <div className="main__content">
+            <div className="main__content p-1">
               <p className="text">{user.userDesc}</p>
-              <p className="text">location</p>
             </div>
-            <button onClick={showChat} className="btn__chat">
-              Chat
-            </button>
+            <div className="main__content p-1 d-flex align-items-center">
+              <i className="fas fa-map-marker-alt"></i>
+              <p className="text mx-1">{user.location}</p>
+            </div>
+            {userLogged.id !== id ? (
+              <button onClick={showChat} className="btn__chat">
+                Chat
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </div>
         {/* navigation anchor */}
         <div className="showcase col-md-8 p-3">
-          <div className="buttons d-flex">
+          <div className="buttons d-flex justify-content-start">
             <div className="d-flex align-items-center">
               <div>
                 <a onClick={hideItems} className="btn">
-                  show case
+                  Showcases
                 </a>
               </div>
+
+              {userLogged.id == id ? (
+                <div>
+                  <i onClick={addToShowcase} class="far fa-plus-square"></i>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+
+            {userLogged.id == id ? (
               <div>
-                <i onClick={addToShowcase} class="far fa-plus-square"></i>
+                <a onClick={itemsShow} className="btn">
+                  My Items
+                </a>
               </div>
-            </div>
-            <div>
-              <a onClick={itemsShow} className="btn">
-                items
-              </a>
-            </div>
+            ) : (
+              ""
+            )}
 
             <div>
               <a onClick={pageWishList} className="btn">
-                wishlist
+                Wishlists
               </a>
             </div>
 

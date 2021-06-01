@@ -37,7 +37,7 @@ const ShowCase = ({ show }) => {
     history.push("/seeall/" + show.id);
   };
 
-  const starredItems = show.ShowcaseItems.filter((e) => e.isStarred === true);
+  const starredItems = show.ShowcaseItems.filter((e) => e.isStarred !== true);
 
   return (
     <div className="items__images m-1 d-flex flex-column">

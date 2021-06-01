@@ -33,7 +33,10 @@ function App() {
         <Route path="/register">
           <Register />
         </Route>
-        <ProtectedRoute path="/profile" component={Profile} isAuth={isLogin} />
+        <Route path="/profile/:id">
+          <Profile />
+        </Route>
+        {/* <ProtectedRoute path="/profile/" component={Profile} isAuth={isLogin} /> */}
         <ProtectedRoute path="/chat" component={ChatPage} isAuth={isLogin} />
         <ProtectedRoute path="/discovery" component={Discovery} isAuth={isLogin} />
         <ProtectedRoute path="/showCase" component={ShowCase} isAuth={isLogin} />
