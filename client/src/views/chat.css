@@ -94,6 +94,10 @@
     border: none;
 }
 
-.nav{
-    
+.last-message-container {
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  height: 100px !important;
+  overflow-y: scroll;
 }

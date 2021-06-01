@@ -56,6 +56,7 @@ class userController{
       if(!user) throw { status: 404, message: "User not found"}
 
       let profile = {
+        id: user.id,
         username: user.username,
         userDesc: user.userDesc,
         userImage: user.userImage,

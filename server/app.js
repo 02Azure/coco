@@ -4,11 +4,14 @@ if(process.env.NODE_ENV !== 'production'){
 }
 
 const express = require('express')
+const socket = require("socket.io")
+const cors = require("cors")
 const index = require("./routes/indexRoute")
 const errorHandler = require('./middlewares/errorHandler')
-const cors = require("cors")
+const allowConnection = require("./middlewares/allowConnection")
+
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3001
 
 app.use(cors())
 app.use(express.urlencoded({extended: true}))
@@ -19,11 +22,48 @@ app.use("/", index)
 app.use(errorHandler)
 
   /* istanbul ignore next */
-if(process.env.NODE_ENV == 'production'){
+const server = app.listen(port, () => {
+  console.log(`App listening at http://localhost:${port}`)
+})
 
-  app.listen(port, () => {
-    console.log(`App listening at http://localhost:${port}`)
+const messageDB = []
+const usersOnline = [];
+const userProfPicDB = {}
+
+const io = socket(server, {
+  cors: {
+    origin: `http://localhost:3000`
+  }
+})
+
+io.use(allowConnection)
+
+io.on("connection", socket => {
+  console.log(socket.id, socket.username, "connected!")
+  
+  usersOnline.push({
+    userID: socket.id,
+    username: socket.username,
+  });
+
+  socket.emit("receiveHistory", messageDB)
+
+  socket.on("send-message", ({ message, recipient }) => {
+
+    messageDB.push(message)
+
+    let foundrecipient = usersOnline.find(user => user.username == recipient)
+    if(foundrecipient) socket.to(foundrecipient.userID).emit('received-message', messageDB)
   })
-}
+
+  socket.on("disconnect", () => {
+    let deletedIndex = usersOnline.findIndex(user => user.username == socket.username)
+    usersOnline.splice(deletedIndex, 1)
+
+    console.log(`USER ${socket.username} DISCONNECTED`)
+    console.log("Current User", usersOnline)
+  })
+})
+
 
 module.exports = app;

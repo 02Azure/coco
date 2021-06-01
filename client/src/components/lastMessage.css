@@ -1,0 +1,14 @@
+.history-chat {
+  width: 80%
+}
+
+.username {
+  font-weight: bold;
+  color:black;
+}
+
+.chatbox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

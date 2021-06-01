@@ -30,17 +30,18 @@ const Profile = () => {
   function hideItems() {
     setShowItem(false);
   }
-  // useEffect(() => {
-  //   dispatch(getAllShow(id));
-  // }, []);
+  useEffect(() => {
+    dispatch(getAllShow(id));
+  }, []);
 
   // console.log(userLogged);
   useEffect(() => {
     dispatch(readItems());
   }, []);
-  // useEffect(() => {
-  //   dispatch(findOneUser(id))
-  // })
+
+  useEffect(() => {
+    dispatch(findOneUser(id))
+  },[])
 
   // useEffect(() => {
   //   // console.log(id);
@@ -59,7 +60,7 @@ const Profile = () => {
     history.push("/wishlist");
   }
   function showChat() {
-    history.push("/chat");
+    history.push(`/chat?recipient=${id}`);
   }
 
   function editUserInfo() {
@@ -130,7 +131,7 @@ const Profile = () => {
                 </a>
                 {userLogged.id == id ? (
                   <div>
-                    <i onClick={addToShowcase} class="far fa-plus-square"></i>
+                    <i onClick={addToShowcase} className="far fa-plus-square"></i>
                   </div>
                 ) : (
                   ""

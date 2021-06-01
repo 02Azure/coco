@@ -1,6 +1,6 @@
 import { Redirect } from "react-router";
-
-const server = "http://52.207.207.52:3000";
+const server = "http://localhost:3001"
+// const server = "http://52.207.207.52:3000";
 let u 
 // console.log(u, "userloggedddd");
 
@@ -89,7 +89,7 @@ export function register(payload) {
 export function login(payload) {
   // console.log(payload, "<<");
   return function (dispatch) {
-    fetch("http://52.207.207.52:3000/users/login", {
+    fetch(`${server}/users/login`, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
