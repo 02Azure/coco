@@ -17,7 +17,7 @@ function Detail({ discovery, ...props }) {
       {/* <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">Modal heading</Modal.Title>
       </Modal.Header> */}
-      <Modal.Body>
+      <Modal.Body className="py-1">
         <div className="detail__container p-2">
           <div className="row">
             <div className="col-md-6 my-auto">
@@ -66,7 +66,7 @@ function Detail({ discovery, ...props }) {
           </div>
         </div>
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer className="py-1">
         <Button
           onClick={() => {
             props.onHide();

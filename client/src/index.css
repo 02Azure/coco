@@ -11,6 +11,10 @@ body {
   font-weight: 400;
 }
 
+.modal-footer {
+  border-top: none;
+}
+
 img {
   max-width: 100%;
   display: block;

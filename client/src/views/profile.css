@@ -59,7 +59,7 @@
   /* justify-self:center */
   border-radius: 20px;
   font-size: 20px;
-  font-weight: 800;
+  font-weight: 400;
   position: relative;
   left: 5em;
 }
@@ -94,7 +94,6 @@
   transform: scale(1.1);
   cursor: pointer;
   opacity: 0.9;
-  
 }
 
 .see__all {
@@ -109,7 +108,7 @@
 .btn {
   margin: 2px 4px;
   font-size: 20px;
-  font-weight: 800;
+  font-weight: 400;
 }
 
 .buttons {

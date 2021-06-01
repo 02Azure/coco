@@ -23,7 +23,7 @@ export default function EditShowName({ updateFrom, deleteFrom, ...props }) {
 
   return (
     <Modal {...props} size="sm" aria-labelledby="contained-modal-title-vcenter" centered>
-      <Modal.Header>
+      <Modal.Header className="py-0">
         <Modal.Title id="contained-modal-title-vcenter"> Edit show name</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -34,7 +34,7 @@ export default function EditShowName({ updateFrom, deleteFrom, ...props }) {
         </form>
       </Modal.Body>
 
-      <Modal.Footer>
+      <Modal.Footer className="pb-2">
         <Button
           onClick={() => {
             updateFrom(name);

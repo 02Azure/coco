@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import oke from ".././images/002.png";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
 import { oneShow, removeShowcase, updateShowName } from "../store/action";
 import EditShowName from "../components/EditShowName";
 import ListItemModal from "../components/ListItemModal";
@@ -10,6 +10,19 @@ import { useHistory } from "react-router";
 const ShowCase = ({ show }) => {
   const dispatch = useDispatch();
   const userLogged = JSON.parse(localStorage.getItem("userLog"));
+  const error = useSelector((state) => state.error);
+
+  useEffect(() => {
+    console.log(error, "============");
+    if (error.err) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: '<a href="">Why do I have this issue?</a>',
+      });
+    }
+  }, [error]);
 
   const history = useHistory();
 
@@ -38,7 +51,13 @@ const ShowCase = ({ show }) => {
     history.push("/seeall/" + show.id);
   };
 
-  const starredItems = show.ShowcaseItems.filter((e) => e.isStarred == true);
+  let arr = show.ShowcaseItems;
+
+  const newArr = arr.filter((e) => e.isStarred == true);
+
+  if (newArr.length !== 0) {
+    arr = newArr;
+  }
 
   return (
     <div className="items__images m-1 d-flex flex-column">
@@ -60,6 +79,7 @@ const ShowCase = ({ show }) => {
             )}
           </div>
         </div>
+
         {userLogged.id == show.UserId ? (
           <div>
             <i style={{ cursor: "pointer" }} onClick={itemToShow} class="fas fa-plus mx-2"></i>
@@ -68,7 +88,11 @@ const ShowCase = ({ show }) => {
             </a>
           </div>
         ) : (
-          ""
+          <div>
+            <a style={{ cursor: "pointer" }} onClick={() => toPageSeeAll()}>
+              See All
+            </a>
+          </div>
         )}
       </div>
 
@@ -76,7 +100,7 @@ const ShowCase = ({ show }) => {
       <ListItemModal ShowcaseId={show.id} show={IModal} onHide={() => setIModal(false)} />
 
       <div className="row">
-        {starredItems.map((e, i) => {
+        {arr.slice(0, 3).map((e, i) => {
           return <CardProfile key={i} discovery={e}></CardProfile>;
         })}
       </div>

@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 function TrendingDetail({ trending, ...props }) {
   const h = useHistory();
 
-  console.log(trending.User, "<<<<DETAIL");
+  console.log(trending.image, "<<<<DETAIL");
 
   const u = trending.User;
 

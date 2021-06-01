@@ -9,6 +9,9 @@ export function setRegister(payload) {
 export function setWish(payload) {
   return { type: "SET_WISH", payload };
 }
+export function setError(payload) {
+  return { type: "SET_ERROR", payload };
+}
 
 export function setNotFound(payload) {
   return { type: "SET_NOT_FOUND", payload };
@@ -254,6 +257,7 @@ export function AddNewShowcase(payload) {
           return response.json();
         } else {
           console.log(response, "<<<");
+          dispatch(setError({ err: true, msg: response.statusText }));
           throw new Error(response.statusText);
         }
       })
