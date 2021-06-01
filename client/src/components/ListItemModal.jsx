@@ -8,7 +8,6 @@ export default function ListItemModal({ ShowcaseId, ...props }) {
   const one = useSelector((state) => state.oneShow);
 
   const [ItemId, setItem] = useState("");
-
   const dispatch = useDispatch();
 
   useEffect(() => {

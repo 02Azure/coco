@@ -26,10 +26,7 @@ body {
 
 .header__image {
   width: 50%;
-  /* position: relative;
-  left: 36%; */
   border-radius: 10px;
-  /* background-color: #333; */
   padding: 8px;
 }
 
@@ -39,7 +36,10 @@ body {
   position: relative;
   left: 36%;
   border-radius: 50%;
-  background-color: red;
+  /* background-color: red; */
+  background-image: url('https://www.mugi.co.id/assets/images/img_def.png');
+  background-size: cover;
+  background-repeat: no-repeat;
   padding: 8px;
 }
 
@@ -49,7 +49,7 @@ body {
 }
 
 .text {
-  font-size: 18px;
+  font-size: 28px;
 }
 .text p {
   color: #fffafa;

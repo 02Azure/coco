@@ -33,7 +33,7 @@ const Profile = () => {
   }
   useEffect(() => {
     dispatch(getAllShow(id));
-  }, [allShow]); //!PASANG ALL SHOW DI SINI
+  }, [allShow, id]); //!PASANG ALL SHOW DI SINI
 
   // console.log(userLogged);
   useEffect(() => {
@@ -88,11 +88,6 @@ const Profile = () => {
 
   return (
     <section className="profile">
-      {/* navbar image */}
-      {/* <div className="header__image__container">
-    
-      </div> */}
-
       {/* profile side */}
       <div className="profile__container row">
         {/* user info */}
@@ -111,7 +106,6 @@ const Profile = () => {
             </div>
             <div className="username d-flex align-items-center p-1 justify-content-between">
               <p className="username__text">@{user.username}</p>
-              {userLogged.id == id ? <i onClick={editUserInfo} className="far fa-edit"></i> : ""}
             </div>
             <div className="main__content p-1">
               <p className="text">{user.userDesc}</p>
@@ -119,16 +113,13 @@ const Profile = () => {
             <div className="main__content p-1 d-flex align-items-center">
               <i className="fas fa-map-marker-alt"></i>
               <p style={{ color: "#9d9d9d" }} className="text mx-2">
-                {user.location}
+                {user.location ? user.location : "unknown"}
               </p>
             </div>
-
-            {userLogged.id != id ? (
+            {userLogged.id !== +id && (
               <button onClick={showChat} className="btn__chat">
                 Chat
               </button>
-            ) : (
-              ""
             )}
           </div>
         </div>
@@ -170,7 +161,7 @@ const Profile = () => {
           {/* show modal */}
           <ModalWishList show={showModal} onHide={() => setShowModal(false)} />
           <ShowcaseModal show={sModal} onHide={() => setSModal(false)} />
-          <FormAdd show={showFormAdd} onHide={() => setShowFormAdd(false)} />
+          <FormAdd show={showFormAdd} onHide={() => setShowFormAdd(false)} pathname="profile" />
           {/* end of show modal */}
 
           {/* list shocases */}
@@ -196,9 +187,9 @@ const Profile = () => {
                 {items.map((item) => {
                   return (
                     <>
-                      <div>
+                      <div key={item.id}>
                         {/* <p>Click To See Detail</p> */}
-                        <img key={item.id} onClick={(e) => detailItem(item.id)} src={item.image} alt="" className="item__image" />
+                        <img onClick={(e) => detailItem(item.id)} src={item.image} alt="" className="item__image" />
                       </div>
                     </>
                   );
