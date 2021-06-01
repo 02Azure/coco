@@ -2,15 +2,15 @@ import React from "react";
 
 import { Button, Modal } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-function Detail({ discovery, ...props }) {
+function TrendingDetail({ trending, ...props }) {
   const h = useHistory();
 
-  console.log(discovery.User, "<<<<DETAIL");
+  console.log(trending.User, "<<<<DETAIL");
 
-  const u = discovery.User;
+  const u = trending.User;
 
   const changePage = () => {
-    h.push("/profile/" + discovery.UserId);
+    h.push("/profile/" + trending.UserId);
   };
   return (
     <Modal {...props} size="md" aria-labelledby="contained-modal-title-vcenter" centered>
@@ -22,7 +22,7 @@ function Detail({ discovery, ...props }) {
           <div className="row">
             <div className="col-md-6 my-auto">
               <div>
-                <img style={{ width: "75%", margin: "auto" }} src={discovery.image} alt="" />
+                <img style={{ width: "75%", margin: "auto" }} src={trending.image ? trending.image : "https://www.mugi.co.id/assets/images/img_def.png"} alt="" />
               </div>
             </div>
 
@@ -37,21 +37,21 @@ function Detail({ discovery, ...props }) {
                 <hr style={{ margin: "5px" }}></hr>
                 <div>
                   <p>Card Name</p>
-                  {discovery.name}
+                  {trending.name}
                 </div>
                 <div>
                   <p>Description</p>
-                  {discovery.description}
+                  {trending.description}
                 </div>
                 <div>
                   <p>Tag</p>
-                  {discovery.tag}
+                  {trending.tag}
                 </div>
 
-                {discovery.tradeable ? (
+                {trending.tradeable ? (
                   <div>
                     <p>Trade With</p>
-                    {discovery.tradeWith}
+                    {trending.tradeWith}
                   </div>
                 ) : (
                   ""
@@ -59,7 +59,7 @@ function Detail({ discovery, ...props }) {
 
                 <div>
                   <p>Price</p>
-                  {discovery.price}
+                  {trending.price}
                 </div>
               </div>
             </div>
@@ -80,4 +80,4 @@ function Detail({ discovery, ...props }) {
   );
 }
 
-export default Detail;
+export default TrendingDetail;

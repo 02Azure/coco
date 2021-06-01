@@ -1,18 +1,20 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux"
-import { checkLogin } from "../store/action"
-import { useSelector } from 'react-redux'
-import './navbar.css'
+import { useDispatch } from "react-redux";
+import { checkLogin } from "../store/action";
+import { useSelector } from "react-redux";
+import "./navbar.css";
 const Navbar = () => {
-  
   const dispatch = useDispatch();
   const history = useHistory();
-  function logout(){
-    localStorage.clear()
+  function logout() {
+    localStorage.clear();
     dispatch(checkLogin(false));
-    history.push('/')
+    history.push("/");
   }
+
+  const u = JSON.parse(localStorage.getItem("userLog"));
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-transparent">
       <div className="container">
@@ -33,12 +35,14 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/profile" className="nav-link">
+              <Link to={`/profile/${u.id}`} className="nav-link">
                 Profile
               </Link>
             </li>
             <li className="nav-item">
-              <a onClick={logout} className="nav-link ">Logout</a>
+              <a onClick={logout} className="nav-link ">
+                Logout
+              </a>
             </li>
           </ul>
         </div>

@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
-import { findOneUser } from "../store/action";
+import { findOneUser, updateUserInfo } from "../store/action";
 import "./edit.css";
 
 const EditProfile = () => {
   const { id } = useParams();
+  const [isSubmitted, setSubmit] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
   const loading = useSelector((state) => state.loading);
 
   const oneUser = useSelector((state) => state.oneUser);
 
-  const [u, setInitialUser] = useState({ username: "", bio: "", location: "" });
+  const [u, setInitialUser] = useState({ userImage: "", bio: "", location: "" });
 
   const handleChange = (event) => {
     const target = event.target;
@@ -29,11 +30,17 @@ const EditProfile = () => {
     dispatch(findOneUser(id));
   }, [dispatch, id]);
 
-  console.log(oneUser);
+  useEffect(() => {
+    console.log("MASOOK");
+    console.log(isSubmitted, "<<<<<");
+    if (isSubmitted) {
+      history.push("/profile/" + id);
+    }
+  }, [isSubmitted, oneUser]);
 
   useEffect(() => {
     setInitialUser({
-      username: oneUser.username,
+      userImage: oneUser.userImage,
       location: oneUser.location,
       bio: oneUser.userDesc,
     });
@@ -50,7 +57,12 @@ const EditProfile = () => {
   }
 
   const cancelEdit = () => {
-    history.push("/profile");
+    history.push("/profile/" + id);
+  };
+
+  const updateInfo = () => {
+    dispatch(updateUserInfo(u));
+    setSubmit(true);
   };
 
   return (
@@ -66,20 +78,20 @@ const EditProfile = () => {
           {/* login form */}
           <form>
             <div className="form-group first mb-2">
-              <label htmlFor="username">Username</label>
-              <input type="text" className="form-control py-1 px-2" onChange={handleChange} name="username" value={u.username} />
+              <label htmlFor="userImage">Image</label>
+              <input type="text" className="form-control py-1 px-2" onChange={handleChange} name="userImage" value={u.userImage} />
             </div>
             <div className="form-group first mb-2">
-              <label htmlFor="username">Location</label>
+              <label htmlFor="loc">Location</label>
               <input type="text" className="form-control py-1 px-2" onChange={handleChange} name="location" value={u.location} />
             </div>
             <div className="form-group first mb-2 d-flex flex-column">
-              <label htmlFor="username">Bio</label>
+              <label htmlFor="bio">Bio</label>
               <textarea className="py-1 px-2" onChange={handleChange} name="bio" value={u.bio} />
             </div>
 
             <div className="">
-              <a className="btn mb-2 py-2 btn-facebook">
+              <a onClick={updateInfo} className="btn mb-2 py-2 btn-facebook">
                 {" "}
                 <span className="icon-facebook me-3"></span> UPDATE
               </a>

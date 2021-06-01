@@ -3,21 +3,23 @@ import "./login.css";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { login as setUser } from "../store/action"
+import { login as setUser } from "../store/action";
 const Login = () => {
   const initialLogin = { email: "", password: "" };
   const [login, setLogin] = useState(initialLogin);
-  const checkStatus = useSelector((state) => state.isLogin)
+  const checkStatus = useSelector((state) => state.isLogin);
   const history = useHistory();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
+  const u = JSON.parse(localStorage.getItem("userLog"));
 
   useEffect(() => {
-    if(checkStatus){
-      history.push('/profile')
-    }else{
-      history.push('/')
+    if (checkStatus) {
+      history.push("/profile/" + u.id);
+    } else {
+      history.push("/");
     }
-  }, [checkStatus])
+  }, [checkStatus]);
   const handleChange = (event) => {
     const target = event.target;
     const value = target.value;
@@ -28,8 +30,8 @@ const Login = () => {
     });
   };
 
-  function loginWeb(){
-    dispatch(setUser(login))
+  function loginWeb() {
+    dispatch(setUser(login));
   }
 
   const registerHandle = () => {
@@ -61,25 +63,23 @@ const Login = () => {
                     <input type="password" className="form-control py-1 px-2" name="password" value={login.password} onChange={handleChange} placeholder="Your Password" id="password" />
                   </div>
 
-                  <div className="d-sm-flex mb-5 align-items-center">
+                  {/* <div className="d-sm-flex mb-5 align-items-center">
                     <span className="ms-auto">
-                      <a onClick={registerHandle} className="forgot-pass">
-                        Don't Have An Account? Register Here
-                      </a>
+                      <a className="forgot-pass">Don't Have An Account? Register Here</a>
                     </span>
-                  </div>
+                  </div> */}
 
-                  <a onClick={loginWeb} className="btn my-1 py-2 btn-login"> Login</a>
+                  <a onClick={loginWeb} className="btn my-1 py-2 btn-login">
+                    {" "}
+                    Login
+                  </a>
 
                   <span className="text-center my-3 d-block">or</span>
 
                   <div className="">
-                    <a className="btn my-1 py-2 btn-facebook">
+                    <a onClick={registerHandle} className="btn my-1 py-2 btn-facebook">
                       {" "}
-                      <span className="icon-facebook me-3"></span> Login with facebook{" "}
-                    </a>
-                    <a className="btn py-2 btn-google">
-                      <span className="icon-google me-3"></span> Login with Google
+                      <span className="icon-facebook me-3"></span> SIGN UP
                     </a>
                   </div>
                 </form>

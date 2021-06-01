@@ -9,6 +9,7 @@ import { useHistory } from "react-router";
 
 const ShowCase = ({ show }) => {
   const dispatch = useDispatch();
+  const userLogged = JSON.parse(localStorage.getItem("userLog"));
 
   const history = useHistory();
 
@@ -37,7 +38,7 @@ const ShowCase = ({ show }) => {
     history.push("/seeall/" + show.id);
   };
 
-  const starredItems = show.ShowcaseItems.filter((e) => e.isStarred === true);
+  const starredItems = show.ShowcaseItems.filter((e) => e.isStarred == true);
 
   return (
     <div className="items__images m-1 d-flex flex-column">
@@ -55,10 +56,14 @@ const ShowCase = ({ show }) => {
             ></i>
           </div>
         </div>
-        <div>
-          <i onClick={itemToShow} class="fas fa-plus mx-2"></i>
-          <a onClick={() => toPageSeeAll()}>see all</a>
-        </div>
+        {userLogged.id == show.UserId ? (
+          <div>
+            <i onClick={itemToShow} class="fas fa-plus mx-2"></i>
+            <a onClick={() => toPageSeeAll()}>see all</a>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
 
       <EditShowName updateFrom={(name) => handleUpdate({ id: show.id, name })} deleteFrom={() => deleteShowcase(show.id)} show={sModal} onHide={() => setSModal(false)} />

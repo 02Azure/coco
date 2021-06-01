@@ -1,26 +1,26 @@
 import React from "react";
-import "./itemCard.css";
-import Detail from "../views/Detail";
+import TrendingDetail from "../views/TrendingDetail";
+import "./trending.css";
 
-const ItemCard = ({ discovery, data, wish }) => {
+const TrendingCard = ({ data }) => {
   const [modalShow, setModalShow] = React.useState(false);
 
   return (
     <div className="col-md-4 align-items-stretch">
-      <Detail discovery={discovery} show={modalShow} onHide={() => setModalShow(false)} />
-      <div className="card__item">
-        <div onClick={() => setModalShow(true)} className="card text-white bg-dark p-2">
-          <img src={discovery.image} alt="" />
+      <TrendingDetail trending={data} show={modalShow} onHide={() => setModalShow(false)} />
+      <div onClick={() => setModalShow(true)} className="card__item">
+        <div className="card text-white bg-dark p-2">
+          <img src={data.image ? data.image : "https://www.mugi.co.id/assets/images/img_def.png"} alt="" />
           <div className="card-body">
-            {/* <h5 className="card-title">{discovery.name}</h5> */}
+            {/* <h5 className="card-title">{data.name}</h5> */}
 
             <div className="d-flex content__card my-1 justify-content-between">
               <strong className="card-text">Tradable</strong>
-              <p className="card-text">{discovery.tradeable ? <i style={{ color: "green" }} class="far fa-check-circle"></i> : <i style={{ color: "red" }} class="far fa-times-circle"></i>}</p>
+              <p className="card-text">{data.tradeable ? <i style={{ color: "green" }} class="far fa-check-circle"></i> : <i style={{ color: "red" }} class="far fa-times-circle"></i>}</p>
             </div>
             <div className="d-flex content__card my-1 justify-content-between">
               <strong className="card-text"> Tag</strong>
-              <p className="card-text">{discovery.tag}</p>
+              <p className="card-text">{data.tag}</p>
             </div>
           </div>
         </div>
@@ -41,4 +41,4 @@ const ItemCard = ({ discovery, data, wish }) => {
  * 
  */
 
-export default ItemCard;
+export default TrendingCard;
