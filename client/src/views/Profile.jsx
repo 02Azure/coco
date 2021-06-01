@@ -118,7 +118,9 @@ const Profile = () => {
             </div>
             <div className="main__content p-1 d-flex align-items-center">
               <i className="fas fa-map-marker-alt"></i>
-              <p className="text mx-1">{user.location}</p>
+              <p style={{ color: "#9d9d9d" }} className="text mx-2">
+                {user.location}
+              </p>
             </div>
 
             {userLogged.id != id ? (

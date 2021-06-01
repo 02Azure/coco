@@ -83,7 +83,7 @@ const ShowCase = ({ show }) => {
         {userLogged.id == show.UserId ? (
           <div className="d-flex align-items-center">
             <i style={{ cursor: "pointer" }} onClick={itemToShow} class="far fa-file mx-2"></i>
-            <i style={{ cursor: "pointer" }} onClick={() => toPageSeeAll()} class="fas fa-eye"></i>
+            <i style={{ cursor: "pointer" }} onClick={() => toPageSeeAll()} class="fas fa-eye mx-2"></i>
             {/* <i style={{ cursor: "pointer" }} onClick={itemToShow} class="fas fa-plus mx-2"></i> */}
             {/* <a style={{ cursor: "pointer" }} onClick={() => toPageSeeAll()}>
               See All
