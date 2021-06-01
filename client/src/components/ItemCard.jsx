@@ -10,17 +10,28 @@ const ItemCard = ({ discovery, data, wish }) => {
       <Detail discovery={discovery} show={modalShow} onHide={() => setModalShow(false)} />
       <div className="card__item">
         <div onClick={() => setModalShow(true)} className="card text-white bg-dark p-2">
-          <img src={discovery.image} alt="" />
+          <img
+            src={discovery.image}
+            alt=""
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
+            }}
+          />
           <div className="card-body">
             {/* <h5 className="card-title">{discovery.name}</h5> */}
 
             <div className="d-flex content__card my-1 justify-content-between">
               <strong className="card-text">Tradable</strong>
-              <p className="card-text">{discovery.tradeable ? <i style={{ color: "green" }} class="far fa-check-circle"></i> : <i style={{ color: "red" }} class="far fa-times-circle"></i>}</p>
+              <p style={{ color: "#f9f9ff" }} className="card-text">
+                {discovery.tradeable ? <i style={{ color: "green" }} class="far fa-check-circle"></i> : <i style={{ color: "red" }} class="far fa-times-circle"></i>}
+              </p>
             </div>
             <div className="d-flex content__card my-1 justify-content-between">
               <strong className="card-text"> Tag</strong>
-              <p className="card-text">{discovery.tag}</p>
+              <p style={{ color: "#f9f9ff" }} className="card-text">
+                {discovery.tag}
+              </p>
             </div>
           </div>
         </div>

@@ -11,17 +11,28 @@ const CardProfile = ({ discovery }) => {
       {/* <Detail discovery={discovery} show={modalShow} onHide={() => setModalShow(false)} /> */}
       <div className="card__item">
         <div className="card text-white bg-dark p-2">
-          <img src={d.image} alt="" />
+          <img
+            src={d.image}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
+            }}
+            alt=""
+          />
           <div className="card-body">
             {/* <h5 className="card-title">{d.name}</h5> */}
 
             <div className="d-flex content__card my-1 justify-content-between">
               <strong className="card-text">Tradable</strong>
-              <p className="card-text">{d.tradeable ? <i style={{ color: "green" }} class="far fa-check-circle"></i> : <i style={{ color: "red" }} class="far fa-times-circle"></i>}</p>
+              <p style={{ color: "#f9f9ff" }} className="card-text">
+                {d.tradeable ? <i style={{ color: "green" }} class="far fa-check-circle"></i> : <i style={{ color: "red" }} class="far fa-times-circle"></i>}
+              </p>
             </div>
             <div className="d-flex content__card my-1 justify-content-between">
               <strong className="card-text"> Tag</strong>
-              <p className="card-text">{d.tag}</p>
+              <p style={{ color: "#f9f9ff" }} className="card-text ">
+                {d.tag}
+              </p>
             </div>
           </div>
         </div>

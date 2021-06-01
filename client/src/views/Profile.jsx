@@ -33,7 +33,7 @@ const Profile = () => {
   }
   useEffect(() => {
     dispatch(getAllShow(id));
-  }, []); //!PASANG ALL SHOW DI SINI
+  }, [allShow]); //!PASANG ALL SHOW DI SINI
 
   // console.log(userLogged);
   useEffect(() => {
@@ -89,19 +89,25 @@ const Profile = () => {
   return (
     <section className="profile">
       {/* navbar image */}
-      <div className="header__image__container">
-        <a onClick={goDiscovery} className="navbar__anchor">
-          Home
-        </a>
-      </div>
+      {/* <div className="header__image__container">
+    
+      </div> */}
 
       {/* profile side */}
       <div className="profile__container row">
         {/* user info */}
         <div className="user__container col-md-4 p-3">
-          <div className="user__info__container">
-            <div className="content__image">
-              <img src={user.userImage ? user.userImage : ""} alt="" className="header__image" />
+          <div className="user__info__container mx-auto d-flex flex-column ">
+            <div className="content__image ">
+              <img
+                src={user.userImage}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
+                }}
+                alt=""
+                className="header__image mx-auto"
+              />
             </div>
             <div className="username d-flex align-items-center p-1 justify-content-between">
               <p className="username__text">@{user.username}</p>
@@ -114,7 +120,8 @@ const Profile = () => {
               <i className="fas fa-map-marker-alt"></i>
               <p className="text mx-1">{user.location}</p>
             </div>
-            {userLogged.id !== id ? (
+
+            {userLogged.id != id ? (
               <button onClick={showChat} className="btn__chat">
                 Chat
               </button>
@@ -133,7 +140,7 @@ const Profile = () => {
                 </a>
                 {userLogged.id == id ? (
                   <div>
-                    <i onClick={addToShowcase} style={{ cursor: "pointer" }} class="far fa-plus-square"></i>
+                    <i onClick={addToShowcase} style={{ cursor: "pointer" }} class="fas fa-folder-plus"></i>
                   </div>
                 ) : (
                   ""
@@ -142,10 +149,11 @@ const Profile = () => {
             </div>
 
             {userLogged.id == id ? (
-              <div>
-                <a onClick={itemsShow} className="btn">
+              <div className="d-flex align-items-center">
+                <a onClick={itemsShow} className="btn pe-0">
                   My Items
                 </a>
+                <i onClick={showModalForm} style={{ cursor: "pointer" }} class="far fa-plus-square"></i>
               </div>
             ) : (
               ""
@@ -154,15 +162,6 @@ const Profile = () => {
             <div>
               <a onClick={pageWishList} className="btn">
                 Wishlists
-              </a>
-            </div>
-
-            <div>
-              <a onClick={showModalForm} className="add__showCase">
-                <img
-                  className="imgCase"
-                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0xMSAxMXYtMTFoMXYxMWgxMXYxaC0xMXYxMWgtMXYtMTFoLTExdi0xaDExeiIvPjwvc3ZnPg=="
-                />
               </a>
             </div>
           </div>
@@ -179,7 +178,7 @@ const Profile = () => {
                 {all ? allShow.map((e, i) => <ShowCase key={i} show={e} />) : allShow.slice(0, 3).map((e, i) => <ShowCase key={i} show={e} />)}
 
                 <div>
-                  <button onClick={() => setAll(!all)} style={{ width: "99%" }} className="btn btn-outline-dark text-center">
+                  <button onClick={() => setAll(!all)} style={{ width: "99%" }} className="btn btn-outline-light text-center">
                     {all ? "Show less" : "Show All"}
                   </button>
                 </div>

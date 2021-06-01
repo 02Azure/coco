@@ -25,7 +25,14 @@ const ShowcaseCard = ({ see, ShowcaseId }) => {
     <div className="col-md-4 align-items-stretch">
       <div className="card__item">
         <div className="card text-white bg-dark p-2">
-          <img src={s.image} alt="" />
+          <img
+            src={s.image}
+            alt=""
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
+            }}
+          />
 
           {userInfo.id == s.UserId ? (
             <div className="d-flex justify-content-end px-2 py-1">
@@ -52,7 +59,7 @@ const ShowcaseCard = ({ see, ShowcaseId }) => {
           </div>
           <div className="d-flex content__card my-1 justify-content-between">
             <strong className="card-text"> Tag</strong>
-            <p className="card-text">{s.tag}</p>
+            <p className="card-text text-white">{s.tag}</p>
           </div>
         </div>
       </div>

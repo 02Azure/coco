@@ -60,9 +60,9 @@ const ShowCase = ({ show }) => {
   }
 
   return (
-    <div className="items__images m-1 d-flex flex-column">
+    <div className="items__show__container m-1 d-flex flex-column">
       <div className="d-flex justify-content-between p-2 align-items-center">
-        <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center px-2">
           <h5 className="mb-0">{show.name}</h5>
 
           <div>
@@ -81,17 +81,17 @@ const ShowCase = ({ show }) => {
         </div>
 
         {userLogged.id == show.UserId ? (
-          <div>
-            <i style={{ cursor: "pointer" }} onClick={itemToShow} class="fas fa-plus mx-2"></i>
-            <a style={{ cursor: "pointer" }} onClick={() => toPageSeeAll()}>
+          <div className="d-flex align-items-center">
+            <i style={{ cursor: "pointer" }} onClick={itemToShow} class="far fa-file mx-2"></i>
+            <i style={{ cursor: "pointer" }} onClick={() => toPageSeeAll()} class="fas fa-eye"></i>
+            {/* <i style={{ cursor: "pointer" }} onClick={itemToShow} class="fas fa-plus mx-2"></i> */}
+            {/* <a style={{ cursor: "pointer" }} onClick={() => toPageSeeAll()}>
               See All
-            </a>
+            </a> */}
           </div>
         ) : (
           <div>
-            <a style={{ cursor: "pointer" }} onClick={() => toPageSeeAll()}>
-              See All
-            </a>
+            <i style={{ cursor: "pointer" }} onClick={() => toPageSeeAll()} class="fas fa-eye"></i>
           </div>
         )}
       </div>
