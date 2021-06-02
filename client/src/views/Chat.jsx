@@ -1,5 +1,4 @@
 import './chat.css'
-import pp from '../images/002.png'
 import React, { useState, useEffect, useRef } from "react"
 import { Form } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
@@ -24,6 +23,7 @@ export default function ChatPage(){
   const [message, setMessage] = useState("")
   const [messages, setMessages] = useState([])
   const [contacts, setContacts] = useState([])
+  const [imageError, setImageError] = useState(false)
 
   const messagesEndRef = useRef(null)
   useEffect(() => {
@@ -98,7 +98,6 @@ export default function ChatPage(){
               }
             }
           })
-          console.log(userContacts)
           setContacts(userContacts)
         }
       })  
@@ -190,46 +189,24 @@ export default function ChatPage(){
   return(
     <section className="chat">
       { recipientId ?
+      
       <div className="row">
+        <h2 className="chat-title">Chat - { recipient.username }</h2>
+        <div className="main__chat">
+          <div className="box__chat">
+            { messages.length ? messageBalloons : "" }
+            <div ref={ messagesEndRef } />
+            <div className="text__input">
+              <Form>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
 
-        <div className="col-md-4 list__chat">
-          <div className="people__content">
-            <div className="another__people">
-              <div className="row">
-                <div className="col-md-3">
-                    <img src={recipient.userImage} className="people__photo"></img>
-                </div>
-                <div className="col-md-9  people__name">
-                    <p className="people__chat">{ recipient.username }</p>
-                </div>
-              </div>
+                  <Form.Control type="text" placeholder="type a message" className="input__message" value={message} onChange={ e => setMessage(e.target.value) } />
+                  <button onClick={ sendMessage }>Send</button>
+
+                </Form.Group>
+              </Form>
             </div>
           </div>
-        </div>
-
-        <div className="col-md-8 main__chat">
-
-          <div>
-            <a onClick={goHome} className="nav">Home</a>
-            <a onClick={goProfile} className="nav">Profile</a>
-          </div>
-
-
-            <div className="box__chat">
-              { messages.length ? messageBalloons : "" }
-              <div ref={ messagesEndRef } />
-              <div className="text__input">
-                <Form>
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
-
-                    <Form.Control type="text" placeholder="type a message" className="input__message" value={message} onChange={ e => setMessage(e.target.value) } />
-                    <button onClick={ sendMessage }>Send</button>
-
-                  </Form.Group>
-                </Form>
-              </div>
-            </div>
-
         </div>
 
       </div> :

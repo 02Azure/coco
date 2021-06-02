@@ -1,6 +1,6 @@
 import { Redirect } from "react-router";
-const server = "http://localhost:3001"
-// const server = "http://52.207.207.52:3000";
+// const server = "http://localhost:3001"
+const server = "http://52.207.207.52:3000";
 let u 
 // console.log(u, "userloggedddd");
 

@@ -21,52 +21,55 @@ app.use("/", index)
 
 app.use(errorHandler)
 
-  /* istanbul ignore next */
-const server = app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`)
-})
+/* istanbul ignore next */
+if(process.env.NODE_ENV !== 'test') {
 
-const messageDB = []
-const usersOnline = [];
-const userProfPicDB = {}
+  const server = app.listen(port, () => {
+    console.log(`App listening at http://localhost:${port}`)
+  })
 
-const io = socket(server, {
-  cors: {
-    origin: `http://localhost:3000`
-  }
-})
+  //=============== SOCKET IO STUFF ================
 
-io.use(allowConnection)
+  const messageDB = []
+  const usersOnline = [];
 
-io.on("connection", socket => {
-  console.log(socket.id, socket.username, "connected!")
-  
-  usersOnline.push({
-    userID: socket.id,
-    username: socket.username,
-  });
-
-  socket.emit("receiveHistory", messageDB)
-
-  socket.on("send-message", ({ message, recipient }) => {
-
-    if(messageDB.length >1500) {
-      messageDB.shift()
+  const io = socket(server, {
+    cors: {
+      origin: `http://localhost:3000`
     }
-    messageDB.push(message)
-
-    let foundrecipient = usersOnline.find(user => user.username == recipient)
-    if(foundrecipient) socket.to(foundrecipient.userID).emit('received-message', messageDB)
   })
 
-  socket.on("disconnect", () => {
-    let deletedIndex = usersOnline.findIndex(user => user.username == socket.username)
-    usersOnline.splice(deletedIndex, 1)
+  io.use(allowConnection)
 
-    console.log(`USER ${socket.username} DISCONNECTED`)
-    console.log("Current User", usersOnline)
+  io.on("connection", socket => {
+    console.log(socket.id, socket.username, "connected!")
+    
+    usersOnline.push({
+      userID: socket.id,
+      username: socket.username,
+    });
+
+    socket.emit("receiveHistory", messageDB)
+
+    socket.on("send-message", ({ message, recipient }) => {
+
+      if(messageDB.length >1500) {
+        messageDB.shift()
+      }
+      messageDB.push(message)
+
+      let foundrecipient = usersOnline.find(user => user.username == recipient)
+      if(foundrecipient) socket.to(foundrecipient.userID).emit('received-message', messageDB)
+    })
+
+    socket.on("disconnect", () => {
+      let deletedIndex = usersOnline.findIndex(user => user.username == socket.username)
+      usersOnline.splice(deletedIndex, 1)
+
+      console.log(`USER ${socket.username} DISCONNECTED`)
+      console.log("Current User", usersOnline)
+    })
   })
-})
-
+}
 
 module.exports = app;
