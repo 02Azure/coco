@@ -74,7 +74,7 @@ const Login = () => {
                     SIGN IN
                   </a>
 
-                  <span className="text-center my-3 d-block">or</span>
+                  <span className="text-center my-0 d-block">or</span>
 
                   <div className="">
                     <a onClick={registerHandle} className="btn my-1 py-2 btn-facebook">

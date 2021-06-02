@@ -2,7 +2,7 @@ import React from "react";
 import "./profile.css";
 import { useHistory, useParams, withRouter } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { CardColumns } from "react-bootstrap"
+import { CardColumns } from "react-bootstrap";
 import ModalWishList from "../components/Modal.jsx";
 import FormAdd from "../components/formAddItem";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +17,6 @@ const Profile = () => {
   const [showModal, setShowModal] = useState(false);
   const [showFormAdd, setShowFormAdd] = useState(false);
   const [sModal, setSModal] = useState(false);
-  const userNotFound = useSelector((state) => state.userNotFound);
   const user = useSelector((state) => state.oneUser);
   const items = useSelector((state) => state.items);
   // const users = useSelector((state) => state.user);
@@ -25,7 +24,8 @@ const Profile = () => {
   // console.log(id, 'use params');
   const allShow = useSelector((state) => state.allShow);
 
-  // console.log(userLogged, "<<< use params");
+  const [all, setAll] = useState(false);
+  // console.log(allShow);
 
   // const isLogin = useSelector((state) => state.isLogin)
   function hideItems() {
@@ -33,22 +33,22 @@ const Profile = () => {
   }
   useEffect(() => {
     dispatch(getAllShow(id));
-  }, [id]);
+  }, [allShow, id]); //!PASANG ALL SHOW DI SINI
 
   // console.log(userLogged);
   useEffect(() => {
     dispatch(readItems());
-  }, [items]);
+  }, []);
   useEffect(() => {
-    dispatch(findOneUser(id))
-  }, [id])
+    console.log("masuk find one user");
+    dispatch(findOneUser(id));
+  }, [id]);
 
-  // useEffect(() => {
-  //   // console.log(id);
-  //   dispatch(findOneUser(id));
-  //   dispatch(readItems());
-  //   dispatch(getAllShow(id))
-  // }, ); // [items,id]
+  useEffect(() => {
+    dispatch(findOneUser(id));
+    dispatch(readItems());
+  }, []);
+
   function hideItems() {
     setShowItem(false);
   }
@@ -84,41 +84,46 @@ const Profile = () => {
     history.push(`/editItem/${id}`);
   }
 
-  console.log(user.userImage, "<<<<OTONG");
+  console.log(allShow);
 
   return (
     <section className="profile">
-      {/* navbar image */}
-      <div className="header__image__container">
-        {/* <a onClick={goDiscovery} className="navbar__anchor">
-          Home
-        </a> */}
-      </div>
-
       {/* profile side */}
       <div className="profile__container row">
         {/* user info */}
         <div className="user__container col-md-4 p-3">
-          <div className="user__info__container">
-              {userLogged.id == id ? <i onClick={editUserInfo} className="far fa-edit"></i> : ""}
-            <div className="content__image">
-              <img src={user.userImage ? user.userImage : ""} alt="" className="header__image" />
+          <div className="user__info__container mx-auto d-flex flex-column ">
+            <div className="content__image ">
+              <img
+                src={user.userImage}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
+                }}
+                alt=""
+                className="header__image mx-auto"
+              />
             </div>
             <div className="username d-flex align-items-center p-1 justify-content-between">
               <p className="username__text">@{user.username}</p>
+              {userLogged.id === +id && <i onClick={editUserInfo} class="far fa-edit"></i>}
             </div>
             <div className="main__content p-1">
               <p className="text">{user.userDesc}</p>
             </div>
             <div className="main__content p-1 d-flex align-items-center">
               <i className="fas fa-map-marker-alt"></i>
-              <p className="text mx-1">{user.location ? user.location : 'unknown'}</p>
+              <p style={{ color: "#9d9d9d" }} className="text mx-2">
+                {user.location ? user.location : "unknown"}
+              </p>
             </div>
-            {userLogged.id !== +id &&
-              <button onClick={showChat} className="btn__chat">
-              Chat
-              </button>
-            }
+            {userLogged.id !== +id && (
+              <div className="btn__chat text-center">
+                <button onClick={showChat} className="btn btn-outline-dark">
+                  Chat
+                </button>
+              </div>
+            )}
           </div>
         </div>
         {/* navigation anchor */}
@@ -131,7 +136,7 @@ const Profile = () => {
                 </a>
                 {userLogged.id == id ? (
                   <div>
-                    <i onClick={addToShowcase} class="far fa-plus-square"></i>
+                    <i onClick={addToShowcase} style={{ cursor: "pointer" }} class="fas fa-folder-plus"></i>
                   </div>
                 ) : (
                   ""
@@ -140,10 +145,11 @@ const Profile = () => {
             </div>
 
             {userLogged.id == id ? (
-              <div>
-                <a onClick={itemsShow} className="btn">
+              <div className="d-flex align-items-center">
+                <a onClick={itemsShow} className="btn pe-0">
                   My Items
                 </a>
+                <i onClick={showModalForm} style={{ cursor: "pointer" }} class="far fa-plus-square"></i>
               </div>
             ) : (
               ""
@@ -152,15 +158,6 @@ const Profile = () => {
             <div>
               <a onClick={pageWishList} className="btn">
                 Wishlists
-              </a>
-            </div>
-
-            <div>
-              <a onClick={showModalForm} className="add__showCase">
-                <img
-                  className="imgCase"
-                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0xMSAxMXYtMTFoMXYxMWgxMXYxaC0xMXYxMWgtMXYtMTFoLTExdi0xaDExeiIvPjwvc3ZnPg=="
-                />
               </a>
             </div>
           </div>
@@ -174,37 +171,39 @@ const Profile = () => {
           {!showItem && (
             <div className="showcase__container">
               <div className="items__container pt-0">
-                {allShow.map((e, i) => (
-                  <ShowCase key={i} show={e} />
-                ))}
+                {all ? allShow.map((e, i) => <ShowCase key={i} show={e} />) : allShow.slice(0, 3).map((e, i) => <ShowCase key={i} show={e} />)}
+
+                <div>
+                  <button onClick={() => setAll(!all)} style={{ width: "99%" }} className="btn btn-outline-light text-center">
+                    {all ? "Show less" : "Show All"}
+                  </button>
+                </div>
               </div>
             </div>
           )}
           {showItem && (
-              <div className="items__container">
-                {/* <h5>My Item</h5> */}
-                {/* <a className="see__all">see all</a> */}
-                <div className="items__image">
-                  {/* <CardColumns> */}
-                    {items.map((item) => {
-                      return (
-                        <>
-                          <div key={item.id}>
-                              {/* <p>Click To See Detail</p> */}
-                              <img 
-                              onClick={(e) => detailItem(item.id)}
-                              src={item.image} alt="" className="item__image" />
-                          </div>
-                          </>
-                      );
-                    })}
-                  {/* </CardColumns> */}
-                </div>
+            <div className="items__container">
+              {/* <h5>My Item</h5> */}
+              {/* <a className="see__all">see all</a> */}
+              <div className="items__image">
+                {/* <CardColumns> */}
+                {items.map((item) => {
+                  return (
+                    <>
+                      <div key={item.id}>
+                        {/* <p>Click To See Detail</p> */}
+                        <img onClick={(e) => detailItem(item.id)} src={item.image} alt="" className="item__image" />
+                      </div>
+                    </>
+                  );
+                })}
+                {/* </CardColumns> */}
               </div>
+            </div>
           )}
         </div>
       </div>
-      </section>
+    </section>
   );
 };
 

@@ -18,6 +18,7 @@ const intialState = {
   wishlists: [],
   wishlist: {},
   userNotFound: false,
+  error: { err: false, msg: "" },
 };
 
 function reducer(state = intialState, action) {
@@ -51,6 +52,8 @@ function reducer(state = intialState, action) {
       return { ...state, wishlists: state.wishlists.concat(payload) };
     case "SET_WISHLIST":
       return { ...state, wishlists: payload };
+    case "SET_ERROR":
+      return { ...state, error: payload };
     case "GET_DETAIL_WISHLIST":
       return { ...state, wishlist: payload };
     default:

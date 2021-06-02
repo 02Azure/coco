@@ -17,12 +17,20 @@ function Detail({ discovery, ...props }) {
       {/* <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">Modal heading</Modal.Title>
       </Modal.Header> */}
-      <Modal.Body>
+      <Modal.Body className="py-1">
         <div className="detail__container p-2">
           <div className="row">
             <div className="col-md-6 my-auto">
               <div>
-                <img style={{ width: "75%", margin: "auto" }} src={discovery.image} alt="" />
+                <img
+                  style={{ width: "75%", margin: "auto" }}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
+                  }}
+                  src={discovery.image}
+                  alt=""
+                />
               </div>
             </div>
 
@@ -36,21 +44,21 @@ function Detail({ discovery, ...props }) {
                 </div>
                 <hr style={{ margin: "5px" }}></hr>
                 <div>
-                  <p>Card Name</p>
+                  <p className="fst-italic fw-bold">Card Name</p>
                   {discovery.name}
                 </div>
                 <div>
-                  <p>Description</p>
+                  <p className="fst-italic fw-bold">Description</p>
                   {discovery.description}
                 </div>
                 <div>
-                  <p>Tag</p>
+                  <p className="fst-italic fw-bold">Tag</p>
                   {discovery.tag}
                 </div>
 
                 {discovery.tradeable ? (
                   <div>
-                    <p>Trade With</p>
+                    <p className="fst-italic fw-bold">Trade With</p>
                     {discovery.tradeWith}
                   </div>
                 ) : (
@@ -58,7 +66,7 @@ function Detail({ discovery, ...props }) {
                 )}
 
                 <div>
-                  <p>Price</p>
+                  <p className="fst-italic fw-bold">Price</p>
                   {discovery.price}
                 </div>
               </div>
@@ -66,7 +74,7 @@ function Detail({ discovery, ...props }) {
           </div>
         </div>
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer className="py-1">
         <Button
           onClick={() => {
             props.onHide();

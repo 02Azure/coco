@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 function TrendingDetail({ trending, ...props }) {
   const h = useHistory();
 
-  console.log(trending.User, "<<<<DETAIL");
+  console.log(trending.image, "<<<<DETAIL");
 
   const u = trending.User;
 
@@ -22,7 +22,15 @@ function TrendingDetail({ trending, ...props }) {
           <div className="row">
             <div className="col-md-6 my-auto">
               <div>
-                <img style={{ width: "75%", margin: "auto" }} src={trending.image ? trending.image : "https://www.mugi.co.id/assets/images/img_def.png"} alt="" />
+                <img
+                  style={{ width: "75%", margin: "auto" }}
+                  src={trending.image}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
+                  }}
+                  alt=""
+                />
               </div>
             </div>
 
@@ -36,21 +44,21 @@ function TrendingDetail({ trending, ...props }) {
                 </div>
                 <hr style={{ margin: "5px" }}></hr>
                 <div>
-                  <p>Card Name</p>
+                  <p className="fst-italic fw-bold">Card Name</p>
                   {trending.name}
                 </div>
                 <div>
-                  <p>Description</p>
+                  <p className="fst-italic fw-bold">Description</p>
                   {trending.description}
                 </div>
                 <div>
-                  <p>Tag</p>
+                  <p className="fst-italic fw-bold">Tag</p>
                   {trending.tag}
                 </div>
 
                 {trending.tradeable ? (
                   <div>
-                    <p>Trade With</p>
+                    <p className="fst-italic fw-bold">Trade With</p>
                     {trending.tradeWith}
                   </div>
                 ) : (
@@ -58,7 +66,7 @@ function TrendingDetail({ trending, ...props }) {
                 )}
 
                 <div>
-                  <p>Price</p>
+                  <p className="fst-italic fw-bold">Price</p>
                   {trending.price}
                 </div>
               </div>

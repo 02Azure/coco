@@ -9,29 +9,24 @@
   --bs-gutter-x: 0;
 }
 
-.user__container {
-  position: relative;
-  bottom: 7em;
+body {
+  background-color: #171717 !important;
 }
 
 .user__info__container {
   background-color: #eee;
-  padding: 20px;
+  padding: 10px;
   border-radius: 20px;
-  position: sticky;
+  /* position: sticky; */
   top: 0;
-  padding-top: 20px;
-  width: 25em;
-  left: 5em;
+  padding-top: 10px;
+  width: 20em;
+  /* left: 5em; */
 }
 
 .header__image {
-  width: 34%;
-  height: 10vh;
-  position: relative;
-  left: 36%;
-  border-radius: 50%;
-  background-color: #333;
+  width: 50%;
+  border-radius: 10px;
   padding: 8px;
 }
 
@@ -42,35 +37,37 @@
   left: 36%;
   border-radius: 50%;
   /* background-color: red; */
-  background-image: url('https://www.mugi.co.id/assets/images/img_def.png');
+  background-image: url("https://www.mugi.co.id/assets/images/img_def.png");
   background-size: cover;
   background-repeat: no-repeat;
   padding: 8px;
 }
 
 .username__text {
-  font-size: 40px;
-  /* text-align: center; */
+  font-size: large;
   text-align: center;
 }
 
 .text {
-  font-size: 28px;
+  /* font-size: 28px; */
+}
+.text p {
+  color: #fffafa;
 }
 
 .btn__chat {
-  height: 55px;
-  width: 150px;
-  /* justify-self:center */
-  border-radius: 20px;
-  font-size: 20px;
-  font-weight: 800;
-  position: relative;
-  left: 5em;
+  display: block;
 }
 
 .items__container {
   padding-top: 30px;
+}
+.items__show__container {
+  display: flex;
+  flex-direction: row;
+  background-color: #282828;
+  border-radius: 5px;
+  color: #eee;
 }
 .items__images {
   display: flex;
@@ -96,10 +93,9 @@
 }
 
 .item__image:hover {
-  transform: scale(1.1);
+  transform: scale(1.03);
   cursor: pointer;
   opacity: 0.9;
-  
 }
 
 .see__all {
@@ -114,7 +110,7 @@
 .btn {
   margin: 2px 4px;
   font-size: 20px;
-  font-weight: 800;
+  font-weight: 400;
 }
 
 .buttons {
@@ -148,4 +144,9 @@
 
 .items__showcase {
   background-color: black;
+}
+
+.showcase a,
+.showcase i {
+  color: #fffafa;
 }

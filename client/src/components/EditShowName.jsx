@@ -19,12 +19,10 @@ export default function EditShowName({ updateFrom, deleteFrom, ...props }) {
     setName(e.target.value);
   };
 
-  const removeShow = () => {};
-
   return (
     <Modal {...props} size="sm" aria-labelledby="contained-modal-title-vcenter" centered>
-      <Modal.Header>
-        <Modal.Title id="contained-modal-title-vcenter"> Edit show name</Modal.Title>
+      <Modal.Header className="py-0">
+        <Modal.Title id="contained-modal-title-vcenter">Edit Showcase</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form>
@@ -34,7 +32,7 @@ export default function EditShowName({ updateFrom, deleteFrom, ...props }) {
         </form>
       </Modal.Body>
 
-      <Modal.Footer>
+      <Modal.Footer className="pb-2">
         <Button
           onClick={() => {
             updateFrom(name);

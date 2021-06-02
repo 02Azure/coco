@@ -1,13 +1,16 @@
 import { Redirect } from "react-router";
 
 const server = "http://52.207.207.52:3000";
-const userInfo = JSON.parse(localStorage.getItem("userLog"));
+var userInfo = "";
 let u = "";
 export function setRegister(payload) {
   return { type: "SET_REG", payload };
 }
 export function setWish(payload) {
   return { type: "SET_WISH", payload };
+}
+export function setError(payload) {
+  return { type: "SET_ERROR", payload };
 }
 
 export function setNotFound(payload) {
@@ -114,7 +117,8 @@ export function login(payload) {
         localStorage.setItem("userLog", JSON.stringify(result));
         localStorage.setItem("isLogin", true);
         u = JSON.parse(localStorage.getItem("userLog"));
-        // console.log(temp.access_token, 'toen');
+        userInfo = JSON.parse(localStorage.getItem("userLog"));
+
         dispatch(checkLogin(true));
       })
       .catch((error) => {
@@ -150,7 +154,7 @@ export function findOneUser(id) {
 }
 
 export function updateUserInfo(payload) {
-  // console.log(payload, "DARI updateUser");
+  console.log(payload, "DARI updateUser");
 
   const { bio, location, userImage } = payload;
   return function (dispatch) {
@@ -160,7 +164,7 @@ export function updateUserInfo(payload) {
       headers: {
         "Content-type": "application/json; charset=UTF-8",
         // Authorization: `Bearer ${token}`,
-        access_token:  JSON.parse(localStorage.getItem('userLog')).access_token_token,
+        access_token: JSON.parse(localStorage.getItem("userLog")).access_token,
       },
       mode: "cors",
     })
@@ -246,7 +250,7 @@ export function AddNewShowcase(payload) {
       headers: {
         "Content-type": "application/json; charset=UTF-8",
         // Authorization: `Bearer ${token}`,
-        access_token:  JSON.parse(localStorage.getItem('userLog')).access_token_token,
+        access_token: JSON.parse(localStorage.getItem("userLog")).access_token,
       },
       mode: "cors",
     })
@@ -255,6 +259,7 @@ export function AddNewShowcase(payload) {
           return response.json();
         } else {
           console.log(response, "<<<");
+          dispatch(setError({ err: true, msg: response.statusText }));
           throw new Error(response.statusText);
         }
       })
@@ -275,7 +280,7 @@ export function removeShowcase(id) {
 
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token:  JSON.parse(localStorage.getItem('userLog')).access_token_token,
+        access_token: JSON.parse(localStorage.getItem("userLog")).access_token,
       },
     })
       .then((response) => {
@@ -306,7 +311,7 @@ export function updateShowName(payload) {
 
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token:  JSON.parse(localStorage.getItem('userLog')).access_token_token,
+        access_token: JSON.parse(localStorage.getItem("userLog")).access_token,
       },
     })
       .then((response) => {
@@ -370,7 +375,7 @@ export function postShowToItems(payload) {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token:  JSON.parse(localStorage.getItem('userLog')).access_token_token,
+        access_token: JSON.parse(localStorage.getItem("userLog")).access_token,
       },
 
       body: JSON.stringify({ ItemId, ShowcaseId }),
@@ -424,13 +429,14 @@ export function getDisco(id) {
 }
 
 export function switchStarItems({ id, ShowcaseId }) {
+  console.log(id, ShowcaseId, "<<<<");
   return function (dispatch) {
     dispatch(setLoading(true));
     fetch(server + "/showcaseitems/" + id, {
       method: "PATCH",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token: userInfo.access_token,
+        access_token: JSON.parse(localStorage.getItem("userLog")).access_token,
       },
     })
       .then((response) => {
@@ -461,7 +467,7 @@ export function removeItemsFromShowcase({ id, ShowcaseId }) {
       method: "DELETE",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token: userInfo.access_token,
+        access_token: JSON.parse(localStorage.getItem("userLog")).access_token,
       },
     })
       .then((response) => {
@@ -602,7 +608,7 @@ export function deleteItem(payload) {
     fetch(server + `/items/${payload}`, {
       method: "delete",
       headers: {
-        access_token: JSON.parse(localStorage.getItem('userLog')).access_token,
+        access_token: JSON.parse(localStorage.getItem("userLog")).access_token,
         Accept: "application/json",
         "Content-Type": "application/json",
       },
@@ -621,32 +627,32 @@ export function deleteItem(payload) {
   };
 }
 
-export function editItem(payload){
-  console.log(payload, 'action line 614');
-  const { id } = payload
-  console.log(id, 'id');
+export function editItem(payload) {
+  console.log(payload, "action line 614");
+  const { id } = payload;
+  console.log(id, "id");
   return (dispatch) => {
     fetch(server + `/items/${id}`, {
-      method: 'put',
+      method: "put",
       body: JSON.stringify(payload.updated),
       headers: {
-        access_token: JSON.parse(localStorage.getItem('userLog')).access_token,
+        access_token: JSON.parse(localStorage.getItem("userLog")).access_token,
         Accept: "application/json",
         "Content-Type": "application/json",
       },
     })
-    .then((response) => {
-      // console.log(respons);
-      return response.json();
-    })
-    .then(res => {
-      console.log(res, "<<< line 632");
-      return dispatch(getDetail(res))
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
+      .then((response) => {
+        // console.log(respons);
+        return response.json();
+      })
+      .then((res) => {
+        console.log(res, "<<< line 632");
+        return dispatch(getDetail(res));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 }
 
 // ! wishlist
