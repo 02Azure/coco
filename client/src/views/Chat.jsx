@@ -1,129 +1,221 @@
 import './chat.css'
-import pp from '../images/002.png'
+import React, { useState, useEffect, useRef } from "react"
 import { Form } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { findOneUser, setOneUser } from "../store/action"
+import socket from "../socket/socket"
+import MessageBalloon from "../components/MessageBalloon"
+import LastMessage from "../components/LastMessage"
+import createLastChatHistory from "../helpers/createLastChatHistory"
+
 export default function ChatPage(){
-    const user = useSelector((state) => state.user)
-    let history = useHistory()
-    const data = JSON.parse(localStorage.getItem('data'))
+  const history = useHistory()
+  const dispatch = useDispatch()
 
-    function goHome(){
-        // console.log(data);
-        // console.log(user);
+  const loggedUser = JSON.parse(localStorage.getItem('userLog'))
+
+  let search = window.location.search;
+  let params = new URLSearchParams(search);
+  let recipientId = params.get('recipient')
+
+  const recipient = useSelector(state => state.oneUser)
+
+  const [message, setMessage] = useState("")
+  const [messages, setMessages] = useState([])
+  const [contacts, setContacts] = useState([])
+  const [imageError, setImageError] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+
+  const messagesEndRef = useRef(null)
+
+  useEffect(() => {
+    //jika route sekarang ada query recipient dan telah berhasil di get
+    if(recipient.username && recipientId) {
+      socket.disconnect()
+      socket.auth = { username: loggedUser.username }
+      socket.connect()
+    
+      socket.on("receiveHistory", data => {
+        if(data.length) {
+          data = data.filter(message => {
+            //filter hanya pesan antara kedua user
+            return ((message.from.username == loggedUser.username) && (message.recipient.username == recipient.username)) || ((message.from.username == recipient.username) && (message.recipient.username == loggedUser.username))
+          })
+        }
+
+        setMessages(data)
+      })
+  
+      socket.on("received-message", data => {
+        data = data.filter(message => {
+          //filter hanya pesan antara kedua user
+          return ((message.from.username == loggedUser.username) && (message.recipient.username == recipient.username)) || ((message.from.username == recipient.username) && (message.recipient.username == loggedUser.username))
+        })
+        setMessages(data)
+      })
+
+    } else if(!recipientId) { //jika route sekarang hanya /chat
+      socket.disconnect()
+      socket.auth = { username: loggedUser.username }
+      socket.connect()
+
+      socket.on("receiveHistory", data => {
+        if(data.length) {
+          setContacts(createLastChatHistory(data, loggedUser.username))
+          setIsLoading(false)
+        }
+      })  
+
+      socket.on("received-message", data => {
+        console.log("terima!!")
+        if(data.length) {
+          setContacts([])
+          setContacts(createLastChatHistory(data, loggedUser.username))
+          setIsLoading(false)
+        }
+      })
+    }
+    
+  },[recipient])
+
+  useEffect(() => {
+    if(+recipientId) {
+      dispatch(findOneUser(recipientId))
     }
 
-    function goProfile(){
-        history.push('/profile')
+  },[recipientId])
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
+  
+  function sendMessage(e) {
+    e.preventDefault()
+
+    let newMessage = {
+      from: {
+        id: loggedUser.id,
+        username: loggedUser.username,
+        image: loggedUser.image
+      },
+      recipient: {
+        id: recipient.id,
+        username: recipient.username,
+        image: recipient.userImage
+      },
+      message,
+      timestamp: new Date()
     }
+
+    socket.emit("send-message", { message: newMessage, recipient: recipient.username })
+
+    setMessages(previousMessages => previousMessages.concat(newMessage))
+    setMessage("")
+  }
+
+  function scrollToBottom() {
+    messagesEndRef.current?.scrollIntoView({
+      behavior: "smooth"
+    })
+  }
+
+  let messageBalloons
+  
+  messageBalloons = messages.map((chat, index) => {
     return(
-        <>
-            {/* <p>ini chat page</p> */}
-            <section className="chat">
-                <div className="row">
-                    {/* list chat side */}
-                    <div className="col-md-4 list__chat">
-                        <div className="people__content">
-                            <div className="another__people">
-                                <div className="row">
-                                    <div className="col-md-3">
-                                        <img src={pp} className="people__photo"></img>
-                                    </div>
-                                    <div className="col-md-9  people__name">
-                                        <p className="people__chat">John Doe</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="another__people">
-                                <div className="row">
-                                    <div className="col-md-3">
-                                        <img src={pp} className="people__photo"></img>
-                                    </div>
-                                    <div className="col-md-9  people__name">
-                                        <p className="people__chat">John Doe</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="another__people">
-                                <div className="row">
-                                    <div className="col-md-3">
-                                        <img src={pp} className="people__photo"></img>
-                                    </div>
-                                    <div className="col-md-9  people__name">
-                                        <p className="people__chat">John Doe</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {/* main chat */}
-                    <div className="col-md-8 main__chat">
-                        {/* <p>main chat box</p> */}
-                        <div>
-                            <a onClick={goHome} className="nav">Home</a>
-                            <a onClick={goProfile} className="nav">Profile</a>
-                        </div>
-                        <div className="box__chat">
-                        {/* ini nanti buat chat dari kita */}
-                        {/* {user.email === data.email && 
-                            <div className="box__sent">
-                                <div className="row">
-                                    <div className="col-md-2">
-                                        <img src={pp} className="profile__user__chat"/>
-                                    </div>
-                                    <div className="col-md-10 text__handle">
-                                        <p className="text__chat">haii</p>
-                                    </div>
-                                </div>
-                            </div>
-                        } */}
-                        {/* ini nanti buat dari orang lain */}
-                        {/* {user.email !== data.email &&
-                            <div className="box__sent">
-                                <div className="row">
-                                    <div className="col-md-2">
-                                        <img src={pp} className="profile__user__chat"/>
-                                    </div>
-                                    <div className="col-md-10 text__handle">
-                                        <p className="text__chat">hai juga</p>
-                                    </div>
-                                </div>
-                            </div>
-                        } */}
-                            
-                            {/* <div className="box__sent">
-                                <div className="row">
-                                    <div className="col-md-2">
-                                        <img src={pp} className="profile__user__chat"/>
-                                    </div>
-                                    <div className="col-md-10 text__handle">
-                                        <p className="text__chat">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis modi nihil quibusdam, alias officiis corporis commodi consequuntur itaque mollitia nisi quos quis atque suscipit laudantium!</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="box__sent">
-                                <div className="row">
-                                    <div className="col-md-2">
-                                        <img src={pp} className="profile__user__chat"/>
-                                    </div>
-                                    <div className="col-md-10 text__handle">
-                                        <p className="text__chat">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis modi nihil quibusdam, alias officiis corporis commodi consequuntur itaque mollitia nisi quos quis atque suscipit laudantium!</p>
-                                    </div>
-                                </div>
-                            </div> */}
-                            <div className="text__input">
-                                <Form>
-                                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                                        {/* <Form.Label>Email address</Form.Label> */}
-                                        <Form.Control type="text" placeholder="type a message" className="input__message" />
-                                        {/* <p>send</p> */}
-                                    </Form.Group>
-                                </Form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </>
+      <MessageBalloon
+        key = { index }
+        message = { chat?.message } 
+        username = { chat?.from.username }
+        timestamp = { chat?.timestamp }
+      />
     )
+  })
+
+  let lastMessages = []
+
+  if(!recipientId) {
+    lastMessages = contacts.map((lastmessage, index) => {
+      return(
+        <LastMessage
+          key = { index }
+          { ...lastmessage }
+        />
+      )
+    })
+  }
+
+  return(
+    <section className="chat">
+      { recipientId ?
+      
+      <div className="row">
+        <div className="chat-room-header">
+          <div 
+            className = "recipient" 
+            onClick = { () => { history.push(`/profile/${recipient.id}`)} }
+            title = { `Go to ${recipient.username} Profile` }
+          >
+            <div className="header-picture">
+              <img 
+              alt = { recipient.username + "_avatar" } 
+              src = { !imageError ? recipient.userImage : "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png" }
+              onError = { () => { 
+                if(!imageError) {
+                  setImageError(true) 
+                } 
+              } }
+            />
+            </div>
+            <h2 className="chat-title">{ recipient.username }</h2>
+          </div>
+          <span 
+            className="return-link" 
+            onClick={ () => { 
+              socket.off("receiveHistory")
+              socket.off("receivedMessage")
+              socket.disconnect()
+              setIsLoading(true)
+              setContacts([])
+              history.push("/chat") 
+              dispatch(setOneUser({}))
+            }}
+          >Return to Chat
+        </span>
+        </div>
+
+        <div className="main__chat">
+          <div className="box__chat">
+            <div className="messageBalloons-container">
+              { messages.length ? messageBalloons : "" }
+              <div ref={ messagesEndRef } />
+            </div>
+            <div className="text__input">
+              <Form className="input-message-container">
+                <input rows="1" placeholder="type a message" className="input__message" value={message} onChange={ e => setMessage(e.target.value) } />
+                <button className="btn btn-primary send-button" onClick={ sendMessage }><i className ="fas fa-paper-plane"/></button>
+              </Form>
+            </div>
+          </div>
+        </div>
+
+      </div> :
+        <>
+          <h2 className="chat-title">Chat</h2>
+          { !isLoading ? contacts.length ? 
+            <div className="last-message-container">
+              { lastMessages }
+            </div> :
+
+            <div className="empty-message-container">
+               <h2 className="empty-title">Nothing to show here...</h2>
+              <p className="empty-desc">Start one by clicking Chat in other user's profile!</p>
+            </div> :
+            <h2 className="loading-text">Loading...</h2>
+          }
+        </>
+    }
+    </section>
+  )
 }

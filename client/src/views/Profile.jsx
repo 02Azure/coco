@@ -60,7 +60,7 @@ const Profile = () => {
     history.push("/wishlist");
   }
   function showChat() {
-    history.push("/chat");
+    history.push(`/chat?recipient=${id}`);
   }
 
   function editUserInfo() {

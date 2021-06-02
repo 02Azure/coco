@@ -98,7 +98,7 @@ const ShowCase = ({ show }) => {
       <EditShowName updateFrom={(name) => handleUpdate({ id: show.id, name })} deleteFrom={() => deleteShowcase(show.id)} show={sModal} onHide={() => setSModal(false)} />
       <ListItemModal ShowcaseId={show.id} show={IModal} onHide={() => setIModal(false)} />
 
-      <div style={{ background: "#5a5a5a" }} className="row">
+      <div style={{ background: "#a3d2ca" }} className="row">
         {arr.slice(0, 3).map((e, i) => {
           return <CardProfile key={i} discovery={e}></CardProfile>;
         })}
