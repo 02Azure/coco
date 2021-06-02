@@ -2,16 +2,13 @@ import React from "react";
 
 import { Button, Modal } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-function Detail({ discovery, ...props }) {
+function SeeAllModal({ seeAllDetail, ...props }) {
   const h = useHistory();
 
-  console.log(discovery.User, "<<<<DETAIL");
+  console.log(seeAllDetail, "<<<<DETAIL");
 
-  const u = discovery.User;
+  const u = seeAllDetail.Item;
 
-  const changePage = () => {
-    h.push("/profile/" + discovery.UserId);
-  };
   return (
     <Modal {...props} size="md" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Body className="py-1">
@@ -25,7 +22,7 @@ function Detail({ discovery, ...props }) {
                     e.target.onerror = null;
                     e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
                   }}
-                  src={discovery.image}
+                  src={u.image}
                   alt=""
                 />
               </div>
@@ -33,30 +30,23 @@ function Detail({ discovery, ...props }) {
 
             <div className="col-md-6">
               <div className="items__detail">
-                <div className="d-flex p-2">
-                  <img src={u.userImage ? u.userImage : "https://img.icons8.com/cotton/2x/gender-neutral-user--v2.png"} style={{ width: "10%" }} />
-                  <div className="mx-1">
-                    <p>@{u.username}</p>
-                  </div>
-                </div>
-                <hr style={{ margin: "5px" }}></hr>
                 <div>
                   <p className="fst-italic fw-bold">Card Name</p>
-                  {discovery.name}
+                  {u.name}
                 </div>
                 <div>
                   <p className="fst-italic fw-bold">Description</p>
-                  {discovery.description}
+                  {u.description}
                 </div>
                 <div>
                   <p className="fst-italic fw-bold">Tag</p>
-                  {discovery.tag}
+                  {u.tag}
                 </div>
 
-                {discovery.tradeable ? (
+                {u.tradeable ? (
                   <div>
                     <p className="fst-italic fw-bold">Trade With</p>
-                    {discovery.tradeWith}
+                    {u.tradeWith}
                   </div>
                 ) : (
                   ""
@@ -64,7 +54,7 @@ function Detail({ discovery, ...props }) {
 
                 <div>
                   <p className="fst-italic fw-bold">Price</p>
-                  {discovery.price}
+                  {u.price}
                 </div>
               </div>
             </div>
@@ -75,14 +65,13 @@ function Detail({ discovery, ...props }) {
         <Button
           onClick={() => {
             props.onHide();
-            changePage();
           }}
         >
-          See Profile
+          Close
         </Button>
       </Modal.Footer>
     </Modal>
   );
 }
 
-export default Detail;
+export default SeeAllModal;

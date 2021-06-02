@@ -6,6 +6,15 @@ import { AddNewShowcase, getItems, postShowToItems, oneShow } from "../store/act
 export default function ListItemModal({ ShowcaseId, ...props }) {
   const items = useSelector((state) => state.items);
   const one = useSelector((state) => state.oneShow);
+  const loading = useSelector((state) => state.loading);
+
+  let arrItems = items.map((e) => e.id);
+
+  let arrShowcaseItems = [];
+
+  console.log(one.ShowcaseItems, ")))))))00000");
+
+  console.log(arrShowcaseItems, "<<<<SHOWCASEITEM");
 
   const [ItemId, setItem] = useState("");
   const dispatch = useDispatch();
@@ -22,6 +31,12 @@ export default function ListItemModal({ ShowcaseId, ...props }) {
   const itemToShowcase = () => {
     dispatch(postShowToItems({ ItemId, ShowcaseId }));
   };
+
+  console.log(loading, "loadsing");
+
+  // if (one.ShowcaseItems.length != 0) {
+  //   arrShowcaseItems = one.ShowcaseItems.map((e) => e.ItemId);
+  // }
 
   return (
     <Modal {...props} size="sm" aria-labelledby="contained-modal-title-vcenter" centered>

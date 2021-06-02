@@ -12,6 +12,7 @@ import ShowCase from "./ShowCase";
 const Profile = () => {
   let history = useHistory();
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.loading);
   const { id } = useParams();
   const [showItem, setShowItem] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -25,7 +26,7 @@ const Profile = () => {
   const allShow = useSelector((state) => state.allShow);
 
   const [all, setAll] = useState(false);
-  // console.log(allShow);
+  console.log(allShow);
 
   // const isLogin = useSelector((state) => state.isLogin)
   function hideItems() {
@@ -33,7 +34,7 @@ const Profile = () => {
   }
   useEffect(() => {
     dispatch(getAllShow(id));
-  }, [allShow, id]); //!PASANG ALL SHOW DI SINI
+  }, [allShow]); //!PASANG ALL SHOW DI SINI
 
   // console.log(userLogged);
   useEffect(() => {
@@ -84,8 +85,6 @@ const Profile = () => {
     history.push(`/editItem/${id}`);
   }
 
-  console.log(allShow);
-
   return (
     <section className="profile">
       {/* profile side */}
@@ -106,16 +105,14 @@ const Profile = () => {
             </div>
             <div className="username d-flex align-items-center p-1 justify-content-between">
               <p className="username__text">@{user.username}</p>
-              {userLogged.id === +id && <i onClick={editUserInfo} class="far fa-edit"></i>}
+              {userLogged.id === +id && <i onClick={editUserInfo} className="far fa-edit"></i>}
             </div>
             <div className="main__content p-1">
               <p className="text">{user.userDesc}</p>
             </div>
             <div className="main__content p-1 d-flex align-items-center">
               <i className="fas fa-map-marker-alt"></i>
-              <p style={{ color: "#9d9d9d" }} className="text mx-2">
-                {user.location ? user.location : "unknown"}
-              </p>
+              <p className="text mx-2">{user.location ? user.location : "unknown"}</p>
             </div>
             {userLogged.id !== +id && (
               <div className="btn__chat text-center">
@@ -136,7 +133,7 @@ const Profile = () => {
                 </a>
                 {userLogged.id == id ? (
                   <div>
-                    <i onClick={addToShowcase} style={{ cursor: "pointer" }} class="fas fa-folder-plus"></i>
+                    <i onClick={addToShowcase} style={{ cursor: "pointer" }} className="fas fa-folder-plus"></i>
                   </div>
                 ) : (
                   ""
@@ -149,7 +146,7 @@ const Profile = () => {
                 <a onClick={itemsShow} className="btn pe-0">
                   My Items
                 </a>
-                <i onClick={showModalForm} style={{ cursor: "pointer" }} class="far fa-plus-square"></i>
+                <i onClick={showModalForm} style={{ cursor: "pointer" }} className="far fa-plus-square"></i>
               </div>
             ) : (
               ""

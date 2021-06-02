@@ -7,11 +7,14 @@ const TrendingCard = ({ data }) => {
 
   console.log(data, "trending!!!!");
 
+  console.log(data, "TRENDINGGG");
+
   return (
     <div className="col-md-4 align-items-stretch">
       <TrendingDetail trending={data} show={modalShow} onHide={() => setModalShow(false)} />
+
       <div onClick={() => setModalShow(true)} className="card__item">
-        <div className="card text-white bg-dark p-2">
+        <div className="card text-white bg-light p-2">
           <img
             src={data.image}
             onError={(e) => {
@@ -22,13 +25,13 @@ const TrendingCard = ({ data }) => {
           />
           <div className="card-body pb-0">
             {/* <h5 className="card-title">{data.name}</h5> */}
-
+            {/* 
             <div className="d-flex content__card my-1 justify-content-between">
               <strong className="card-text">Tradable</strong>
               <p style={{ color: "#f9f9ff" }} className="card-text">
-                {data.tradeable ? <i style={{ color: "green" }} class="far fa-check-circle"></i> : <i style={{ color: "red" }} class="far fa-times-circle"></i>}
+                {data.tradeable ? <i style={{ color: "green" }} calssName="far fa-check-circle"></i> : <i style={{ color: "red" }} calssName="far fa-times-circle"></i>}
               </p>
-            </div>
+            </div> */}
             <div className="d-flex content__card mb-0 justify-content-between">
               <strong className="card-text"> Price</strong>
               <p style={{ color: "#f9f9ff" }} className="card-text">
