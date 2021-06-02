@@ -17,14 +17,6 @@ const SeeAll = () => {
 
   console.log(id, "<<<<<");
 
-  if (loading) {
-    return (
-      <div className="loading__discovery">
-        <h3 className="text-center">Please Wait...</h3>
-      </div>
-    );
-  }
-
   return (
     <div className="discovery">
       <div className="discovery__container">

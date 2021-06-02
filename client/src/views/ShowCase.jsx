@@ -13,6 +13,10 @@ const ShowCase = ({ show }) => {
   const error = useSelector((state) => state.error);
   const [menu, setMenu] = useState(true);
 
+  const oneUser = useSelector((state) => state.oneUser);
+
+  console.log(oneUser, "<<<<<<");
+
   const history = useHistory();
 
   const deleteShowcase = (id) => {
