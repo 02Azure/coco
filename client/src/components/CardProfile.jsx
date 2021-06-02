@@ -7,12 +7,12 @@ const CardProfile = ({ discovery }) => {
 
   const d = discovery.Item;
 
-  console.log(d, "<<<<<DISOCVERYYY");
+  // console.log(d, "<<<<<DISOCVERYYY");
   return (
     <div className="col-md-4 align-items-stretch">
       {/* <Detail discovery={discovery} show={modalShow} onHide={() => setModalShow(false)} /> */}
       <div className="card__item">
-        <div className="card bg-light pt-2 px-2">
+        <div className="card  pt-2 px-2">
           <img
             src={d.image}
             onError={(e) => {
@@ -21,7 +21,7 @@ const CardProfile = ({ discovery }) => {
             }}
             alt=""
           />
-          <div className="card-body pb-0">
+          <div className="card-body pb-2">
             {/* <h5 className="card-title">{d.name}</h5> */}
 
             <div className="d-flex content__card justify-content-between">

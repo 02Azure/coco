@@ -20,6 +20,7 @@ const intialState = {
   userNotFound: false,
   error: { err: false, msg: "" },
   listItems: [],
+  u: {},
 };
 
 function reducer(state = intialState, action) {
@@ -57,6 +58,8 @@ function reducer(state = intialState, action) {
       return { ...state, wishlists: payload };
     case "SET_ERROR":
       return { ...state, error: payload };
+    case "SET_U":
+      return { ...state, u: payload };
     case "GET_DETAIL_WISHLIST":
       return { ...state, wishlist: payload };
     default:

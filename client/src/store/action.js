@@ -1,4 +1,5 @@
 import { Redirect } from "react-router";
+import Swal from "sweetalert2";
 // const server = "http://localhost:3001"
 const server = "http://52.207.207.52:3000";
 var userInfo = "";
@@ -15,6 +16,9 @@ export function setError(payload) {
 
 export function setNotFound(payload) {
   return { type: "SET_NOT_FOUND", payload };
+}
+export function setU(payload) {
+  return { type: "SET_U", payload };
 }
 
 export function setItem(payload) {
@@ -118,7 +122,7 @@ export function login(payload) {
         localStorage.setItem("isLogin", true);
         u = JSON.parse(localStorage.getItem("userLog"));
         userInfo = JSON.parse(localStorage.getItem("userLog"));
-
+        dispatch(setU(result));
         dispatch(checkLogin(true));
       })
       .catch((error) => {
@@ -178,7 +182,6 @@ export function updateUserInfo(payload) {
       })
       .then((result) => {
         console.log(result);
-        // Redirect("/profile/" + userInfo.id);
       })
       .catch((error) => {
         console.log(error);
@@ -210,7 +213,7 @@ export function oneShow(id) {
 }
 // get all
 export function getAllShow(id) {
-  console.log(id, "<<<<");
+  console.log(id, "<<<< line 213");
   return function (dispatch) {
     dispatch(setLoading(true));
     fetch(server + "/showcases/?userId=" + id, {
@@ -264,7 +267,7 @@ export function AddNewShowcase(payload) {
         }
       })
       .then((result) => {
-        dispatch(getAllShow(userInfo.id));
+        dispatch(getAllShow(JSON.parse(localStorage.getItem("userLog")).id));
       })
       .catch((error) => {
         console.log(error);
@@ -293,7 +296,7 @@ export function removeShowcase(id) {
       })
       .then((result) => {
         // Do something with the response
-        dispatch(getAllShow(userInfo.id));
+        dispatch(getAllShow(JSON.parse(localStorage.getItem("userLog")).id));
       })
       .catch((error) => {
         console.log(error);
@@ -324,7 +327,7 @@ export function updateShowName(payload) {
       })
       .then((result) => {
         // Do something with the response
-        dispatch(getAllShow(userInfo.id));
+        dispatch(getAllShow(JSON.parse(localStorage.getItem("userLog")).id));
       })
       .catch((error) => {
         console.log(error);
@@ -389,8 +392,24 @@ export function postShowToItems(payload) {
         }
       })
       .then((result) => {
-        console.log(result);
-        dispatch(setLoading(false));
+        dispatch(getAllShow(JSON.parse(localStorage.getItem("userLog")).id));
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
+          icon: "success",
+          title: "Card Added",
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -550,6 +569,22 @@ export function addItem(payload) {
         return response.json();
       })
       .then((result) => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
+          icon: "success",
+          title: "Delete successfully",
+        });
         console.log(result, "ini result");
       })
       .catch((err) => {
@@ -580,8 +615,8 @@ export function readItems() {
 }
 
 export function showDetailItem(payload) {
-  const localStorageCheck = JSON.parse(localStorage.getItem("userLog"));
   return (dispatch) => {
+    dispatch(setLoading(true));
     fetch(server + `/items/${payload}`, {
       method: "get",
       headers: {
@@ -595,6 +630,7 @@ export function showDetailItem(payload) {
       })
       .then((data) => {
         console.log(data, "ini di action");
+        dispatch(setLoading(false));
         return dispatch(getDetail(data));
       })
       .catch((err) => {
@@ -605,6 +641,7 @@ export function showDetailItem(payload) {
 
 export function deleteItem(payload) {
   return (dispatch) => {
+    dispatch(setLoading(true));
     fetch(server + `/items/${payload}`, {
       method: "delete",
       headers: {
@@ -618,7 +655,23 @@ export function deleteItem(payload) {
         return response.json();
       })
       .then((result) => {
-        console.log(result, "<<<");
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
+          icon: "success",
+          title: "Delete item successfully",
+        });
+        dispatch(setLoading(false));
         return result;
       })
       .catch((err) => {
@@ -658,14 +711,12 @@ export function editItem(payload) {
 // ! wishlist
 
 export function addWishlist(payload) {
-  console.log(payload, "payload");
-  const localStorageCheck = JSON.parse(localStorage.getItem("userLog"));
   return (dispatch) => {
     fetch(server + "/wishlist", {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
-        access_token: localStorageCheck.access_token,
+        access_token: JSON.parse(localStorage.getItem("userLog")).access_token,
         Accept: "application/json",
         "Content-Type": "application/json",
       },
@@ -674,20 +725,71 @@ export function addWishlist(payload) {
         return response.json();
       })
       .then((result) => {
-        console.log(result);
+        const errorMessage = result.error[0];
+        if (errorMessage === 'invalid input syntax for type integer: "qwe"') {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 6000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
+
+          Toast.fire({
+            icon: "error",
+            title: "price must an integer",
+          });
+        } else if (errorMessage === "value too long for type character varying(255)") {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 6000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
+
+          Toast.fire({
+            icon: "error",
+            title: "img must an url / url var too long",
+          });
+        } else {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
+
+          Toast.fire({
+            icon: "success",
+            title: "Add wishlist successfully",
+          });
+        }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err, "ini err");
       });
   };
 }
 
 export function readWishlist() {
-  const localStorageCheck = JSON.parse(localStorage.getItem("userLog"));
   return (dispatch) => {
     fetch(server + "/wishlist", {
       headers: {
-        access_token: localStorageCheck.access_token,
+        access_token: JSON.parse(localStorage.getItem("userLog")).access_token,
         Accept: "application/json",
         "Content-Type": "application/json",
       },
@@ -705,12 +807,11 @@ export function readWishlist() {
 }
 
 export function deleteWishlist(payload) {
-  const localStorageCheck = JSON.parse(localStorage.getItem("userLog"));
   return (dispatch) => {
     fetch(server + `/wishlist/${payload}`, {
       method: "delete",
       headers: {
-        access_token: localStorageCheck.access_token,
+        access_token: JSON.parse(localStorage.getItem("userLog")).access_token,
         Accept: "application/json",
         "Content-Type": "application/json",
       },
@@ -720,6 +821,22 @@ export function deleteWishlist(payload) {
       })
       .then((result) => {
         console.log(result);
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
+          icon: "success",
+          title: "Delete from wishlist successfully",
+        });
         return result;
       })
       .catch((err) => {
@@ -729,12 +846,13 @@ export function deleteWishlist(payload) {
 }
 
 export function detailWishlist(payload) {
-  const localStorageCheck = JSON.parse(localStorage.getItem("userLog"));
+  console.log(payload, "line 732");
   return (dispatch) => {
+    dispatch(setLoading(true));
     fetch(server + `/wishlist/${payload}`, {
       method: "get",
       headers: {
-        access_token: localStorageCheck.access_token,
+        access_token: JSON.parse(localStorage.getItem("userLog")).access_token,
         Accept: "application/json",
         "Content-Type": "application/json",
       },
@@ -743,24 +861,27 @@ export function detailWishlist(payload) {
         return response.json();
       })
       .then((data) => {
-        console.log(data, "ini di action");
+        console.log(data, "ini di action 748");
         return dispatch(getDetailWishlist(data));
       })
+      // .then(())
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        dispatch(setLoading(false));
       });
   };
 }
 
 export function editWishlist(payload) {
-  // console.log(payload, 'payload');
-  const localStorageCheck = JSON.parse(localStorage.getItem("userLog"));
+  console.log(payload, "payload");
   return (dispatch) => {
     fetch(server + `/wishlist/${payload.id}`, {
       method: "put",
       body: JSON.stringify(payload.data),
       headers: {
-        access_token: localStorageCheck.access_token,
+        access_token: JSON.parse(localStorage.getItem("userLog")).access_token,
         Accept: "application/json",
         "Content-Type": "application/json",
       },
@@ -769,6 +890,22 @@ export function editWishlist(payload) {
         return response.json();
       })
       .then((result) => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
+          icon: "success",
+          title: "Edit wishlist successfully",
+        });
         console.log(result);
       })
       .catch((err) => {

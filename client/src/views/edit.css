@@ -18,3 +18,11 @@ textarea {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
 }
+
+.edit__profile__image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: #5eaaa8 2px solid;
+}

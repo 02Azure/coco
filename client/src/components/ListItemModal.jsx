@@ -8,14 +8,6 @@ export default function ListItemModal({ ShowcaseId, ...props }) {
   const one = useSelector((state) => state.oneShow);
   const loading = useSelector((state) => state.loading);
 
-  let arrItems = items.map((e) => e.id);
-
-  let arrShowcaseItems = [];
-
-  console.log(one.ShowcaseItems, ")))))))00000");
-
-  console.log(arrShowcaseItems, "<<<<SHOWCASEITEM");
-
   const [ItemId, setItem] = useState("");
   const dispatch = useDispatch();
 
