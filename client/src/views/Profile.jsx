@@ -34,7 +34,7 @@ const Profile = () => {
   }
   useEffect(() => {
     dispatch(getAllShow(id));
-  }, [allShow]); //!PASANG ALL SHOW DI SINI
+  }, []); //!PASANG ALL SHOW DI SINI
 
   // console.log(userLogged);
   useEffect(() => {

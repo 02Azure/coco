@@ -264,7 +264,7 @@ export function AddNewShowcase(payload) {
         }
       })
       .then((result) => {
-        dispatch(getAllShow(userInfo.id));
+        dispatch(getAllShow(JSON.parse(localStorage.getItem("userLog")).id));
       })
       .catch((error) => {
         console.log(error);
@@ -293,7 +293,7 @@ export function removeShowcase(id) {
       })
       .then((result) => {
         // Do something with the response
-        dispatch(getAllShow(userInfo.id));
+        dispatch(getAllShow(JSON.parse(localStorage.getItem("userLog")).id));
       })
       .catch((error) => {
         console.log(error);
@@ -324,7 +324,7 @@ export function updateShowName(payload) {
       })
       .then((result) => {
         // Do something with the response
-        dispatch(getAllShow(userInfo.id));
+        dispatch(getAllShow(JSON.parse(localStorage.getItem("userLog")).id));
       })
       .catch((error) => {
         console.log(error);
