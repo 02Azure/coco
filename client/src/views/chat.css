@@ -1,64 +1,87 @@
-.list__chat{
-    /* background-color: red; */
-    height: 100vh;
-    padding: 20px
+.chat-room-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.3em;
+  width: 60vw;
+  min-width: 400px;
+  margin: auto;
 }
 
-/* .people__content{
-    background-color:white;
-    height: 60vh;
-} */
-
-.people__photo{
-    width: 10vh;
-    background-color:wheat;
-    border-radius:50%;
-    padding: 10px
+.recipient {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
-.people__name{
-    padding:10px
+.header-picture {
+  background-color: white;
+  border-radius: 50%;
+  border: solid gray 2px;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  width: 60px;
+  min-height: 60px;
+  min-width: 60px;
+  overflow: hidden;
+  margin-right: 1em;
 }
 
-.people__chat{
-    font-size: 25px;
+.header-picture img {
+  object-fit: cover;
+  min-width: 100%;
+  min-height: 100%
 }
 
-.another__people{
-    background-color: aqua;
-    /* position: relative; */
-    /* top: 10vh; */
-    /* left: 13vh; */
-    padding: 20px;
-    margin-top: 3vh;
-    width: 55vh;
-    border-radius: 50px;
-    /* height:  */
+.return-link {
+  font-weight: bolder;
+  color: #5eaaa8;
+  cursor: pointer;
+  transition: all 0.5s
+}
+
+.return-link:hover {
+  color: steelblue;
 }
 
 .main__chat{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: whitesmoke;
-    padding: 0.5em
+    padding: 0.75em;
 }  
 
 .box__chat{
-    background-color: #eee;
-    height: 70vh;
-    width: 120vh;
-    padding: 20px;
-    /* position: relative; */
-    margin-top: 4vh;
+    background-color: #f8f1f1;
+    height: 75vh;
+    width: 60vw;
+    min-width: 400px;
+    padding: 1em;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between ;
     /* top: 18vh; */
 }
 
 .box__sent{
     width: 100%;
-    /* height:10vh; */
+}
 
+.box__sent:nth-last-child(2){
+  margin-bottom: 80px;
+  /* height:10vh; */
+}
+
+.box__sent:nth-last-child(2) .chat-timestamp{
+  visibility: visible
+  /* height:10vh; */
+}
+
+
+.box__sent:hover .chat-timestamp {
+  visibility: visible
 }
 
 .profile__user__chat{
@@ -81,21 +104,22 @@
     padding: 5px;
     color: black
 }
-.person__name{
-    padding: 10px
-}
 
 .text__input{
-    background-color:white;
+    background-color:none;
     position: sticky;
     bottom: 0;
-    width: 90vh;
-    left: 10vh
+    width: 100%;
+}
+
+.input-message-container {
+  display: flex;
 }
 
 .input__message{
-    /* width: 50vh */
-    border: none;
+    resize: none;
+    padding: 0.5em;
+    width: 100%;
 }
 
 .last-message-container {
@@ -110,5 +134,57 @@
   text-align: center;
   font-size: 1.5em !important;
   font-weight: bolder;
-  margin-bottom: 1em;
+  margin: 0.4em 0;
+}
+
+.send-button {
+  width: 70px;
+}
+
+.empty-message-container {
+  margin: auto;
+  padding: 0.5em;
+  margin-top: 2em;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  background-image:url("../images/tumbleweed.gif");
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  background-position: center;
+}
+
+.empty-title {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 2em;
+}
+
+.empty-desc {
+  margin-top: 1em;
+  text-align: center;
+}
+
+.loading-text {
+  margin-top: 15vh;
+  text-align:center;
+  animation-name: blinking;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-duration: 1.2s;
+}
+
+
+@keyframes blinking {
+  0%{
+     opacity: 1;
+  }
+
+  50%{
+     opacity: 0.2;
+  }
+
+  100%{
+    opacity: 1;
+  }
 }

@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 function Detail({ discovery, ...props }) {
   const h = useHistory();
 
-  console.log(discovery.User, "<<<<DETAIL");
+  // console.log(discovery.User, "<<<<DETAIL");
 
   const u = discovery.User;
 

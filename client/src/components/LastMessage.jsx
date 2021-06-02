@@ -25,6 +25,7 @@ export default function LastMessage({ id, username, image, message, timestamp })
 
   function toUserTargetChat() {
     socket.off("receiveHistory")
+    socket.off("receivedMessage")
     history.push("/chat?recipient=" + id)
   }
   return(
@@ -38,7 +39,6 @@ export default function LastMessage({ id, username, image, message, timestamp })
               setImageError(true) 
             } 
           } }
-
         />
       </div>
       <div className="row history-content">

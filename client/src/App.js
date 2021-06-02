@@ -14,7 +14,6 @@ import Trending from "./views/Trending";
 import Wishlist from "./views/WishList";
 import DetailItemPage from "./views/detail.item.jsx";
 import DetailWishlist from "./views/detail.wishlist.jsx";
-import EditWishlist from "./views/edit.wishlist";
 import ProtectedRoute from "./views/protected.route";
 
 import NotFound from "./views/NotFound";
@@ -54,7 +53,6 @@ function App() {
         <ProtectedRoute path="/wishlist" component={Wishlist} isAuth={isLogin} />
         <ProtectedRoute path="/editItem/:id" component={DetailItemPage} isAuth={isLogin} />
         <ProtectedRoute path="/detailWishlist/:id" component={DetailWishlist} isAuth={isLogin} />
-        <ProtectedRoute path="/editWishlist/:id" component={EditWishlist} isAuth={isLogin} />
         <Route path="*" component={NotFound}></Route>
       </Switch>
     </Router>

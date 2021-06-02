@@ -1,14 +1,14 @@
 .your-message {
-  background-color: rgb(200,220,250);
+  background-color: #5eaaa8;
 }
 
 .recipient-message {
-  background-color: honeydew;
+  background-color: #a3d2ca;
 }
 
 .chat-handler-username {
   width: fit-content;
-  color: gray
+  color: #db6400
 }
 
 .box-content {
@@ -18,3 +18,18 @@
 .sender-position {
   align-items: flex-end;
 }
+
+.chat-content {
+  width: 100%
+}
+
+.right-timestamp {
+  text-align: right;
+}
+
+.chat-timestamp {
+  color: gray;
+  visibility: hidden
+}
+
+
