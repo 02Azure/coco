@@ -18,19 +18,13 @@ const ItemCard = ({ discovery, data, wish }) => {
               e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
             }}
           />
-          <div className="card-body">
+          <div className="card-body pb-0">
             {/* <h5 className="card-title">{discovery.name}</h5> */}
 
-            <div className="d-flex content__card my-1 justify-content-between">
+            <div className="d-flex content__card mb-0 justify-content-between">
               <strong className="card-text">Tradable</strong>
               <p style={{ color: "#f9f9ff" }} className="card-text">
                 {discovery.tradeable ? <i style={{ color: "green" }} class="far fa-check-circle"></i> : <i style={{ color: "red" }} class="far fa-times-circle"></i>}
-              </p>
-            </div>
-            <div className="d-flex content__card my-1 justify-content-between">
-              <strong className="card-text"> Tag</strong>
-              <p style={{ color: "#f9f9ff" }} className="card-text">
-                {discovery.tag}
               </p>
             </div>
           </div>

@@ -77,10 +77,10 @@ const Register = () => {
                   <div className="">
                     <a className="btn mb-2 py-2 btn-facebook" onClick={submit}>
                       {" "}
-                      <span className="icon-facebook me-3"></span> submit
+                      <span className="icon-facebook me-3"></span> Submit
                     </a>
                     <a className="btn py-2 btn-google" onClick={cancel}>
-                      <span className="icon-google me-3"></span> cancel
+                      <span className="icon-google me-3"></span> Cancel
                     </a>
                   </div>
                 </form>

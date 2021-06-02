@@ -40,7 +40,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <a onClick={logout} className="nav-link ">
+              <a onClick={logout} style={{ cursor: "pointer" }} className="nav-link ">
                 Logout
               </a>
             </li>

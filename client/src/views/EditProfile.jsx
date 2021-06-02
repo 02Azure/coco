@@ -36,7 +36,7 @@ const EditProfile = () => {
     if (isSubmitted) {
       history.push("/profile/" + id);
     }
-  }, [isSubmitted, oneUser]);
+  }, [isSubmitted]);
 
   useEffect(() => {
     setInitialUser({
@@ -70,15 +70,17 @@ const EditProfile = () => {
       <div className="edit__container mt-5">
         <div className="form-block mx-auto">
           {/* heading login */}
-          <div className="text-center mb-5">
+          <div className="text-center mb-3">
             <h3 className="text-uppercase">
               <strong>Profile</strong>
             </h3>
           </div>
+          <div className="mb-2">
+            <img style={{ width: "50%" }} src={u.userImage} className="mx-auto" />
+          </div>
           {/* login form */}
           <form>
             <div className="form-group first mb-2">
-              <label htmlFor="userImage">Image</label>
               <input type="text" className="form-control py-1 px-2" onChange={handleChange} name="userImage" value={u.userImage} />
             </div>
             <div className="form-group first mb-2">

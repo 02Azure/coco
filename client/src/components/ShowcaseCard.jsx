@@ -35,9 +35,9 @@ const ShowcaseCard = ({ see, ShowcaseId }) => {
           />
 
           {userInfo.id == s.UserId ? (
-            <div className="d-flex justify-content-end px-2 py-1">
+            <div className="d-flex justify-content-start py-2">
               {see.isStarred ? (
-                <div className="mx-1">
+                <div className="me-1">
                   <i style={{ color: "#FFDF00" }} onClick={() => star(see.id)} class="fas fa-star fa-lg"></i>
                 </div>
               ) : (
@@ -45,7 +45,7 @@ const ShowcaseCard = ({ see, ShowcaseId }) => {
                   <i onClick={() => star(see.id)} class="far fa-star fa-lg"></i>
                 </div>
               )}
-              <div className="mx-1">
+              <div className="ms-1">
                 <i onClick={() => remove(see.id)} class="far fa-trash-alt fa-lg"></i>
               </div>
             </div>
@@ -53,13 +53,9 @@ const ShowcaseCard = ({ see, ShowcaseId }) => {
             ""
           )}
 
-          <div className="d-flex content__card my-1 justify-content-between">
+          <div className="d-flex content__card mb-0 justify-content-between">
             <strong className="card-text">Tradable</strong>
             <p className="card-text">{s.tradeable ? <i style={{ color: "green" }} class="far fa-check-circle"></i> : <i style={{ color: "red" }} class="far fa-times-circle"></i>}</p>
-          </div>
-          <div className="d-flex content__card my-1 justify-content-between">
-            <strong className="card-text"> Tag</strong>
-            <p className="card-text text-white">{s.tag}</p>
           </div>
         </div>
       </div>

@@ -106,6 +106,7 @@ const Profile = () => {
             </div>
             <div className="username d-flex align-items-center p-1 justify-content-between">
               <p className="username__text">@{user.username}</p>
+              {userLogged.id === +id && <i onClick={editUserInfo} class="far fa-edit"></i>}
             </div>
             <div className="main__content p-1">
               <p className="text">{user.userDesc}</p>
@@ -117,9 +118,11 @@ const Profile = () => {
               </p>
             </div>
             {userLogged.id !== +id && (
-              <button onClick={showChat} className="btn__chat">
-                Chat
-              </button>
+              <div className="btn__chat text-center">
+                <button onClick={showChat} className="btn btn-outline-dark">
+                  Chat
+                </button>
+              </div>
             )}
           </div>
         </div>

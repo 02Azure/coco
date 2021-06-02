@@ -20,7 +20,7 @@ const TrendingCard = ({ data }) => {
             }}
             alt=""
           />
-          <div className="card-body">
+          <div className="card-body pb-0">
             {/* <h5 className="card-title">{data.name}</h5> */}
 
             <div className="d-flex content__card my-1 justify-content-between">
@@ -29,7 +29,7 @@ const TrendingCard = ({ data }) => {
                 {data.tradeable ? <i style={{ color: "green" }} class="far fa-check-circle"></i> : <i style={{ color: "red" }} class="far fa-times-circle"></i>}
               </p>
             </div>
-            <div className="d-flex content__card my-1 justify-content-between">
+            <div className="d-flex content__card mb-0 justify-content-between">
               <strong className="card-text"> Price</strong>
               <p style={{ color: "#f9f9ff" }} className="card-text">
                 {data.price}

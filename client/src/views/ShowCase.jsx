@@ -11,6 +11,7 @@ const ShowCase = ({ show }) => {
   const dispatch = useDispatch();
   const userLogged = JSON.parse(localStorage.getItem("userLog"));
   const error = useSelector((state) => state.error);
+  const [menu, setMenu] = useState(true);
 
   useEffect(() => {
     console.log(error, "============");
@@ -79,21 +80,29 @@ const ShowCase = ({ show }) => {
             )}
           </div>
         </div>
+        {/* DI SINI */}
 
-        {userLogged.id == show.UserId ? (
+        {menu ? (
+          <div className="d-flex align-items-center mx-2">
+            <i style={{ cursor: "pointer" }} onClick={() => setMenu(false)} class="fas fa-ellipsis-h"></i>
+          </div>
+        ) : (
           <div className="d-flex align-items-center">
-            <i style={{ cursor: "pointer" }} onClick={itemToShow} class="far fa-file mx-2"></i>
+            {userLogged.id == show.UserId ? <i style={{ cursor: "pointer" }} onClick={itemToShow} class="far fa-file mx-2"></i> : ""}
             <i style={{ cursor: "pointer" }} onClick={() => toPageSeeAll()} class="fas fa-eye mx-2"></i>
-            {/* <i style={{ cursor: "pointer" }} onClick={itemToShow} class="fas fa-plus mx-2"></i> */}
-            {/* <a style={{ cursor: "pointer" }} onClick={() => toPageSeeAll()}>
-              See All
-            </a> */}
+            <i style={{ cursor: "pointer" }} onClick={() => setMenu(true)} class="fas fa-ellipsis-h mx-2"></i>
+          </div>
+        )}
+
+        {/* {userLogged.id == show.UserId ? (
+          <div className="d-flex align-items-center">
+            <i style={{ cursor: "pointer" }} onClick={() => toPageSeeAll()} class="fas fa-eye mx-2"></i>
           </div>
         ) : (
           <div>
             <i style={{ cursor: "pointer" }} onClick={() => toPageSeeAll()} class="fas fa-eye"></i>
           </div>
-        )}
+        )} */}
       </div>
 
       <EditShowName updateFrom={(name) => handleUpdate({ id: show.id, name })} deleteFrom={() => deleteShowcase(show.id)} show={sModal} onHide={() => setSModal(false)} />
