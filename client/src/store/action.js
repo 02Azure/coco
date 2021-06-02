@@ -178,7 +178,6 @@ export function updateUserInfo(payload) {
       })
       .then((result) => {
         console.log(result);
-        // Redirect("/profile/" + userInfo.id);
       })
       .catch((error) => {
         console.log(error);

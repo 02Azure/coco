@@ -63,6 +63,7 @@ const EditProfile = () => {
   const updateInfo = () => {
     dispatch(updateUserInfo(u));
     setSubmit(true);
+    dispatch(findOneUser(id));
   };
 
   return (
