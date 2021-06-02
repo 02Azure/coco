@@ -26,7 +26,7 @@ const Profile = () => {
   const allShow = useSelector((state) => state.allShow);
 
   const [all, setAll] = useState(false);
-  console.log(allShow);
+  // console.log(allShow);
 
   // const isLogin = useSelector((state) => state.isLogin)
   function hideItems() {
@@ -34,20 +34,20 @@ const Profile = () => {
   }
   useEffect(() => {
     dispatch(getAllShow(id));
-  }, [allShow]); //!PASANG ALL SHOW DI SINI
+  }, []); //!PASANG ALL SHOW DI SINI
 
   // console.log(userLogged);
   useEffect(() => {
     dispatch(readItems());
-  }, []);
+  }, [items]);
+
   useEffect(() => {
-    // console.log("masuk find one user");
     dispatch(findOneUser(id));
   }, [id]);
 
-  useEffect(() => {
-    dispatch(readItems());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(readItems());
+  // }, []);
 
   function hideItems() {
     setShowItem(false);
@@ -186,7 +186,12 @@ const Profile = () => {
                     <>
                       <div key={item.id}>
                         {/* <p>Click To See Detail</p> */}
-                        <img onClick={(e) => detailItem(item.id)} src={item.image} alt="" className="item__image" />
+                        <img 
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
+                        }}
+                        onClick={(e) => detailItem(item.id)} src={item.image} alt="" className="item__image" />
                       </div>
                     </>
                   );

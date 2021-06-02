@@ -7,7 +7,7 @@ const CardProfile = ({ discovery }) => {
 
   const d = discovery.Item;
 
-  console.log(d, "<<<<<DISOCVERYYY");
+  // console.log(d, "<<<<<DISOCVERYYY");
   return (
     <div className="col-md-4 align-items-stretch">
       {/* <Detail discovery={discovery} show={modalShow} onHide={() => setModalShow(false)} /> */}
