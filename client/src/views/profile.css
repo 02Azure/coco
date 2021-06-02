@@ -17,11 +17,9 @@ body {
   background-color: #eee;
   padding: 10px;
   border-radius: 20px;
-  /* position: sticky; */
   top: 0;
   padding-top: 10px;
-  width: 20em;
-  /* left: 5em; */
+  width: 25em;
 }
 
 .header__image {
