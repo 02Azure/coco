@@ -9,7 +9,7 @@ const ItemCard = ({ discovery, data, wish }) => {
     <div className="col-md-4 align-items-stretch">
       <Detail discovery={discovery} show={modalShow} onHide={() => setModalShow(false)} />
       <div className="card__item">
-        <div onClick={() => setModalShow(true)} className="card bg-light p-2">
+        <div onClick={() => setModalShow(true)} className="card bg-light p-2 d-flex justify-content-between">
           <img
             src={discovery.image}
             alt=""

@@ -5,7 +5,7 @@ const WishListCard = ({ w, r, d }) => {
   return (
     <div className="col-md-4 align-items-stretch">
       <div className="card__item">
-        <div className="card  bg-light p-2">
+        <div className="card  bg-light p-2 d-flex justify-content-between">
           <img
             src={w.image}
             alt=""

@@ -14,7 +14,7 @@ const TrendingCard = ({ data }) => {
       <TrendingDetail trending={data} show={modalShow} onHide={() => setModalShow(false)} />
 
       <div onClick={() => setModalShow(true)} className="card__item">
-        <div className="card bg-light p-2">
+        <div className="card bg-light p-2 d-flex justify-content-between">
           <img
             src={data.image}
             onError={(e) => {

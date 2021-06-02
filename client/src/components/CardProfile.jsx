@@ -7,12 +7,14 @@ const CardProfile = ({ discovery }) => {
 
   const d = discovery.Item;
 
+  // card bg-light p-2 d-flex justify-content-between
+
   // console.log(d, "<<<<<DISOCVERYYY");
   return (
     <div className="col-md-4 align-items-stretch">
       {/* <Detail discovery={discovery} show={modalShow} onHide={() => setModalShow(false)} /> */}
       <div className="card__item pt-0">
-        <div className="card pt-2 px-2">
+        <div className="card d-flex justify-content-between pt-2 px-2">
           <img
             src={d.image}
             onError={(e) => {
