@@ -9,6 +9,11 @@ body {
   font-family: "Noto Sans JP", sans-serif;
   line-height: 1.6;
   font-weight: 400;
+  background-color: #a5e1ad;
+}
+
+.modal-footer {
+  border-top: none;
 }
 
 img {

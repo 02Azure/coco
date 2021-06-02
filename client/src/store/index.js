@@ -17,6 +17,9 @@ const intialState = {
   oneItem: {},
   wishlists: [],
   wishlist: {},
+  userNotFound: false,
+  error: { err: false, msg: "" },
+  listItems: [],
 };
 
 function reducer(state = intialState, action) {
@@ -26,6 +29,8 @@ function reducer(state = intialState, action) {
       return { ...state, register: payload };
     case "SET_ITEM":
       return { ...state, items: payload };
+    case "SET_LIST_ITEMS":
+      return { ...state, listItems: payload };
     case "SET_USER":
       return { ...state, user: payload };
     case "SET_LOADING":
@@ -34,6 +39,8 @@ function reducer(state = intialState, action) {
       return { ...state, discovery: payload };
     case "SET_ONE_USER":
       return { ...state, oneUser: payload };
+    case "SET_NOT_FOUND":
+      return { ...state, userNotFound: payload };
     case "SET_ONE_SHOW":
       return { ...state, oneShow: payload };
     case "SET_ALL_SHOW":
@@ -48,6 +55,8 @@ function reducer(state = intialState, action) {
       return { ...state, wishlists: state.wishlists.concat(payload) };
     case "SET_WISHLIST":
       return { ...state, wishlists: payload };
+    case "SET_ERROR":
+      return { ...state, error: payload };
     case "GET_DETAIL_WISHLIST":
       return { ...state, wishlist: payload };
     default:

@@ -5,22 +5,38 @@ import "./trending.css";
 const TrendingCard = ({ data }) => {
   const [modalShow, setModalShow] = React.useState(false);
 
+  console.log(data, "trending!!!!");
+
+  console.log(data, "TRENDINGGG");
+
   return (
     <div className="col-md-4 align-items-stretch">
       <TrendingDetail trending={data} show={modalShow} onHide={() => setModalShow(false)} />
-      <div onClick={() => setModalShow(true)} className="card__item">
-        <div className="card text-white bg-dark p-2">
-          <img src={data.image ? data.image : "https://www.mugi.co.id/assets/images/img_def.png"} alt="" />
-          <div className="card-body">
-            {/* <h5 className="card-title">{data.name}</h5> */}
 
+      <div onClick={() => setModalShow(true)} className="card__item">
+        <div className="card text-white bg-light p-2">
+          <img
+            src={data.image}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
+            }}
+            alt=""
+          />
+          <div className="card-body pb-0">
+            {/* <h5 className="card-title">{data.name}</h5> */}
+            {/* 
             <div className="d-flex content__card my-1 justify-content-between">
               <strong className="card-text">Tradable</strong>
-              <p className="card-text">{data.tradeable ? <i style={{ color: "green" }} class="far fa-check-circle"></i> : <i style={{ color: "red" }} class="far fa-times-circle"></i>}</p>
-            </div>
-            <div className="d-flex content__card my-1 justify-content-between">
-              <strong className="card-text"> Tag</strong>
-              <p className="card-text">{data.tag}</p>
+              <p style={{ color: "#f9f9ff" }} className="card-text">
+                {data.tradeable ? <i style={{ color: "green" }} calssName="far fa-check-circle"></i> : <i style={{ color: "red" }} calssName="far fa-times-circle"></i>}
+              </p>
+            </div> */}
+            <div className="d-flex content__card mb-0 justify-content-between">
+              <strong className="card-text"> Price</strong>
+              <p style={{ color: "#f9f9ff" }} className="card-text">
+                {data.price}
+              </p>
             </div>
           </div>
         </div>

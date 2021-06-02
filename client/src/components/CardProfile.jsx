@@ -6,22 +6,29 @@ const CardProfile = ({ discovery }) => {
   // const [modalShow, setModalShow] = React.useState(false);
 
   const d = discovery.Item;
+
+  console.log(d, "<<<<<DISOCVERYYY");
   return (
     <div className="col-md-4 align-items-stretch">
       {/* <Detail discovery={discovery} show={modalShow} onHide={() => setModalShow(false)} /> */}
       <div className="card__item">
-        <div className="card text-white bg-dark p-2">
-          <img src={d.image} alt="" />
-          <div className="card-body">
+        <div className="card bg-light pt-2 px-2">
+          <img
+            src={d.image}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
+            }}
+            alt=""
+          />
+          <div className="card-body pb-0">
             {/* <h5 className="card-title">{d.name}</h5> */}
 
-            <div className="d-flex content__card my-1 justify-content-between">
+            <div className="d-flex content__card justify-content-between">
               <strong className="card-text">Tradable</strong>
-              <p className="card-text">{d.tradeable ? <i style={{ color: "green" }} class="far fa-check-circle"></i> : <i style={{ color: "red" }} class="far fa-times-circle"></i>}</p>
-            </div>
-            <div className="d-flex content__card my-1 justify-content-between">
-              <strong className="card-text"> Tag</strong>
-              <p className="card-text">{d.tag}</p>
+              <p style={{ color: "#f9f9ff" }} className="card-text">
+                {d.tradeable ? <i style={{ color: "green" }} className="far fa-check-circle"></i> : <i style={{ color: "red" }} className="far fa-times-circle"></i>}
+              </p>
             </div>
           </div>
         </div>
