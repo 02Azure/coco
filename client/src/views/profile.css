@@ -10,11 +10,12 @@
 }
 
 body {
-  background-color: #171717 !important;
+  background-color: rgb(46, 81, 162) !important;
 }
 
 .user__info__container {
-  background-color: #eee;
+  background-color: #f6dfeb;
+  box-shadow: 10px 10px 5px #fffafa;
   padding: 10px;
   border-radius: 20px;
   /* position: sticky; */
@@ -65,7 +66,7 @@ body {
 .items__show__container {
   display: flex;
   flex-direction: row;
-  background-color: #282828;
+  background-color: #0062dd;
   border-radius: 5px;
   color: #eee;
 }

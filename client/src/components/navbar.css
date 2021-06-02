@@ -1,3 +1,8 @@
-nav{
-    position:absolute
+.background-nav{
+    background-color:rgb(46, 81, 162)
+}
+
+.navText{
+    font-size: 20px;
+    font-weight: bold;
 }

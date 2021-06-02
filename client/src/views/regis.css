@@ -32,7 +32,7 @@ h2 {
 }
 
 .half .contents {
-  background: #171717;
+  background: #FFFFFF;
 }
 
 .half .bg {
@@ -217,7 +217,7 @@ label {
 
 .btn.btn-login {
   display: block;
-  background-color: #fb771a;
+  background-color: #ba1b2a;
   color: #fff;
 }
 
