@@ -39,7 +39,7 @@ const Profile = () => {
   // console.log(userLogged);
   useEffect(() => {
     dispatch(readItems());
-  }, [items]);
+  }, []);
 
   useEffect(() => {
     dispatch(findOneUser(id));
@@ -186,12 +186,16 @@ const Profile = () => {
                     <>
                       <div key={item.id}>
                         {/* <p>Click To See Detail</p> */}
-                        <img 
-                        onError={(e) => {
-                          e.target.onerror = null;
-                          e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
-                        }}
-                        onClick={(e) => detailItem(item.id)} src={item.image} alt="" className="item__image" />
+                        <img
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
+                          }}
+                          onClick={(e) => detailItem(item.id)}
+                          src={item.image}
+                          alt=""
+                          className="item__image"
+                        />
                       </div>
                     </>
                   );

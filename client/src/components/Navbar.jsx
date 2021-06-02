@@ -1,20 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { checkLogin } from "../store/action";
 import { useSelector } from "react-redux";
 import "./navbar.css";
-const Navbar = (props) => {
-  const { isLogin } = props
+const Navbar = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const isLogin = useSelector((state) => state.isLogin);
+
   function logout() {
     localStorage.clear();
     dispatch(checkLogin(false));
     history.push("/");
   }
+  let u = "";
 
-  
+  useEffect(() => {
+    if (localStorage.getItem("userLog")) {
+      dispatch(checkLogin(true));
+    }
+  }, []);
+
+  if (localStorage.getItem("userLog")) {
+    u = JSON.parse(localStorage.getItem("userLog"));
+  }
+
   return (
     <nav style={{ background: "#5eaaa8" }} className="navbar navbar-expand-lg navbar-dark">
       <div className="container">
@@ -34,14 +46,15 @@ const Navbar = (props) => {
                 Trending
               </Link>
             </li>
-            {
-              // const u = JSON.parse(localStorage.getItem("userLog"));
-              isLogin &&
+            {isLogin && (
               <>
                 <li className="nav-item navText">
-                  <Link 
-                  // to={`/profile/${u.id}`}
-                  className="nav-link">
+                  <Link to={`/chat/`} className="nav-link">
+                    Chat
+                  </Link>
+                </li>
+                <li className="nav-item navText">
+                  <Link to={`/profile/${u.id}`} className="nav-link">
                     Profile
                   </Link>
                 </li>
@@ -51,17 +64,14 @@ const Navbar = (props) => {
                   </a>
                 </li>
               </>
-            }
-            {
-              !isLogin &&
+            )}
+            {!isLogin && (
               <li className="nav-item navText">
-                <Link 
-                className="nav-link"
-                to="/">
+                <Link className="nav-link" to="/">
                   Login
                 </Link>
               </li>
-            }
+            )}
           </ul>
         </div>
       </div>

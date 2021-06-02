@@ -13,18 +13,6 @@ const ShowCase = ({ show }) => {
   const error = useSelector((state) => state.error);
   const [menu, setMenu] = useState(true);
 
-  useEffect(() => {
-    console.log(error, "============");
-    if (error.err) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong!",
-        footer: '<a href="">Why do I have this issue?</a>',
-      });
-    }
-  }, [error]);
-
   const history = useHistory();
 
   const deleteShowcase = (id) => {
@@ -52,13 +40,16 @@ const ShowCase = ({ show }) => {
     history.push("/seeall/" + show.id);
   };
 
-  // let arr = show.ShowcaseItems;
+  let arr = show.ShowcaseItems;
 
   // const newArr = arr.filter((e) => e.isStarred == true);
 
-  // if (newArr.length !== 0) {
+  // if (newArr.length < 3) {
   //   arr = newArr;
   // }
+
+  console.log(arr, "ARR");
+  // console.log(newArr, "newArr");
 
   return (
     <div className="items__show__container m-1 d-flex flex-column">
@@ -99,9 +90,12 @@ const ShowCase = ({ show }) => {
       <ListItemModal ShowcaseId={show.id} show={IModal} onHide={() => setIModal(false)} />
 
       <div style={{ background: "#a3d2ca" }} className="row">
-        {show.ShowcaseItems.slice(0, 3).map((e, i) => {
+        {arr.map((e, i) => {
           return <CardProfile key={i} discovery={e}></CardProfile>;
         })}
+        {/* {show.ShowcaseItems.slice(0, 3).map((e, i) => {
+          return <CardProfile key={i} discovery={e}></CardProfile>;
+        })} */}
       </div>
     </div>
   );

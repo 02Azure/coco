@@ -20,13 +20,14 @@ import NotFound from "./views/NotFound";
 import SeeAll from "./views/SeeAll";
 
 function App() {
-  const isLogin = localStorage.getItem('isLogin')
-  // const isLogin = useSelector((state) => state.isLogin);
+  const login = localStorage.getItem("isLogin");
+
+  const isLogin = useSelector((state) => state.isLogin);
   // console.log(isLogin, 'islogin');
-  
+
   return (
     <Router>
-      <Navbar isLogin={isLogin}/>
+      <Navbar isLogin={isLogin} />
       <Switch>
         <Route exact path="/">
           <Login />
@@ -43,13 +44,15 @@ function App() {
         <Route path="/trending">
           <Trending />
         </Route>
+        <Route path="/seeall/:id">
+          <SeeAll />
+        </Route>
         {/* <ProtectedRoute path="/profile/" component={Profile} isAuth={isLogin} /> */}
         <ProtectedRoute path="/chat" component={ChatPage} isAuth={isLogin} />
         {/* <ProtectedRoute path="/discovery" component={Discovery} isAuth={isLogin} /> */}
         {/* <ProtectedRoute path="/trending" component={Trending} isAuth={isLogin} /> */}
         <ProtectedRoute path="/showCase" component={ShowCase} isAuth={isLogin} />
         <ProtectedRoute path="/editProfile/:id" component={EditProfile} isAuth={isLogin} />
-        <ProtectedRoute path="/seeall/:id" component={SeeAll} isAuth={isLogin} />
         <ProtectedRoute path="/wishlist" component={Wishlist} isAuth={isLogin} />
         <ProtectedRoute path="/editItem/:id" component={DetailItemPage} isAuth={isLogin} />
         <ProtectedRoute path="/detailWishlist/:id" component={DetailWishlist} isAuth={isLogin} />
