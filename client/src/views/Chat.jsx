@@ -3,10 +3,11 @@ import React, { useState, useEffect, useRef } from "react"
 import { Form } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { findOneUser } from "../store/action"
+import { findOneUser, setOneUser } from "../store/action"
 import socket from "../socket/socket"
 import MessageBalloon from "../components/MessageBalloon"
 import LastMessage from "../components/LastMessage"
+import createLastChatHistory from "../helpers/createLastChatHistory"
 
 export default function ChatPage(){
   const history = useHistory()
@@ -26,10 +27,10 @@ export default function ChatPage(){
   const [imageError, setImageError] = useState(false)
 
   const messagesEndRef = useRef(null)
+
   useEffect(() => {
     //jika route sekarang ada query recipient dan telah berhasil di get
-    if(recipient.username) {
-
+    if(recipient.username && recipientId) {
       socket.disconnect()
       socket.auth = { username: loggedUser.username }
       socket.connect()
@@ -54,65 +55,29 @@ export default function ChatPage(){
       })
 
     } else if(!recipientId) { //jika route sekarang hanya /chat
+      socket.disconnect()
       socket.auth = { username: loggedUser.username }
       socket.connect()
 
       socket.on("receiveHistory", data => {
         if(data.length) {
-          let uniqueUser = [] 
-          let userContacts = []
-  
-          //filter pesan yang hanya melibatkan user ini
-          data = data.filter(message => {
-            return ((message.from.username == loggedUser.username) || (message.recipient.username == loggedUser.username))
-          })
-  
-          //mempermudah mengambil pesan terakhir
-          data.reverse()
-          console.log(data)
-  
-          //buat array contact dari pesan terakhir dari/ke user yang unik pada loggedUser ini
-          data.forEach(message => {
-            if(message.from.username !== loggedUser.username) {
-              if(uniqueUser.indexOf(message.from.username) < 0) {
-                uniqueUser.push(message.from.username)
-                userContacts.push({ 
-                  id: message.from.id, 
-                  username: message.from.username, 
-                  image: message.from.image,
-                  message: message.message, 
-                  timestamp: message.timestamp 
-                })
-              }
-            }
-            else {
-              if(uniqueUser.indexOf(message.recipient.username) < 0) {
-                uniqueUser.push(message.recipient.username)
-                userContacts.push({ 
-                  id: message.recipient.id, 
-                  username: message.recipient.username,
-                  image: message.recipient.image, 
-                  message: message.message, 
-                  timestamp: message.timestamp 
-                })
-              }
-            }
-          })
-          setContacts(userContacts)
+          setContacts(createLastChatHistory(data, loggedUser.username))
         }
       })  
 
       socket.on("received-message", data => {
-        data = data.filter(message => {
-          return ((message.from == loggedUser.username) || (message.recipient == loggedUser.username))
-        })
-        setMessages(data)
+        console.log("terima!!")
+        if(data.length) {
+          setContacts([])
+          setContacts(createLastChatHistory(data, loggedUser.username))
+        }
       })
     }
     
-  },[recipient, contacts])
+  },[recipient])
 
   useEffect(() => {
+    console.log("findonerec")
     if(+recipientId) {
       dispatch(findOneUser(recipientId))
     }
@@ -123,15 +88,6 @@ export default function ChatPage(){
     scrollToBottom()
   }, [messages])
   
-  function goHome(){
-    // console.log(data);
-    // console.log(user);
-  }
-
-  function goProfile(){
-      history.push('/profile')
-  }
-
   function sendMessage(e) {
     e.preventDefault()
 
@@ -153,6 +109,7 @@ export default function ChatPage(){
     socket.emit("send-message", { message: newMessage, recipient: recipient.username })
 
     setMessages(previousMessages => previousMessages.concat(newMessage))
+    setMessage("")
   }
 
   function scrollToBottom() {
@@ -169,6 +126,7 @@ export default function ChatPage(){
         key = { index }
         message = { chat?.message } 
         username = { chat?.from.username }
+        timestamp = { chat?.timestamp }
       />
     )
   })
@@ -191,19 +149,49 @@ export default function ChatPage(){
       { recipientId ?
       
       <div className="row">
-        <h2 className="chat-title">Chat - { recipient.username }</h2>
+        <div className="chat-room-header">
+          <div 
+            className = "recipient" 
+            onClick = { () => { history.push(`/profile/${recipient.id}`)} }
+            title = { `Go to ${recipient.username} Profile` }
+          >
+            <div className="header-picture">
+              <img 
+              alt = { recipient.username + "_avatar" } 
+              src = { !imageError ? recipient.userImage : "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png" }
+              onError = { () => { 
+                if(!imageError) {
+                  setImageError(true) 
+                } 
+              } }
+            />
+            </div>
+            <h2 className="chat-title">{ recipient.username }</h2>
+          </div>
+          <span 
+            className="return-link" 
+            onClick={ () => { 
+              socket.off("receiveHistory")
+              socket.off("receivedMessage")
+              socket.disconnect()
+              setContacts([])
+              history.push("/chat") 
+              dispatch(setOneUser({}))
+            }}
+          >Return to Chat
+        </span>
+        </div>
+
         <div className="main__chat">
           <div className="box__chat">
-            { messages.length ? messageBalloons : "" }
-            <div ref={ messagesEndRef } />
+            <div className="messageBalloons-container">
+              { messages.length ? messageBalloons : "" }
+              <div ref={ messagesEndRef } />
+            </div>
             <div className="text__input">
-              <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-
-                  <Form.Control type="text" placeholder="type a message" className="input__message" value={message} onChange={ e => setMessage(e.target.value) } />
-                  <button onClick={ sendMessage }>Send</button>
-
-                </Form.Group>
+              <Form className="input-message-container">
+                <input rows="1" placeholder="type a message" className="input__message" value={message} onChange={ e => setMessage(e.target.value) } />
+                <button className="btn btn-primary send-button" onClick={ sendMessage }><i className ="fas fa-paper-plane"/></button>
               </Form>
             </div>
           </div>
