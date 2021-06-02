@@ -15,9 +15,9 @@ function SeeAllModal({ seeAllDetail, ...props }) {
         <div className="detail__container p-2">
           <div className="row">
             <div className="col-md-6 my-auto">
-              <div>
+              <div className="mx-auto">
                 <img
-                  style={{ width: "75%", margin: "auto" }}
+                  style={{ width: "90%", margin: "auto" }}
                   onError={(e) => {
                     e.target.onerror = null;
                     e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";

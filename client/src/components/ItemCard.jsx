@@ -19,8 +19,6 @@ const ItemCard = ({ discovery, data, wish }) => {
             }}
           />
           <div className="card-body pb-0">
-            {/* <h5 className="card-title">{discovery.name}</h5> */}
-
             <div className="d-flex content__card mb-0 justify-content-between">
               <strong className="card-text">Tradable</strong>
               <p style={{ color: "#f9f9ff" }} className="card-text">

@@ -18,9 +18,9 @@ function Detail({ discovery, ...props }) {
         <div className="detail__container p-2">
           <div className="row">
             <div className="col-md-6 my-auto">
-              <div>
+              <div className="mx-auto">
                 <img
-                  style={{ width: "75%", margin: "auto" }}
+                  style={{ width: "90%" }}
                   onError={(e) => {
                     e.target.onerror = null;
                     e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
@@ -33,10 +33,12 @@ function Detail({ discovery, ...props }) {
 
             <div className="col-md-6">
               <div className="items__detail">
-                <div className="d-flex p-2">
-                  <img className="avatar" src={u.userImage ? u.userImage : "https://img.icons8.com/cotton/2x/gender-neutral-user--v2.png"} style={{ width: "10%" }} />
-                  <div className="mx-1">
-                    <p>@{u.username}</p>
+                <div className="d-flex ps-0 py-2 pe-2 align-items-center">
+                  <div className="me-1">
+                    <img className="avatar" src={u.userImage ? u.userImage : "https://img.icons8.com/cotton/2x/gender-neutral-user--v2.png"} />
+                  </div>
+                  <div className="me-1">
+                    <p style={{ fontSize: "20px" }}>@{u.username}</p>
                   </div>
                 </div>
                 <hr style={{ margin: "5px" }}></hr>

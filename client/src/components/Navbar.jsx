@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { checkLogin } from "../store/action";
+import { checkLogin, searchBy, setSearch } from "../store/action";
 import { useSelector } from "react-redux";
 import "./navbar.css";
 const Navbar = () => {

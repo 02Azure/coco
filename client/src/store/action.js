@@ -7,6 +7,10 @@ let u = "";
 export function setRegister(payload) {
   return { type: "SET_REG", payload };
 }
+
+export function setSearch(payload) {
+  return { type: "SET_SEARCH", payload };
+}
 export function setWish(payload) {
   return { type: "SET_WISH", payload };
 }
@@ -911,5 +915,12 @@ export function editWishlist(payload) {
       .catch((err) => {
         console.log(err);
       });
+  };
+}
+
+export function searchBy(payload) {
+  console.log(payload, "payload");
+  return (dispatch) => {
+    dispatch(setSearch(payload));
   };
 }

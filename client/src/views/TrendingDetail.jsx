@@ -21,9 +21,9 @@ function TrendingDetail({ trending, ...props }) {
         <div className="detail__container p-2">
           <div className="row">
             <div className="col-md-6 my-auto">
-              <div>
+              <div className="mx-auto">
                 <img
-                  style={{ width: "75%", margin: "auto" }}
+                  style={{ width: "90%", margin: "auto" }}
                   src={trending.image}
                   onError={(e) => {
                     e.target.onerror = null;
