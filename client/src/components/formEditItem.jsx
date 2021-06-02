@@ -1,5 +1,5 @@
 import { Modal, Button, Form } from 'react-bootstrap'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { editItem} from '../store/action'
 import { useHistory } from  'react-router-dom'
@@ -8,7 +8,6 @@ export default function FormEditItem(props){
     const history = useHistory()
     const itemdetail = useSelector((state) => state.oneItem)
     
-    console.log(itemdetail, "<<<<itemdetil")
     const [select, setSelect] = useState([true,false])
     
     const [item, setItem] = useState({
@@ -20,6 +19,19 @@ export default function FormEditItem(props){
         tag: itemdetail.tag,
         description: itemdetail.description
     })
+
+    useEffect(() => {
+      setItem({
+        name: itemdetail.name,
+        image: itemdetail.image,
+        price: itemdetail.price,
+        tradeable: itemdetail.tradeable,
+        tradeWith: itemdetail.tradeWith,
+        tag: itemdetail.tag,
+        description: itemdetail.description
+      })
+    },[itemdetail])
+
     function submitForm(e){
         e.preventDefault();
         // console.log(itemdetail);
@@ -47,7 +59,7 @@ export default function FormEditItem(props){
         >
         <Modal.Header>
             <Modal.Title id="contained-modal-title-vcenter">
-                Edit a Itemss
+                Edit this Item
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>
