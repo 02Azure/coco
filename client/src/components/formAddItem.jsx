@@ -18,6 +18,7 @@ export default function FormAdd(props){
     function submitForm(e){
         e.preventDefault();
         dispatch(addItem(itemAdd))
+        props.onHide()
     }
     function test(e){
         // console.log(e.target.value," <<<<");
