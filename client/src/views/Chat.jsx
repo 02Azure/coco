@@ -25,6 +25,7 @@ export default function ChatPage(){
   const [messages, setMessages] = useState([])
   const [contacts, setContacts] = useState([])
   const [imageError, setImageError] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const messagesEndRef = useRef(null)
 
@@ -62,6 +63,7 @@ export default function ChatPage(){
       socket.on("receiveHistory", data => {
         if(data.length) {
           setContacts(createLastChatHistory(data, loggedUser.username))
+          setIsLoading(false)
         }
       })  
 
@@ -70,6 +72,7 @@ export default function ChatPage(){
         if(data.length) {
           setContacts([])
           setContacts(createLastChatHistory(data, loggedUser.username))
+          setIsLoading(false)
         }
       })
     }
@@ -77,7 +80,6 @@ export default function ChatPage(){
   },[recipient])
 
   useEffect(() => {
-    console.log("findonerec")
     if(+recipientId) {
       dispatch(findOneUser(recipientId))
     }
@@ -174,6 +176,7 @@ export default function ChatPage(){
               socket.off("receiveHistory")
               socket.off("receivedMessage")
               socket.disconnect()
+              setIsLoading(true)
               setContacts([])
               history.push("/chat") 
               dispatch(setOneUser({}))
@@ -200,11 +203,18 @@ export default function ChatPage(){
       </div> :
         <>
           <h2 className="chat-title">Chat</h2>
-          <div className="last-message-container">
-            { lastMessages }
-          </div>
-        </>
+          { !isLoading ? contacts.length ? 
+            <div className="last-message-container">
+              { lastMessages }
+            </div> :
 
+            <div className="empty-message-container">
+               <h2 className="empty-title">Nothing to show here...</h2>
+              <p className="empty-desc">Start one by clicking Chat in other user's profile!</p>
+            </div> :
+            <h2 className="loading-text">Loading...</h2>
+          }
+        </>
     }
     </section>
   )

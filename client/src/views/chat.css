@@ -140,3 +140,51 @@
 .send-button {
   width: 70px;
 }
+
+.empty-message-container {
+  margin: auto;
+  padding: 0.5em;
+  margin-top: 2em;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  background-image:url("../images/tumbleweed.gif");
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  background-position: center;
+}
+
+.empty-title {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 2em;
+}
+
+.empty-desc {
+  margin-top: 1em;
+  text-align: center;
+}
+
+.loading-text {
+  margin-top: 15vh;
+  text-align:center;
+  animation-name: blinking;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-duration: 1.2s;
+}
+
+
+@keyframes blinking {
+  0%{
+     opacity: 1;
+  }
+
+  50%{
+     opacity: 0.2;
+  }
+
+  100%{
+    opacity: 1;
+  }
+}
