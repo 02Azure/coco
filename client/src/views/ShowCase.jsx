@@ -62,7 +62,7 @@ const ShowCase = ({ show }) => {
 
   return (
     <div className="items__show__container m-1 d-flex flex-column">
-      <div className="d-flex justify-content-between pt-2 px-2 align-items-center">
+      <div className="d-flex justify-content-between pt-0 px-2 align-items-center">
         <div className="d-flex align-items-center px-2">
           <h5 className="mb-0">{show.name}</h5>
 
@@ -73,7 +73,7 @@ const ShowCase = ({ show }) => {
                   getOneShow(show.id);
                   setSModal(true);
                 }}
-                class="far fa-edit p-2"
+                className="far fa-edit p-2"
               ></i>
             ) : (
               ""
@@ -84,31 +84,21 @@ const ShowCase = ({ show }) => {
 
         {menu ? (
           <div className="d-flex align-items-center mx-2">
-            <i style={{ cursor: "pointer" }} onClick={() => setMenu(false)} class="fas fa-ellipsis-h"></i>
+            <i style={{ cursor: "pointer" }} onClick={() => setMenu(false)} className="fas fa-ellipsis-h"></i>
           </div>
         ) : (
           <div className="d-flex align-items-center">
-            {userLogged.id == show.UserId ? <i style={{ cursor: "pointer" }} onClick={itemToShow} class="far fa-file mx-2"></i> : ""}
-            <i style={{ cursor: "pointer" }} onClick={() => toPageSeeAll()} class="fas fa-eye mx-2"></i>
-            <i style={{ cursor: "pointer" }} onClick={() => setMenu(true)} class="fas fa-ellipsis-h mx-2"></i>
+            {userLogged.id == show.UserId ? <i style={{ cursor: "pointer" }} onClick={itemToShow} className="far fa-file mx-2"></i> : ""}
+            <i style={{ cursor: "pointer" }} onClick={() => toPageSeeAll()} className="fas fa-eye mx-2"></i>
+            <i style={{ cursor: "pointer" }} onClick={() => setMenu(true)} className="fas fa-ellipsis-h mx-2"></i>
           </div>
         )}
-
-        {/* {userLogged.id == show.UserId ? (
-          <div className="d-flex align-items-center">
-            <i style={{ cursor: "pointer" }} onClick={() => toPageSeeAll()} class="fas fa-eye mx-2"></i>
-          </div>
-        ) : (
-          <div>
-            <i style={{ cursor: "pointer" }} onClick={() => toPageSeeAll()} class="fas fa-eye"></i>
-          </div>
-        )} */}
       </div>
 
       <EditShowName updateFrom={(name) => handleUpdate({ id: show.id, name })} deleteFrom={() => deleteShowcase(show.id)} show={sModal} onHide={() => setSModal(false)} />
       <ListItemModal ShowcaseId={show.id} show={IModal} onHide={() => setIModal(false)} />
 
-      <div className="row">
+      <div style={{ background: "#5a5a5a" }} className="row">
         {arr.slice(0, 3).map((e, i) => {
           return <CardProfile key={i} discovery={e}></CardProfile>;
         })}

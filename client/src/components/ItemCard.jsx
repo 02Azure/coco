@@ -9,7 +9,7 @@ const ItemCard = ({ discovery, data, wish }) => {
     <div className="col-md-4 align-items-stretch">
       <Detail discovery={discovery} show={modalShow} onHide={() => setModalShow(false)} />
       <div className="card__item">
-        <div onClick={() => setModalShow(true)} className="card text-white bg-dark p-2">
+        <div onClick={() => setModalShow(true)} className="card bg-light p-2">
           <img
             src={discovery.image}
             alt=""
@@ -24,7 +24,7 @@ const ItemCard = ({ discovery, data, wish }) => {
             <div className="d-flex content__card mb-0 justify-content-between">
               <strong className="card-text">Tradable</strong>
               <p style={{ color: "#f9f9ff" }} className="card-text">
-                {discovery.tradeable ? <i style={{ color: "green" }} class="far fa-check-circle"></i> : <i style={{ color: "red" }} class="far fa-times-circle"></i>}
+                {discovery.tradeable ? <i style={{ color: "green" }} className="far fa-check-circle"></i> : <i style={{ color: "red" }} className="far fa-times-circle"></i>}
               </p>
             </div>
           </div>
