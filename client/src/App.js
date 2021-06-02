@@ -24,9 +24,10 @@ function App() {
   const isLogin = localStorage.getItem('isLogin')
   // const isLogin = useSelector((state) => state.isLogin);
   // console.log(isLogin, 'islogin');
+  
   return (
     <Router>
-      {isLogin && <Navbar />}
+      <Navbar isLogin={isLogin}/>
       <Switch>
         <Route exact path="/">
           <Login />
@@ -37,11 +38,17 @@ function App() {
         <Route path="/profile/:id">
           <Profile />
         </Route>
+        <Route path="/discovery">
+          <Discovery />
+        </Route>
+        <Route path="/trending">
+          <Trending />
+        </Route>
         {/* <ProtectedRoute path="/profile/" component={Profile} isAuth={isLogin} /> */}
         <ProtectedRoute path="/chat" component={ChatPage} isAuth={isLogin} />
-        <ProtectedRoute path="/discovery" component={Discovery} isAuth={isLogin} />
+        {/* <ProtectedRoute path="/discovery" component={Discovery} isAuth={isLogin} /> */}
+        {/* <ProtectedRoute path="/trending" component={Trending} isAuth={isLogin} /> */}
         <ProtectedRoute path="/showCase" component={ShowCase} isAuth={isLogin} />
-        <ProtectedRoute path="/trending" component={Trending} isAuth={isLogin} />
         <ProtectedRoute path="/editProfile/:id" component={EditProfile} isAuth={isLogin} />
         <ProtectedRoute path="/seeall/:id" component={SeeAll} isAuth={isLogin} />
         <ProtectedRoute path="/wishlist" component={Wishlist} isAuth={isLogin} />

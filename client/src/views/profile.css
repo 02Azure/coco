@@ -14,7 +14,8 @@
 }
 
 .user__info__container {
-  background-color: #eee;
+  background-color: #f6dfeb;
+  box-shadow: 10px 10px 5px #fffafa;
   padding: 10px;
   border-radius: 20px;
   top: 0;

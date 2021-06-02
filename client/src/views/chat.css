@@ -37,26 +37,28 @@
 }
 
 .main__chat{
-    background-color: aliceblue;
-    padding: 20px
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: whitesmoke;
+    padding: 0.5em
 }  
 
 .box__chat{
     background-color: #eee;
-    height: 80vh;
+    height: 70vh;
     width: 120vh;
     padding: 20px;
     /* position: relative; */
     margin-top: 4vh;
-    overflow: scroll;
+    overflow: auto;
     /* top: 18vh; */
 }
 
 .box__sent{
-    margin: 10px;
-    width: 70vh;
+    width: 100%;
     /* height:10vh; */
-    padding: 20px;
+
 }
 
 .profile__user__chat{
@@ -67,15 +69,17 @@
 }
 
 .text__handle{
-    background-color:aliceblue;
-    padding: 10px;
-    /* margin : 2px */
+    padding: 5px;
+    width: 65%;
+    display: flex;
+    border-radius: 5px;
 }
 
 .text__chat{
+    word-break: break-all;
     font-size: 20px;
-    padding: 10px;
-    color: black;
+    padding: 5px;
+    color: black
 }
 .person__name{
     padding: 10px
@@ -94,6 +98,17 @@
     border: none;
 }
 
-.nav{
-    
+.last-message-container {
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  height: 80vh !important;
+  overflow-y: auto;
+}
+
+.chat-title {
+  text-align: center;
+  font-size: 1.5em !important;
+  font-weight: bolder;
+  margin-bottom: 1em;
 }

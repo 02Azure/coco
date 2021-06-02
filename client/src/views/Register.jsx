@@ -79,7 +79,9 @@ const Register = () => {
                       {" "}
                       <span className="icon-facebook me-3"></span> Submit
                     </a>
-                    <a className="btn py-2 btn-google" onClick={cancel}>
+                    <a className="btn py-2 btn-google" 
+                    style={{ 'background-color': '#ba1b2a'}}
+                    onClick={cancel}>
                       <span className="icon-google me-3"></span> Cancel
                     </a>
                   </div>

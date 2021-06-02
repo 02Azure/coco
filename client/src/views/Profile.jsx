@@ -41,12 +41,11 @@ const Profile = () => {
     dispatch(readItems());
   }, []);
   useEffect(() => {
-    console.log("masuk find one user");
+    // console.log("masuk find one user");
     dispatch(findOneUser(id));
   }, [id]);
 
   useEffect(() => {
-    dispatch(findOneUser(id));
     dispatch(readItems());
   }, []);
 
@@ -61,14 +60,13 @@ const Profile = () => {
     history.push("/wishlist");
   }
   function showChat() {
-    history.push("/chat");
+    history.push(`/chat?recipient=${id}`);
   }
 
   function editUserInfo() {
     history.push("/editProfile/" + userLogged.id);
   }
   function goDiscovery() {
-    // history.push("/discovery")
     localStorage.getItem("data");
   }
   function showModalForm() {
@@ -81,7 +79,6 @@ const Profile = () => {
   }
 
   function detailItem(id) {
-    console.log(id, "<<<");
     history.push(`/editItem/${id}`);
   }
 
@@ -171,7 +168,7 @@ const Profile = () => {
                 {all ? allShow.map((e, i) => <ShowCase key={i} show={e} />) : allShow.slice(0, 3).map((e, i) => <ShowCase key={i} show={e} />)}
 
                 <div>
-                  <button onClick={() => setAll(!all)} style={{ width: "99%" }} className="btn btn-outline-light text-center">
+                  <button onClick={() => setAll(!all)} style={{ width: "99%", 'background-color': "#ea4335"}} className="btn text-center">
                     {all ? "Show less" : "Show All"}
                   </button>
                 </div>
