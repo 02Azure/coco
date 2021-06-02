@@ -1,6 +1,6 @@
 .discovery {
   min-height: 100vh;
-  background-color: #171717;
+  background-color: #f8f1f1;
 }
 
 .discovery__container {
@@ -14,10 +14,11 @@
 
 .loading__discovery {
   min-height: 100vh;
-  background-color: #171717;
+  background-color: #a3d2ca;
   padding: 20rem;
 }
 
 .loading__discovery h3 {
   display: block;
+  color: #f8f1f1;
 }
