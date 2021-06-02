@@ -52,13 +52,13 @@ const ShowCase = ({ show }) => {
     history.push("/seeall/" + show.id);
   };
 
-  let arr = show.ShowcaseItems;
+  // let arr = show.ShowcaseItems;
 
-  const newArr = arr.filter((e) => e.isStarred == true);
+  // const newArr = arr.filter((e) => e.isStarred == true);
 
-  if (newArr.length !== 0) {
-    arr = newArr;
-  }
+  // if (newArr.length !== 0) {
+  //   arr = newArr;
+  // }
 
   return (
     <div className="items__show__container m-1 d-flex flex-column">
@@ -99,7 +99,7 @@ const ShowCase = ({ show }) => {
       <ListItemModal ShowcaseId={show.id} show={IModal} onHide={() => setIModal(false)} />
 
       <div style={{ background: "#a3d2ca" }} className="row">
-        {arr.slice(0, 3).map((e, i) => {
+        {show.ShowcaseItems.slice(0, 3).map((e, i) => {
           return <CardProfile key={i} discovery={e}></CardProfile>;
         })}
       </div>

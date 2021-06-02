@@ -88,7 +88,7 @@ const Profile = () => {
       <div className="profile__container row">
         {/* user info */}
         <div className="user__container col-md-4 p-3">
-          <div className="user__info__container mx-auto d-flex flex-column ">
+          <div className="user__info__container mx-auto d-flex flex-column">
             <div className="content__image ">
               <img
                 src={user.userImage}

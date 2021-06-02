@@ -14,13 +14,13 @@
 }
 
 .user__info__container {
-  background-color: #f6dfeb;
+  background-color: #eee;
   box-shadow: 10px 10px 5px #fffafa;
-  padding: 10px;
+  padding: 25px;
   border-radius: 20px;
   top: 0;
-  padding-top: 10px;
-  width: 25em;
+  border: 2px solid #346d63;
+  width: 26em;
 }
 
 .header__image {

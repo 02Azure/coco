@@ -388,8 +388,7 @@ export function postShowToItems(payload) {
         }
       })
       .then((result) => {
-        console.log(result);
-        dispatch(setLoading(false));
+        dispatch(getAllShow(JSON.parse(localStorage.getItem("userLog")).id));
       })
       .catch((error) => {
         console.log(error);
