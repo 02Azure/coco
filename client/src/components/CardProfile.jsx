@@ -12,7 +12,7 @@ const CardProfile = ({ discovery }) => {
     <div className="col-md-4 align-items-stretch">
       {/* <Detail discovery={discovery} show={modalShow} onHide={() => setModalShow(false)} /> */}
       <div className="card__item">
-        <div className="card bg-light pt-2 px-2">
+        <div className="card  pt-2 px-2">
           <img
             src={d.image}
             onError={(e) => {

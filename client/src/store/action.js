@@ -393,6 +393,23 @@ export function postShowToItems(payload) {
       })
       .then((result) => {
         dispatch(getAllShow(JSON.parse(localStorage.getItem("userLog")).id));
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
+          icon: "success",
+          title: "Card Added",
+        });
       })
       .catch((error) => {
         console.log(error);
