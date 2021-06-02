@@ -14,19 +14,21 @@
 }
 
 .user__info__container {
-  background-color: #f6dfeb;
+  background-color: #eee;
   box-shadow: 10px 10px 5px #fffafa;
-  padding: 10px;
+  padding: 25px;
   border-radius: 20px;
   top: 0;
-  padding-top: 10px;
-  width: 25em;
+  border: 2px solid #346d63;
+  width: 26em;
 }
 
 .header__image {
-  width: 50%;
-  border-radius: 10px;
-  padding: 8px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: #5eaaa8 2px solid;
 }
 
 .header__image__test {
@@ -47,9 +49,6 @@
   text-align: center;
 }
 
-.text p {
-  color: #346d63;
-}
 .btn__chat {
   display: block;
 }
@@ -62,7 +61,7 @@
   flex-direction: row;
   background-color: #a3d2ca;
   border-radius: 5px;
-  color: #eee;
+  color: #0b3f3e;
 }
 .items__images {
   display: flex;
@@ -143,5 +142,15 @@
 
 .showcase a,
 .showcase i {
-  color: #fffafa;
+  color: #346d63;
+}
+
+.text p {
+  color: #346d63;
+}
+
+.tombol__profile {
+  border-radius: 5px;
+  border: 2px solid #a3d2ca;
+  width: 99.5%;
 }

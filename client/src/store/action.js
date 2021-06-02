@@ -1,5 +1,5 @@
 import { Redirect } from "react-router";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 // const server = "http://localhost:3001"
 const server = "http://52.207.207.52:3000";
 var userInfo = "";
@@ -16,6 +16,9 @@ export function setError(payload) {
 
 export function setNotFound(payload) {
   return { type: "SET_NOT_FOUND", payload };
+}
+export function setU(payload) {
+  return { type: "SET_U", payload };
 }
 
 export function setItem(payload) {
@@ -119,7 +122,7 @@ export function login(payload) {
         localStorage.setItem("isLogin", true);
         u = JSON.parse(localStorage.getItem("userLog"));
         userInfo = JSON.parse(localStorage.getItem("userLog"));
-
+        dispatch(setU(result));
         dispatch(checkLogin(true));
       })
       .catch((error) => {
@@ -179,7 +182,6 @@ export function updateUserInfo(payload) {
       })
       .then((result) => {
         console.log(result);
-        // Redirect("/profile/" + userInfo.id);
       })
       .catch((error) => {
         console.log(error);
@@ -265,7 +267,7 @@ export function AddNewShowcase(payload) {
         }
       })
       .then((result) => {
-        dispatch(getAllShow(userInfo.id));
+        dispatch(getAllShow(JSON.parse(localStorage.getItem("userLog")).id));
       })
       .catch((error) => {
         console.log(error);
@@ -294,7 +296,7 @@ export function removeShowcase(id) {
       })
       .then((result) => {
         // Do something with the response
-        dispatch(getAllShow(userInfo.id));
+        dispatch(getAllShow(JSON.parse(localStorage.getItem("userLog")).id));
       })
       .catch((error) => {
         console.log(error);
@@ -325,7 +327,7 @@ export function updateShowName(payload) {
       })
       .then((result) => {
         // Do something with the response
-        dispatch(getAllShow(userInfo.id));
+        dispatch(getAllShow(JSON.parse(localStorage.getItem("userLog")).id));
       })
       .catch((error) => {
         console.log(error);
@@ -390,8 +392,7 @@ export function postShowToItems(payload) {
         }
       })
       .then((result) => {
-        console.log(result);
-        dispatch(setLoading(false));
+        dispatch(getAllShow(JSON.parse(localStorage.getItem("userLog")).id));
       })
       .catch((error) => {
         console.log(error);
@@ -553,20 +554,20 @@ export function addItem(payload) {
       .then((result) => {
         const Toast = Swal.mixin({
           toast: true,
-          position: 'top-end',
+          position: "top-end",
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
           didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
-        
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
         Toast.fire({
-            icon: 'success',
-            title: 'Delete successfully'
-        })
+          icon: "success",
+          title: "Delete successfully",
+        });
         console.log(result, "ini result");
       })
       .catch((err) => {
@@ -639,20 +640,20 @@ export function deleteItem(payload) {
       .then((result) => {
         const Toast = Swal.mixin({
           toast: true,
-          position: 'top-end',
+          position: "top-end",
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
           didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
-        
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
         Toast.fire({
-            icon: 'success',
-            title: 'Delete item successfully'
-        })
+          icon: "success",
+          title: "Delete item successfully",
+        });
         dispatch(setLoading(false));
         return result;
       })
@@ -707,64 +708,62 @@ export function addWishlist(payload) {
         return response.json();
       })
       .then((result) => {
-        const errorMessage = result.error[0]
-        if(errorMessage === 'invalid input syntax for type integer: "qwe"'){
+        const errorMessage = result.error[0];
+        if (errorMessage === 'invalid input syntax for type integer: "qwe"') {
           const Toast = Swal.mixin({
             toast: true,
-            position: 'top-end',
+            position: "top-end",
             showConfirmButton: false,
             timer: 6000,
             timerProgressBar: true,
             didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-          
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
+
           Toast.fire({
-              icon: 'error',
-              title: 'price must an integer'
-          })
-        }else if(errorMessage === 'value too long for type character varying(255)'){
+            icon: "error",
+            title: "price must an integer",
+          });
+        } else if (errorMessage === "value too long for type character varying(255)") {
           const Toast = Swal.mixin({
             toast: true,
-            position: 'top-end',
+            position: "top-end",
             showConfirmButton: false,
             timer: 6000,
             timerProgressBar: true,
             didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-          
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
+
           Toast.fire({
-              icon: 'error',
-              title: 'img must an url / url var too long'
-          })
-        }
-        
-        else{
+            icon: "error",
+            title: "img must an url / url var too long",
+          });
+        } else {
           const Toast = Swal.mixin({
             toast: true,
-            position: 'top-end',
+            position: "top-end",
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
             didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-          
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
+
           Toast.fire({
-              icon: 'success',
-              title: 'Add wishlist successfully'
-          })
+            icon: "success",
+            title: "Add wishlist successfully",
+          });
         }
       })
       .catch((err) => {
-        console.log(err, 'ini err');
+        console.log(err, "ini err");
       });
   };
 }
@@ -807,20 +806,20 @@ export function deleteWishlist(payload) {
         console.log(result);
         const Toast = Swal.mixin({
           toast: true,
-          position: 'top-end',
+          position: "top-end",
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
           didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
-        
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
         Toast.fire({
-            icon: 'success',
-            title: 'Delete from wishlist successfully'
-        })
+          icon: "success",
+          title: "Delete from wishlist successfully",
+        });
         return result;
       })
       .catch((err) => {
@@ -830,7 +829,7 @@ export function deleteWishlist(payload) {
 }
 
 export function detailWishlist(payload) {
-  console.log(payload, 'line 732');
+  console.log(payload, "line 732");
   return (dispatch) => {
     dispatch(setLoading(true));
     fetch(server + `/wishlist/${payload}`, {
@@ -854,12 +853,12 @@ export function detailWishlist(payload) {
       })
       .finally(() => {
         dispatch(setLoading(false));
-      })
+      });
   };
 }
 
 export function editWishlist(payload) {
-  console.log(payload, 'payload');
+  console.log(payload, "payload");
   return (dispatch) => {
     fetch(server + `/wishlist/${payload.id}`, {
       method: "put",
@@ -876,20 +875,20 @@ export function editWishlist(payload) {
       .then((result) => {
         const Toast = Swal.mixin({
           toast: true,
-          position: 'top-end',
+          position: "top-end",
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
           didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
-        
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
         Toast.fire({
-            icon: 'success',
-            title: 'Edit wishlist successfully'
-        })
+          icon: "success",
+          title: "Edit wishlist successfully",
+        });
         console.log(result);
       })
       .catch((err) => {

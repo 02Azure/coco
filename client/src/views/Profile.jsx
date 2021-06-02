@@ -39,7 +39,7 @@ const Profile = () => {
   // console.log(userLogged);
   useEffect(() => {
     dispatch(readItems());
-  }, [items]);
+  }, []);
 
   useEffect(() => {
     dispatch(findOneUser(id));
@@ -88,7 +88,7 @@ const Profile = () => {
       <div className="profile__container row">
         {/* user info */}
         <div className="user__container col-md-4 p-3">
-          <div className="user__info__container mx-auto d-flex flex-column ">
+          <div className="user__info__container mx-auto d-flex flex-column">
             <div className="content__image ">
               <img
                 src={user.userImage}
@@ -122,7 +122,7 @@ const Profile = () => {
         </div>
         {/* navigation anchor */}
         <div className="showcase pt-0 col-md-8 p-3">
-          <div className="buttons d-flex justify-content-start">
+          <div className="buttons d-flex justify-content-start mt-2 mx-auto tombol__profile">
             <div className="d-flex align-items-center">
               <div className="d-flex align-items-center">
                 <a onClick={hideItems} className="btn p-0">
@@ -168,7 +168,7 @@ const Profile = () => {
                 {all ? allShow.map((e, i) => <ShowCase key={i} show={e} />) : allShow.slice(0, 3).map((e, i) => <ShowCase key={i} show={e} />)}
 
                 <div>
-                  <button onClick={() => setAll(!all)} style={{ width: "99%", 'background-color': "#ea4335"}} className="btn text-center">
+                  <button onClick={() => setAll(!all)} style={{ width: "99%" }} className="btn btn-outline-success text-center">
                     {all ? "Show less" : "Show All"}
                   </button>
                 </div>
@@ -186,12 +186,16 @@ const Profile = () => {
                     <>
                       <div key={item.id}>
                         {/* <p>Click To See Detail</p> */}
-                        <img 
-                        onError={(e) => {
-                          e.target.onerror = null;
-                          e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
-                        }}
-                        onClick={(e) => detailItem(item.id)} src={item.image} alt="" className="item__image" />
+                        <img
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
+                          }}
+                          onClick={(e) => detailItem(item.id)}
+                          src={item.image}
+                          alt=""
+                          className="item__image"
+                        />
                       </div>
                     </>
                   );

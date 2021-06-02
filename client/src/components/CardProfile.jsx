@@ -21,7 +21,7 @@ const CardProfile = ({ discovery }) => {
             }}
             alt=""
           />
-          <div className="card-body pb-0">
+          <div className="card-body pb-2">
             {/* <h5 className="card-title">{d.name}</h5> */}
 
             <div className="d-flex content__card justify-content-between">
