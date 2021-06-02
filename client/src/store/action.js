@@ -216,7 +216,7 @@ export function getAllShow(id) {
   console.log(id, "<<<< line 213");
   return function (dispatch) {
     dispatch(setLoading(true));
-    fetch(server + "/showcases/?userId=" + id, {
+    fetch(server + "/showcases?userId=" + id, {
       method: "GET",
       headers: {
         "Content-type": "application/json; charset=UTF-8",

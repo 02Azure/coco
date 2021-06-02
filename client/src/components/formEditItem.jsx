@@ -1,32 +1,47 @@
 import { Modal, Button, Form } from 'react-bootstrap'
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { editItem} from '../store/action'
 import { useHistory } from  'react-router-dom'
 export default function FormEditItem(props){
     const dispatch = useDispatch()
     const history = useHistory()
-    const { data } = props
+    const itemdetail = useSelector((state) => state.oneItem)
+    
     const [select, setSelect] = useState([true,false])
+    
     const [item, setItem] = useState({
-        name: data.name,
-        image: data.image,
-        price: data.price,
-        tradeable: data.tradeable,
-        tradeWith: data.tradeWith,
-        tag: data.tag,
-        description: data.description
+        name: itemdetail.name,
+        image: itemdetail.image,
+        price: itemdetail.price,
+        tradeable: itemdetail.tradeable,
+        tradeWith: itemdetail.tradeWith,
+        tag: itemdetail.tag,
+        description: itemdetail.description
     })
+
+    useEffect(() => {
+      setItem({
+        name: itemdetail.name,
+        image: itemdetail.image,
+        price: itemdetail.price,
+        tradeable: itemdetail.tradeable,
+        tradeWith: itemdetail.tradeWith,
+        tag: itemdetail.tag,
+        description: itemdetail.description
+      })
+    },[itemdetail])
+
     function submitForm(e){
         e.preventDefault();
-        // console.log(data);
+        // console.log(itemdetail);
         // console.log(item, "item");
         dispatch(editItem({
             updated : item,
-            id: data.id
+            id: itemdetail.id
         }))
         props.onHide()
-        history.push('/profile/' + data.UserId)
+        history.push('/profile/' + itemdetail.UserId)
     }
 
     function selectTradeable(e){
@@ -44,7 +59,7 @@ export default function FormEditItem(props){
         >
         <Modal.Header>
             <Modal.Title id="contained-modal-title-vcenter">
-                Edit a Itemss
+                Edit this Item
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -83,7 +98,7 @@ export default function FormEditItem(props){
                                     <>
                                         <option
                                         key={index}
-                                        value={data.tradeable}>
+                                        value={itemdetail.tradeable}>
                                         {JSON.stringify(choose)}
                                         </option>
                                     </>

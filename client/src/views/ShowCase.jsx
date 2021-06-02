@@ -44,16 +44,18 @@ const ShowCase = ({ show }) => {
     history.push("/seeall/" + show.id);
   };
 
-  let arr = show.ShowcaseItems;
+  let sortedItem = []
+  let unStarredItem = []
 
-  // const newArr = arr.filter((e) => e.isStarred == true);
+  show.ShowcaseItems.forEach(item => {
+    if(item.isStarred) {
+      sortedItem.push(item)
+    } else {
+      unStarredItem.push(item)
+    }
+  })
 
-  // if (newArr.length < 3) {
-  //   arr = newArr;
-  // }
-
-  console.log(arr, "ARR");
-  // console.log(newArr, "newArr");
+  sortedItem = sortedItem.concat(unStarredItem)
 
   return (
     <div className="items__show__container m-1 d-flex flex-column">
@@ -94,12 +96,9 @@ const ShowCase = ({ show }) => {
       <ListItemModal ShowcaseId={show.id} show={IModal} onHide={() => setIModal(false)} />
 
       <div style={{ background: "#a3d2ca" }} className="row">
-        {arr.map((e, i) => {
+        {sortedItem.slice(0, 3).map((e, i) => {
           return <CardProfile key={i} discovery={e}></CardProfile>;
         })}
-        {/* {show.ShowcaseItems.slice(0, 3).map((e, i) => {
-          return <CardProfile key={i} discovery={e}></CardProfile>;
-        })} */}
       </div>
     </div>
   );
