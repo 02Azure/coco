@@ -60,7 +60,7 @@ export default function DetailItemPage(){
                     </div>
                 </div>
             </div>
-            <FormEditItem show={show} onHide={e => setShow(false)} data={data}/>
+            <FormEditItem show={show} onHide={e => setShow(false)} itemdetail={ data }/>
         </section>
     )
 }
