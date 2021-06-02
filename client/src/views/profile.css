@@ -9,8 +9,8 @@
   --bs-gutter-x: 0;
 }
 
-body {
-  background-color: rgb(46, 81, 162) !important;
+.profile {
+  background-color: #a5e1ad;
 }
 
 .user__info__container {
@@ -18,11 +18,9 @@ body {
   box-shadow: 10px 10px 5px #fffafa;
   padding: 10px;
   border-radius: 20px;
-  /* position: sticky; */
   top: 0;
   padding-top: 10px;
-  width: 20em;
-  /* left: 5em; */
+  width: 25em;
 }
 
 .header__image {
@@ -66,7 +64,7 @@ body {
 .items__show__container {
   display: flex;
   flex-direction: row;
-  background-color: #0062dd;
+  background-color: #1eae98;
   border-radius: 5px;
   color: #eee;
 }

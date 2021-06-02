@@ -343,7 +343,7 @@ export function getItems(id) {
       method: "GET",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        access_token: userInfo.access_token,
+        access_token: JSON.parse(localStorage.getItem("userLog")).access_token,
       },
     })
       .then((response) => {

@@ -17,7 +17,7 @@ function TrendingDetail({ trending, ...props }) {
       {/* <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">Modal heading</Modal.Title>
       </Modal.Header> */}
-      <Modal.Body>
+      <Modal.Body className="py-0">
         <div className="detail__container p-2">
           <div className="row">
             <div className="col-md-6 my-auto">
@@ -74,7 +74,7 @@ function TrendingDetail({ trending, ...props }) {
           </div>
         </div>
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer className="pt-0">
         <Button
           onClick={() => {
             props.onHide();
