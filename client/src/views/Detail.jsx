@@ -74,7 +74,7 @@ function Detail({ discovery, ...props }) {
           </div>
         </div>
       </Modal.Body>
-      <Modal.Footer className="py-1">
+      <Modal.Footer className="pt-0">
         <Button
           onClick={() => {
             props.onHide();
