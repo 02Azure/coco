@@ -69,14 +69,8 @@ const EditProfile = () => {
     <div className="edit__profile">
       <div className="edit__container mt-5">
         <div className="form-block mx-auto">
-          {/* heading login */}
-          <div className="text-center mb-3">
-            <h3 className="text-uppercase">
-              <strong>Profile</strong>
-            </h3>
-          </div>
-          <div className="mb-2">
-            <img style={{ width: "50%" }} src={u.userImage} className="mx-auto" />
+          <div className="mb-4">
+            <img src={u.userImage} className="mx-auto  edit__profile__image" />
           </div>
           {/* login form */}
           <form>

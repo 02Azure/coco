@@ -62,7 +62,7 @@ const ShowCase = ({ show }) => {
 
   return (
     <div className="items__show__container m-1 d-flex flex-column">
-      <div className="d-flex justify-content-between pt-0 px-2 align-items-center">
+      <div className="d-flex justify-content-between p-2 align-items-center">
         <div className="d-flex align-items-center px-2">
           <h5 className="mb-0">{show.name}</h5>
 

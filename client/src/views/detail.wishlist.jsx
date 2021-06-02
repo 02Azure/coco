@@ -1,33 +1,49 @@
-import { useParams, useHistory } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
-import { useEffect } from 'react'
-import { detailWishlist } from '../store/action'
-export default function DetailWishlist(){
-    const wishlist = useSelector((state) => state.wishlist)
-    const userLogged = JSON.parse(localStorage.getItem('userLog'))
-    const dispatch = useDispatch()
-    const history = useHistory()
-    const { id } = useParams()
+import { useParams, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { detailWishlist } from "../store/action";
 
-    useEffect(() => {
-        dispatch(detailWishlist(id))
-    }, [id])
+import "./detail.wislist.css";
+export default function DetailWishlist() {
+  const wishlist = useSelector((state) => state.wishlist);
+  const userLogged = JSON.parse(localStorage.getItem("userLog"));
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { id } = useParams();
 
-    function editWishlist(id){
-        console.log(userLogged, 'sini');
-        // console.log(id,"<<<<");if
-        if(+wishlist.UserId === +userLogged.id){
-            // console.log(true);
-            history.push(`/editWishlist/${id}`)
-        }else{
-            console.log("cant edit this item");
-        }
+  useEffect(() => {
+    dispatch(detailWishlist(id));
+  }, [id]);
+
+  function editWishlist(id) {
+    console.log(userLogged, "sini");
+    // console.log(id,"<<<<");if
+    if (+wishlist.UserId === +userLogged.id) {
+      // console.log(true);
+      history.push(`/editWishlist/${id}`);
+    } else {
+      console.log("cant edit this item");
     }
-    return(
-        <>
-            {/* <h3>{JSON.stringify(wishlist)}</h3> */}
-            <img src={wishlist.image}></img>
-            <button onClick={e => editWishlist(id)}>edit</button>
-        </>
-    )
+  }
+  return (
+    <div className="detail__wish__fahmi">
+      <div className="col-md-4 align-items-stretch mx-auto">
+        <div className="card__item">
+          <div className="card text-white bg-light p-2">
+            <img
+              src={wishlist.image}
+              alt=""
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
+              }}
+            />
+            <button className="btn btn-outline-success mt-2" onClick={(e) => editWishlist(id)}>
+              Edit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
