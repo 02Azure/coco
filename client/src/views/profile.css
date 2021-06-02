@@ -10,7 +10,7 @@
 }
 
 .profile {
-  background-color: #a5e1ad;
+  background-color: #f8f1f1;
 }
 
 .user__info__container {
@@ -47,13 +47,9 @@
   text-align: center;
 }
 
-.text {
-  /* font-size: 28px; */
-}
 .text p {
-  color: #fffafa;
+  color: #346d63;
 }
-
 .btn__chat {
   display: block;
 }
@@ -64,7 +60,7 @@
 .items__show__container {
   display: flex;
   flex-direction: row;
-  background-color: #1eae98;
+  background-color: #a3d2ca;
   border-radius: 5px;
   color: #eee;
 }
