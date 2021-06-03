@@ -1,8 +1,6 @@
 import { Redirect } from "react-router";
 import Toast from "../helpers/swalToast"
 
-
-
 // const server = "http://localhost:3001"
 const server = "http://52.207.207.52:3000";
 var userInfo = "";
@@ -810,6 +808,7 @@ export function detailWishlist(payload) {
         return response.json();
       })
       .then((data) => {
+        console.log(data, "<<<< wishlist item detail dapat")
         return dispatch(getDetailWishlist(data));
       })
       // .then(())

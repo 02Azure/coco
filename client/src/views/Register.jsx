@@ -60,7 +60,7 @@ const Register = () => {
                   className="logo"
                   src={logo}
                   /> */}
-                  <h1 className="text-uppercase">
+                  <h1>
                     <strong>Join Co&Co</strong>
                   </h1>
                 </div>

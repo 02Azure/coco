@@ -10,6 +10,7 @@ export default function DetailWishlist(){
     const isLoading = useSelector((state) => state.loading)
     const dispatch = useDispatch()
     const { id } = useParams()
+    const userLogged = JSON.parse(localStorage.getItem("userLog"));
 
     useEffect(() => {
         dispatch(detailWishlist(id))
@@ -61,7 +62,9 @@ export default function DetailWishlist(){
                             <p className="fst-italic fw-bold">Price</p>
                             {uang}
                           </div>
-                          <button onClick={e => editWishlist(id)} className="btn btn-outline-primary">Edit</button>
+                          { userLogged?.id == wishlist.UserId &&
+                            <button onClick={e => editWishlist(id)} className="btn btn-outline-primary">Edit</button>
+                          }
                             </div>
                         </div>
                     </div>

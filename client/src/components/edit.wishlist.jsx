@@ -1,10 +1,11 @@
 import { Modal, Button, Form } from 'react-bootstrap'
 import { useState, useEffect} from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { editWishlist, detailWishlist } from '../store/action'
 
 export default function WishlistForm(props){
     const { data } = props
+
     const [wishlist, setWishlist] = useState({
         name: data.name,
         image: data.image,
@@ -15,7 +16,16 @@ export default function WishlistForm(props){
     
     useEffect(() => {
         dispatch(detailWishlist(data.id))
+        setWishlist({
+          name: data.name,
+          image: data.image,
+          price: data.price,
+          tag: data.tag,
+          description: data.description
+        })
     }, [data.id])
+
+
 
     const dispatch = useDispatch()
     function submitForm(){
