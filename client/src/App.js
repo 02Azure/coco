@@ -35,13 +35,14 @@ function App() {
         <Route path="/register">
           <Register />
         </Route>
+        <ProtectedRoute path="/profile/:id/wishlist" component={Wishlist} isAuth={isLogin} />
         <Route path="/profile/:id">
           <Profile />
         </Route>
         <Route path="/discovery">
           <Discovery />
         </Route>
-        <Route path="/trending">
+        <Route path="/wishmarket">
           <Trending />
         </Route>
         <Route path="/seeall/:id">
@@ -53,7 +54,6 @@ function App() {
         {/* <ProtectedRoute path="/trending" component={Trending} isAuth={isLogin} /> */}
         <ProtectedRoute path="/showCase" component={ShowCase} isAuth={isLogin} />
         <ProtectedRoute path="/editProfile/:id" component={EditProfile} isAuth={isLogin} />
-        <ProtectedRoute path="/wishlist" component={Wishlist} isAuth={isLogin} />
         <ProtectedRoute path="/editItem/:id" component={DetailItemPage} isAuth={isLogin} />
         <ProtectedRoute path="/detailWishlist/:id" component={DetailWishlist} isAuth={isLogin} />
         <Route path="*" component={NotFound}></Route>

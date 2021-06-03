@@ -45,12 +45,12 @@ const Login = () => {
         <div className="container" >
           <div className="row align-items-center justify-content-center">
             <div className="col-md-12">
-              <p className="text-center descApp text-uppercase">show off your passion as <br/>a collector to other collectors!!</p>
+              <p className="text-center descApp text-uppercase">show off your passion as <br/>a collector to other collectors!</p>
               <div className="form-block mx-auto">
                 {/* heading login */}
                 <div className="text-center mb-5">
                     <h1 className="text-uppercase">
-                    <strong>Co&Co</strong>
+                    <strong>Login to Co&Co</strong>
                   </h1>
                 </div>
                 {/* login form */}

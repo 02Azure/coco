@@ -5,7 +5,6 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { getDisco } from "../store/action";
-// import { fetchItems } from "../store/action";
 
 const Discovery = () => {
   const dispatch = useDispatch();
@@ -35,11 +34,10 @@ const Discovery = () => {
 
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
+
   useEffect(() => {
     dispatch(getDisco());
   }, []);
-
-  // console.log(discovery, "DISCOO");
 
   if (loading) {
     return (
@@ -47,8 +45,8 @@ const Discovery = () => {
         type="TailSpin"
         color="#00BFFF"
         className="loader"
-        height={400}
-        width={400}
+        height={100}
+        width={100}
         timeout={5000} //3 secs
       />
     );
@@ -58,13 +56,11 @@ const Discovery = () => {
     setInput(e.target.value);
   };
 
-  // const a = discovery.filter((e) => e.Item.id == 3);
-
-  // console.log(a, "<<<");
-
   return (
     <div className="discovery">
       <div className="discovery__container pt-2">
+        <h1 className="discovery-title">Discovery</h1>
+        <h4 className="discovery-sub">Explore what other collectors have</h4>
         <form style={{ width: "32%" }} className="d-flex mx-auto">
           <input className="form-control " type="search" placeholder="Search..." onChange={(e) => handleChange(e)}></input>
         </form>

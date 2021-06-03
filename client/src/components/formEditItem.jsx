@@ -1,25 +1,16 @@
 import { Modal, Button, Form } from 'react-bootstrap'
-<<<<<<< HEAD
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-=======
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
->>>>>>> a8c8f97595a520dfc329127dfcdd724ad191c9ca
 import { editItem} from '../store/action'
 import { useHistory } from  'react-router-dom'
+
 export default function FormEditItem(props){
     const dispatch = useDispatch()
     const history = useHistory()
     const itemdetail = useSelector((state) => state.oneItem)
     
     const [select, setSelect] = useState([true,false])
-<<<<<<< HEAD
-    // const [newName, setNewName] = useState()
-    // const data = useSelector((state) => state.oneItem);
-=======
     
->>>>>>> a8c8f97595a520dfc329127dfcdd724ad191c9ca
     const [item, setItem] = useState({
         name: itemdetail.name,
         image: itemdetail.image,

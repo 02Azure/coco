@@ -64,7 +64,7 @@ const ShowCase = ({ show }) => {
           <h5 className="mb-0">{show.name}</h5>
 
           <div>
-            {userLogged.id == show.UserId ? (
+            {userLogged?.id == show.UserId ? (
               <i
                 onClick={() => {
                   getOneShow(show.id);
@@ -85,7 +85,7 @@ const ShowCase = ({ show }) => {
           </div>
         ) : (
           <div className="d-flex align-items-center">
-            {userLogged.id == show.UserId ? <i style={{ cursor: "pointer" }} onClick={itemToShow} className="far fa-file mx-2"></i> : ""}
+            {userLogged?.id == show.UserId ? <i style={{ cursor: "pointer" }} onClick={itemToShow} className="far fa-file mx-2"></i> : ""}
             <i style={{ cursor: "pointer" }} onClick={() => toPageSeeAll()} className="fas fa-eye mx-2"></i>
             <i style={{ cursor: "pointer" }} onClick={() => setMenu(true)} className="fas fa-ellipsis-h mx-2"></i>
           </div>
