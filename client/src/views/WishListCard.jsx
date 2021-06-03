@@ -1,7 +1,6 @@
 import React from "react";
 
 const WishListCard = ({ w, r, d }) => {
-  console.log(w, "<<<<<<<<<<<<");
   return (
     <div className="col-md-4 align-items-stretch">
       <div className="card__item">

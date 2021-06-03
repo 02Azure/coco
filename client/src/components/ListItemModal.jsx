@@ -26,12 +26,6 @@ export default function ListItemModal({ ShowcaseId, ...props }) {
     dispatch(postShowToItems({ ItemId, ShowcaseId }));
   };
 
-  console.log(loading, "loadsing");
-
-  // if (one.ShowcaseItems.length != 0) {
-  //   arrShowcaseItems = one.ShowcaseItems.map((e) => e.ItemId);
-  // }
-
   return (
     <Modal {...props} size="sm" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header className="py-1">

@@ -22,7 +22,7 @@ const Trending = () => {
   return (
     <div className="trending">
       <div className="trending__container">
-        <h1 className="discovery-title">Wish Market</h1>
+        <h1 className="discovery-title">In Demand</h1>
         <h4 className="discovery-sub">Find out what other collectors want</h4>
         <form style={{ width: "32%" }} className="d-flex mx-auto">
           <input className="form-control " type="search" placeholder="Search..." onChange={(e) => handleChange(e)}></input>

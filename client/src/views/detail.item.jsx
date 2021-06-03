@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { showDetailItem, deleteItem as removeItem } from "../store/action";
 import FormEditItem from "../components/formEditItem";
-import Swal from "sweetalert2";
 import "./detail.item.css";
+
 export default function DetailItemPage() {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -43,9 +43,10 @@ export default function DetailItemPage() {
   const uang = formatter.format(+x);
   return (
     <section className="wishlistSection">
-      {/* <div className="wishlistColor"></div>
-            <div className="wishlistColor"></div>
-            <div className="wishlistColor"></div> */}
+      <div className="showcase-header">
+        <h2 className="wishlist-title">Item Detail</h2>
+        <button className="btn btn-primary return-button" onClick={() => { history.push(`/profile/${data.UserId}`) } }>Return</button>
+      </div>
       <div className="box">
         <div className="wishlistContainer">
           <div className="row test">

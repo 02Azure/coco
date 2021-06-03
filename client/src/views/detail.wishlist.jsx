@@ -10,7 +10,6 @@ export default function DetailWishlist(){
     const isLoading = useSelector((state) => state.loading)
     const dispatch = useDispatch()
     const { id } = useParams()
-    console.log(isLoading, "<< is loading line 13 ");
 
     useEffect(() => {
         dispatch(detailWishlist(id))
@@ -20,18 +19,18 @@ export default function DetailWishlist(){
         setShow(true)
     }
 
-    // if(isLoading){
-    //     return (
-    //         <div className="loading__discovery">
-    //             <h3 className="text-center">Please Wait...</h3>
-    //         </div>
-    //     );
-    // }
+    const x = wishlist.price;
+
+    var formatter = new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    });
+  
+    const uang = formatter.format(+x);
+
     return(
         <section className="wishlistSection">
-            <div className="wishlistColor"></div>
-            <div className="wishlistColor"></div>
-            <div className="wishlistColor"></div>
+            <h2 className="wishlist-title">Wishlist Item Detail</h2>
             <div className="box">
                 <div className="wishlistContainer">
                     <div className="row test">
@@ -44,15 +43,25 @@ export default function DetailWishlist(){
                             src={wishlist.image} className="wishlistImage"></img>
                         </div>
                         <div className="col-6 p-3 contentDesc">
-                            <div className="wishlistDesc">
-                                <h3 className="titleWishlist">{wishlist.name}</h3>
-                                <hr/>
-                                <br/>
-                                <p>{wishlist.description}</p>
-                                <br/>
-                                <p>price:    {wishlist.price}</p>
-                                <p>tag: {wishlist.tag}</p>
-                                <button className="btnEdit" onClick={e => editWishlist(id)}>EDIT</button>
+                          <div className="wishlistDesc">
+                          <div>
+                            <p className="fst-italic fw-bold">Name</p>
+                            {wishlist.name}
+                          </div>
+                          <div>
+                            <p className="fst-italic fw-bold">Description</p>
+                            {wishlist.description}
+                          </div>
+                          <div>
+                            <p className="fst-italic fw-bold">Tag</p>
+                            {wishlist.tag}
+                          </div>
+                        
+                          <div>
+                            <p className="fst-italic fw-bold">Price</p>
+                            {uang}
+                          </div>
+                          <button onClick={e => editWishlist(id)} className="btn btn-outline-primary">Edit</button>
                             </div>
                         </div>
                     </div>

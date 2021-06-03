@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { NavLink } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { checkLogin, searchBy, setSearch } from "../store/action";
 import { useSelector } from "react-redux";
@@ -49,8 +48,8 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item navText d-flex align-items-center">
-              <Link className="" to="/wishmarket" className="nav-link hot">
-                Wish Market
+              <Link className="" to="/indemand" className="nav-link hot">
+                In Demand
               </Link>
               {/* <i style={{ color: "rgba(255,255,255,.55)" }} className="fas fa-fire-alt  m-0"></i> */}
             </li>

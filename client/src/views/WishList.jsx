@@ -1,4 +1,3 @@
-import ok from "../images/002.png";
 import "./wishlist.css";
 import WishlistForm from "../components/form.wishlist";
 import { useState, useEffect } from "react";
