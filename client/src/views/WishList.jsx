@@ -8,7 +8,7 @@ import { useHistory, useParams } from "react-router-dom";
 import WishListCard from "./WishListCard";
 
 export default function WishList() {
-  const userId = useParams().id
+  const userId = useParams().id;
 
   const [showForm, setShowForm] = useState(false);
   const history = useHistory();
@@ -42,12 +42,12 @@ export default function WishList() {
   return (
     <>
       <div className="container d-flex flex-column">
-        <h2 className="wishlist-title">{user.username}'s  Wishlist</h2>
-        { loggedUser?.id === userId &&
+        <h2 className="wishlist-title">{user.username}'s Wishlist</h2>
+        {loggedUser?.id == userId && (
           <button onClick={addWishlist} className="btn-outline-primary btn mt-2">
             Add a New Item
           </button>
-        }
+        )}
 
         <div className="row">
           {wishlists.map((e) => {

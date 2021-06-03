@@ -61,8 +61,6 @@ export default function FormEditItem(props) {
         <Modal.Title id="contained-modal-title-vcenter">Edit this Item</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {/* <p>{JSON.stringify(data)}</p> */}
-        <p>{JSON.stringify(item)}</p>
         <Form>
           <Form.Group>
             <Form.Label>Name</Form.Label>
@@ -110,7 +108,9 @@ export default function FormEditItem(props) {
         <Button variant="primary" type="submit" onClick={submitForm}>
           Update
         </Button>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button className="btn btn-danger" onClick={props.onHide}>
+          Cancel
+        </Button>
       </Modal.Footer>
     </Modal>
   );
