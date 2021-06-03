@@ -191,7 +191,7 @@ export function updateUserInfo(payload) {
         } else {
           Toast.fire({
             icon: "error",
-            title: response.statusText,
+            title: "All Field required",
           });
           throw new Error(response.statusText);
         }
@@ -279,7 +279,7 @@ export function AddNewShowcase(payload) {
         } else {
           Toast.fire({
             icon: "error",
-            title: response.statusText,
+            title: "Name is Required",
           });
           console.log(response, "<<<");
           throw new Error(response.statusText);
@@ -342,7 +342,7 @@ export function updateShowName(payload) {
         } else {
           Toast.fire({
             icon: "error",
-            title: response.statusText,
+            title: "Name is required",
           });
           throw new Error(response.statusText);
         }
