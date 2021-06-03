@@ -38,13 +38,14 @@ const Navbar = () => {
           <ul className="navbar-nav ms-auto">
             <li className="nav-item navText">
               <Link to="/discovery" className="nav-link">
-                Home
+                Discovery
               </Link>
             </li>
-            <li className="nav-item navText">
-              <Link to="/trending" className="nav-link">
-                Trending
+            <li className="nav-item navText d-flex align-items-center">
+              <Link className="" to="/trending" className="nav-link hot">
+                Hot
               </Link>
+              <i style={{ color: "rgba(255,255,255,.55)" }} className="fas fa-fire-alt  m-0"></i>
             </li>
             {isLogin && (
               <>
