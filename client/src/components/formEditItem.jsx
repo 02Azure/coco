@@ -1,6 +1,6 @@
 import { Modal, Button, Form } from 'react-bootstrap'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { editItem} from '../store/action'
 import { useHistory } from  'react-router-dom'
 export default function FormEditItem(props){
@@ -8,6 +8,8 @@ export default function FormEditItem(props){
     const history = useHistory()
     const { data } = props
     const [select, setSelect] = useState([true,false])
+    // const [newName, setNewName] = useState()
+    // const data = useSelector((state) => state.oneItem);
     const [item, setItem] = useState({
         name: data.name,
         image: data.image,
@@ -48,6 +50,8 @@ export default function FormEditItem(props){
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+            {/* <p>{JSON.stringify(data)}</p> */}
+            <p>{JSON.stringify(item)}</p>
             <Form>
                 <Form.Group>
                     <Form.Label>Name</Form.Label>

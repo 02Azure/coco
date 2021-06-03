@@ -1,3 +1,4 @@
+
 .header__image__container {
   max-width: 100%;
   margin: 0 auto;
@@ -153,4 +154,8 @@
   border-radius: 5px;
   border: 2px solid #a3d2ca;
   width: 99.5%;
+}
+
+a .btn:hover{
+  color: red !important
 }

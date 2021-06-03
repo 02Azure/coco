@@ -71,11 +71,17 @@ const EditProfile = () => {
       <div className="edit__container mt-5">
         <div className="form-block mx-auto">
           <div className="mb-4">
-            <img src={u.userImage} className="mx-auto  edit__profile__image" />
+            <img 
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png";
+            }}
+            src={u.userImage} className="mx-auto  edit__profile__image" />
           </div>
           {/* login form */}
           <form>
             <div className="form-group first mb-2">
+              <label htmlFor="loc">Image</label>
               <input type="text" className="form-control py-1 px-2" onChange={handleChange} name="userImage" value={u.userImage} />
             </div>
             <div className="form-group first mb-2">
