@@ -9,15 +9,24 @@ function SeeAllModal({ seeAllDetail, ...props }) {
 
   const u = seeAllDetail.Item;
 
+  const x = u.price;
+
+  var formatter = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  });
+
+  const uang = formatter.format(+x);
+
   return (
     <Modal {...props} size="md" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Body className="py-1">
         <div className="detail__container p-2">
           <div className="row">
             <div className="col-md-6 my-auto">
-              <div>
+              <div className="mx-auto">
                 <img
-                  style={{ width: "75%", margin: "auto" }}
+                  style={{ width: "90%", margin: "auto" }}
                   onError={(e) => {
                     e.target.onerror = null;
                     e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
@@ -54,7 +63,7 @@ function SeeAllModal({ seeAllDetail, ...props }) {
 
                 <div>
                   <p className="fst-italic fw-bold">Price</p>
-                  {u.price}
+                  {uang}
                 </div>
               </div>
             </div>

@@ -3,6 +3,14 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 function TrendingDetail({ trending, ...props }) {
+  const x = trending.price;
+
+  let formatter = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  });
+
+  const uang = formatter.format(+x);
   const h = useHistory();
 
   console.log(trending.image, "<<<<DETAIL");
@@ -21,9 +29,9 @@ function TrendingDetail({ trending, ...props }) {
         <div className="detail__container p-2">
           <div className="row">
             <div className="col-md-6 my-auto">
-              <div>
+              <div className="mx-auto">
                 <img
-                  style={{ width: "75%", margin: "auto" }}
+                  style={{ width: "90%", margin: "auto" }}
                   src={trending.image}
                   onError={(e) => {
                     e.target.onerror = null;
@@ -67,7 +75,7 @@ function TrendingDetail({ trending, ...props }) {
 
                 <div>
                   <p className="fst-italic fw-bold">Price</p>
-                  {trending.price}
+                  {uang}
                 </div>
               </div>
             </div>

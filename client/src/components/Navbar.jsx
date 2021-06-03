@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { NavLink } from "react-bootstrap"
+import { NavLink } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { checkLogin } from "../store/action";
+import { checkLogin, searchBy, setSearch } from "../store/action";
 import { useSelector } from "react-redux";
 import "./navbar.css";
 const Navbar = () => {
@@ -38,16 +38,15 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item navText">
-              <Link to="/discovery" 
-              
-              className="nav-link navLink">
-                Home
+              <Link to="/discovery" className="nav-link">
+                Discovery
               </Link>
             </li>
-            <li className="nav-item navText">
-              <Link to="/trending" className="nav-link navLink">
-                Trending
+            <li className="nav-item navText d-flex align-items-center">
+              <Link className="" to="/trending" className="nav-link hot">
+                Hot
               </Link>
+              <i style={{ color: "rgba(255,255,255,.55)" }} className="fas fa-fire-alt  m-0"></i>
             </li>
             {isLogin && (
               <>
@@ -71,9 +70,7 @@ const Navbar = () => {
             {!isLogin && (
               <li className="nav-item navText">
                 <Link className="nav-link navLinkLogin" to="/">
-                  <span className="login">
-                    Login
-                  </span>
+                  <span className="login">Login</span>
                 </Link>
               </li>
             )}

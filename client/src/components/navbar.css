@@ -1,9 +1,15 @@
-.background-nav{
+/* .background-nav{
     background-color:rgb(46, 81, 162)
 }
+*/
+.navText {
+  font-size: 20px;
+}
 
-.navText{
-    font-size: 20px;
-    font-weight: bold;
-    color: white !important
+.hot {
+  padding-right: 1px !important;
+}
+.navText {
+  font-size: 20px;
+  color: white !important;
 }

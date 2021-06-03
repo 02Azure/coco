@@ -21,6 +21,7 @@ const intialState = {
   error: { err: false, msg: "" },
   listItems: [],
   u: {},
+  search: "",
 };
 
 function reducer(state = intialState, action) {
@@ -38,6 +39,8 @@ function reducer(state = intialState, action) {
       return { ...state, loading: payload };
     case "SET_DISCO":
       return { ...state, discovery: payload };
+    case "SET_SEARCH":
+      return { ...state, search: payload };
     case "SET_ONE_USER":
       return { ...state, oneUser: payload };
     case "SET_NOT_FOUND":

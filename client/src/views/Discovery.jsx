@@ -12,27 +12,29 @@ const Discovery = () => {
   const loading = useSelector((state) => state.loading);
   const items = useSelector((state) => state.items);
   const discovery = useSelector((state) => state.discovery);
+  const [input, setInput] = useState("");
+
   const [isVisible, setIsVisible] = useState(false);
-    const scrollToTop = () => {
-        window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-        });
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.pageYOffset > 400) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
     };
 
-    useEffect(() => {
-        const toggleVisibility = () => {
-            if (window.pageYOffset > 400) {
-                setIsVisible(true);
-            } else {
-                setIsVisible(false);
-            }
-        };
+    window.addEventListener("scroll", toggleVisibility);
 
-        window.addEventListener("scroll", toggleVisibility);
-
-        return () => window.removeEventListener("scroll", toggleVisibility);
-    }, []);
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, []);
   useEffect(() => {
     dispatch(getDisco());
   }, []);
@@ -52,20 +54,45 @@ const Discovery = () => {
     );
   }
 
+  const handleChange = (e) => {
+    setInput(e.target.value);
+  };
+
+  // const a = discovery.filter((e) => e.Item.id == 3);
+
+  // console.log(a, "<<<");
+
   return (
     <div className="discovery">
-      <div className="discovery__container">
+      <div className="discovery__container pt-2">
+        <form style={{ width: "32%" }} className="d-flex mx-auto">
+          <input className="form-control " type="search" placeholder="Search..." onChange={(e) => handleChange(e)}></input>
+        </form>
         <div className="row row-eq-height">
-          {discovery.map((e, i) => (
-            <ItemCard key={i} discovery={e.Item} />
-          ))}
+          {discovery
+            .filter((e) => {
+              if (input == "") {
+                return e;
+              } else if (e.Item.name.toLowerCase().includes(input.toLowerCase()) || e.Item.tag.toLowerCase().includes(input.toLowerCase())) {
+                return e;
+              }
+            })
+            .map((e, i) => (
+              <ItemCard key={i} discovery={e.Item} />
+            ))}
         </div>
         <div className="scroll-to-top">
-            {isVisible && (
-                <div onClick={scrollToTop}>
-                    <button className="goToTop"> <img className="imgTop" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0xMSAyLjIwNmwtNi4yMzUgNy41MjgtLjc2NS0uNjQ1IDcuNTIxLTkgNy40NzkgOS0uNzY0LjY0Ni02LjIzNi03LjUzdjIxLjg4NGgtMXYtMjEuODgzeiIvPjwvc3ZnPg=="/></button>
-                </div>
-            )}
+          {isVisible && (
+            <div onClick={scrollToTop}>
+              <button className="goToTop">
+                {" "}
+                <img
+                  className="imgTop"
+                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0xMSAyLjIwNmwtNi4yMzUgNy41MjgtLjc2NS0uNjQ1IDcuNTIxLTkgNy40NzkgOS0uNzY0LjY0Ni02LjIzNi03LjUzdjIxLjg4NGgtMXYtMjEuODgzeiIvPjwvc3ZnPg=="
+                />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
