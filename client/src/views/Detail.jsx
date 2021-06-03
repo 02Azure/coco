@@ -52,7 +52,7 @@ function Detail({ discovery, ...props }) {
                 </div>
                 <hr style={{ margin: "5px" }}></hr>
                 <div>
-                  <p className="fst-italic fw-bold">Card Name</p>
+                  <p className="fst-italic fw-bold">Name</p>
                   {discovery.name}
                 </div>
                 <div>
