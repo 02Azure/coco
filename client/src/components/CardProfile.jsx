@@ -14,15 +14,17 @@ const CardProfile = ({ discovery }) => {
     <div className="col-md-4 align-items-stretch">
       {/* <Detail discovery={discovery} show={modalShow} onHide={() => setModalShow(false)} /> */}
       <div className="card__item pt-0">
-        <div className="card d-flex justify-content-between pt-2 px-2">
-          <img
-            src={d.image}
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
-            }}
-            alt=""
-          />
+        <div className="card pt-2 px-2">
+          <div className="card-image-container">
+            <img
+              src={d.image}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
+              }}
+              alt=""
+            />
+          </div>
           <div className="card-body pb-2">
             {/* <h5 className="card-title">{d.name}</h5> */}
 

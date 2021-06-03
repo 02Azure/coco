@@ -63,8 +63,9 @@ export default function ChatPage() {
       socket.on("receiveHistory", (data) => {
         if (data.length) {
           setContacts(createLastChatHistory(data, loggedUser.username));
-          setIsLoading(false);
         }
+
+        setIsLoading(false);
       });
 
       socket.on("received-message", (data) => {
@@ -72,8 +73,8 @@ export default function ChatPage() {
         if (data.length) {
           setContacts([]);
           setContacts(createLastChatHistory(data, loggedUser.username));
-          setIsLoading(false);
         }
+        setIsLoading(false);
       });
     }
   }, [recipient]);
