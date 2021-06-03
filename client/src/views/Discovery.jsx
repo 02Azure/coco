@@ -10,11 +10,12 @@ import shuffle from "../helpers/shuffle"
 const Discovery = () => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.loading);
-  const items = useSelector((state) => state.items);
   const discovery = useSelector((state) => state.discovery);
-  const [input, setInput] = useState("");
 
+  const [input, setInput] = useState("");
   const [isVisible, setIsVisible] = useState(false);
+  const [shuffledDiscovery, setShuffledDiscovery] = useState([])
+  
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -40,6 +41,12 @@ const Discovery = () => {
     dispatch(getDisco());
   }, []);
 
+  useEffect(() => {
+    if(discovery.length) {
+      setShuffledDiscovery(shuffle(discovery))
+    }
+  }, [discovery])
+
   if (loading) {
     return (
       <Loader
@@ -57,11 +64,6 @@ const Discovery = () => {
     setInput(e.target.value);
   };
 
-  let shuffledDiscovery = []
-
-  if(discovery.length) {
-    shuffledDiscovery = shuffle(discovery)
-  }
 
   return (
     <div className="discovery">

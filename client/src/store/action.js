@@ -38,7 +38,6 @@ export function setOneUser(payload) {
 }
 
 export function setLogin(payload) {
-  // console.log(payload, "<<< payload action");
   return { type: "SET_USER", payload };
 }
 
@@ -57,7 +56,6 @@ export function setDisco(payload) {
   return { type: "SET_DISCO", payload };
 }
 export function getDetail(payload) {
-  console.log(payload, "line 45 action js");
   return { type: "GET_DETAIL_ITEM", payload };
 }
 
@@ -89,7 +87,6 @@ export function register(payload) {
       })
       .then((result) => {
         if(result.error) {
-          console.log(result.error, "for swal")
           if(Array.isArray(result.error)) {
             result.error = result.error.join(", ")
           }
@@ -109,7 +106,6 @@ export function register(payload) {
 }
 
 export function login(payload) {
-  // console.log(payload, "<<");
   return function (dispatch) {
     fetch(`${server}/users/login`, {
       method: "POST",
@@ -123,7 +119,6 @@ export function login(payload) {
       })
       .then((result) => {
         if(result.error) {
-          console.log(result.error, "for swal")
           if(Array.isArray(result.error)) {
             result.error = result.error.join(", ")
           }
@@ -147,7 +142,6 @@ export function login(payload) {
 }
 
 export function findOneUser(id) {
-  console.log(id, "finduserr!!");
   return (dispatch) => {
     dispatch(setLoading(true));
     fetch(server + "/users/" + id)
@@ -172,8 +166,6 @@ export function findOneUser(id) {
 }
 
 export function updateUserInfo(payload) {
-  console.log(payload, "DARI updateUser");
-
   const { bio, location, userImage } = payload;
   return function (dispatch) {
     fetch(server + "/users", {
@@ -190,7 +182,6 @@ export function updateUserInfo(payload) {
         if (response.ok) {
           return response.json();
         } else {
-          console.log(response, "<<<");
           throw new Error(response.statusText);
         }
       })
@@ -215,7 +206,6 @@ export function oneShow(id) {
     fetch(server + "/showcases/" + id)
       .then((res) => res.json())
       .then((item) => {
-        console.log(item);
         dispatch(setOneShow(item));
         dispatch(setLoading(false));
       })
@@ -227,7 +217,6 @@ export function oneShow(id) {
 }
 // get all
 export function getAllShow(id) {
-  console.log(id, "<<<< line 213");
   return function (dispatch) {
     dispatch(setLoading(true));
     fetch(server + "/showcases?userId=" + id, {
@@ -257,7 +246,6 @@ export function getAllShow(id) {
 // add
 
 export function AddNewShowcase(payload) {
-  console.log(payload, "DARI ADDNEWSHOWCASE");
   return function (dispatch) {
     fetch(server + "/showcases", {
       method: "POST",
@@ -275,7 +263,6 @@ export function AddNewShowcase(payload) {
         if (response.ok) {
           return response.json();
         } else {
-          console.log(response, "<<<");
           dispatch(setError({ err: true, msg: response.statusText }));
           throw new Error(response.statusText);
         }
@@ -304,7 +291,6 @@ export function removeShowcase(id) {
         if (response.ok) {
           return response.json();
         } else {
-          console.log(response, "<<<");
           throw new Error(response.statusText);
         }
       })
@@ -335,7 +321,6 @@ export function updateShowName(payload) {
         if (response.ok) {
           return response.json();
         } else {
-          console.log(response, "<<<");
           throw new Error(response.statusText);
         }
       })
@@ -367,7 +352,6 @@ export function getItems(id) {
         if (response.ok) {
           return response.json();
         } else {
-          console.log(response, "<<<");
           throw new Error(response.statusText);
         }
       })
@@ -401,7 +385,6 @@ export function postShowToItems(payload) {
         if (response.ok) {
           return response.json();
         } else {
-          console.log(response, "<<<");
           throw new Error(response.statusText);
         }
       })
@@ -434,7 +417,6 @@ export function getDisco(id) {
         if (response.ok) {
           return response.json();
         } else {
-          console.log(response, "<<<");
           throw new Error(response.statusText);
         }
       })
@@ -450,7 +432,6 @@ export function getDisco(id) {
 }
 
 export function switchStarItems({ id, ShowcaseId }) {
-  console.log(id, ShowcaseId, "<<<<");
   return function (dispatch) {
     dispatch(setLoading(true));
     fetch(server + "/showcaseitems/" + id, {
@@ -464,14 +445,12 @@ export function switchStarItems({ id, ShowcaseId }) {
         if (response.ok) {
           return response.json();
         } else {
-          console.log(response, "<<<");
           Redirect("/");
           dispatch(setLoading(false));
           throw new Error(response.statusText);
         }
       })
       .then((result) => {
-        console.log(result);
         dispatch(oneShow(ShowcaseId));
         dispatch(setLoading(false));
       })
@@ -495,14 +474,12 @@ export function removeItemsFromShowcase({ id, ShowcaseId }) {
         if (response.ok) {
           return response.json();
         } else {
-          console.log(response, "<<<");
           Redirect("/");
           dispatch(setLoading(false));
           throw new Error(response.statusText);
         }
       })
       .then((result) => {
-        console.log(result);
         dispatch(oneShow(ShowcaseId));
         dispatch(setLoading(false));
       })
@@ -527,7 +504,6 @@ export function getWish(id) {
         if (response.ok) {
           return response.json();
         } else {
-          console.log(response, "<<<");
           throw new Error(response.statusText);
         }
       })
@@ -629,7 +605,6 @@ export function showDetailItem(payload) {
         return response.json();
       })
       .then((data) => {
-        console.log(data, "ini di action");
         dispatch(setLoading(false));
         return dispatch(getDetail(data));
       })
@@ -668,9 +643,7 @@ export function deleteItem(payload) {
 }
 
 export function editItem(payload) {
-  console.log(payload, "action line 614");
   const { id } = payload;
-  console.log(id, "id");
   return (dispatch) => {
     fetch(server + `/items/${id}`, {
       method: "put",
@@ -686,7 +659,6 @@ export function editItem(payload) {
         return response.json();
       })
       .then((res) => {
-        console.log(res, "<<< line 632");
         return dispatch(getDetail(res));
       })
       .catch((err) => {
@@ -710,7 +682,6 @@ export function addWishlist(payload) {
     })
       .then((response) => {
         if(!response.ok) {
-          console.log(response, "<<<<not ok")
           throw(response.json())
         }
         return response.json();
@@ -737,7 +708,6 @@ export function addWishlist(payload) {
           icon: "error",
           title: err.error,
         });
-        console.log(err, "ini err");
       });
   };
 }
@@ -808,7 +778,6 @@ export function detailWishlist(payload) {
         return response.json();
       })
       .then((data) => {
-        console.log(data, "<<<< wishlist item detail dapat")
         return dispatch(getDetailWishlist(data));
       })
       // .then(())
@@ -822,7 +791,6 @@ export function detailWishlist(payload) {
 }
 
 export function editWishlist(payload) {
-  console.log(payload, "payload");
   return (dispatch) => {
     fetch(server + `/wishlist/${payload.id}`, {
       method: "put",
@@ -852,7 +820,6 @@ export function editWishlist(payload) {
             title: result.error,
           });
         }
-        console.log(result);
       })
       .catch((err) => {
         console.log(err);
@@ -861,7 +828,6 @@ export function editWishlist(payload) {
 }
 
 export function searchBy(payload) {
-  console.log(payload, "payload");
   return (dispatch) => {
     dispatch(setSearch(payload));
   };
