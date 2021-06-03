@@ -409,7 +409,10 @@ export function postShowToItems(payload) {
         if (response.ok) {
           return response.json();
         } else {
-          console.log(response, "<<<");
+          Toast.fire({
+            icon: "error",
+            title: "Item in Showcase already",
+          });
           throw new Error(response.statusText);
         }
       })
