@@ -217,7 +217,7 @@ export function getAllShow(id) {
   console.log(id, "<<<< line 213");
   return function (dispatch) {
     dispatch(setLoading(true));
-    fetch(server + "/showcases/?userId=" + id, {
+    fetch(server + "/showcases?userId=" + id, {
       method: "GET",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -394,6 +394,23 @@ export function postShowToItems(payload) {
       })
       .then((result) => {
         dispatch(getAllShow(JSON.parse(localStorage.getItem("userLog")).id));
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
+          icon: "success",
+          title: "Card Added",
+        });
       })
       .catch((error) => {
         console.log(error);

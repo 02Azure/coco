@@ -27,9 +27,10 @@ const ShowcaseCard = ({ see, ShowcaseId }) => {
   return (
     <div className="col-md-4 align-items-stretch">
       <SeeAllModal seeAllDetail={see} show={modalShow} onHide={() => setModalShow(false)} />
-      <div onClick={() => setModalShow(true)} className="card__item">
+      <div className="card__item">
         <div className="card  bg-light p-2">
           <img
+            onClick={() => setModalShow(true)}
             src={s.image}
             alt=""
             onError={(e) => {
