@@ -2,6 +2,7 @@ import { Modal, Button, Form } from 'react-bootstrap'
 import { useState, useEffect} from 'react'
 import { useDispatch } from 'react-redux'
 import { editWishlist, detailWishlist } from '../store/action'
+
 export default function WishlistForm(props){
     const { data } = props
     const [wishlist, setWishlist] = useState({
@@ -11,9 +12,11 @@ export default function WishlistForm(props){
         tag: data.tag,
         description: data.description
     })
+    
     useEffect(() => {
         dispatch(detailWishlist(data.id))
     }, [data.id])
+
     const dispatch = useDispatch()
     function submitForm(){
         console.log(data);

@@ -15,8 +15,6 @@ const ShowCase = ({ show }) => {
 
   const oneUser = useSelector((state) => state.oneUser);
 
-  console.log(oneUser, "<<<<<<");
-
   const history = useHistory();
 
   const deleteShowcase = (id) => {

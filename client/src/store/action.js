@@ -1,5 +1,8 @@
 import { Redirect } from "react-router";
-import Swal from "sweetalert2";
+import Toast from "../helpers/swalToast"
+
+
+
 // const server = "http://localhost:3001"
 const server = "http://52.207.207.52:3000";
 var userInfo = "";
@@ -84,16 +87,22 @@ export function register(payload) {
       },
     })
       .then((response) => {
-        console.log(response);
-        if (response.ok) {
-          return response.json();
-        } else {
-          console.log(response, "<<<");
-          throw new Error(response.statusText);
-        }
+        return response.json();
       })
       .then((result) => {
-        dispatch(setRegister(true));
+        if(result.error) {
+          console.log(result.error, "for swal")
+          if(Array.isArray(result.error)) {
+            result.error = result.error.join(", ")
+          }
+          Toast.fire({
+            icon: "error",
+            title: result.error,
+          });
+          
+        } else {
+          dispatch(setRegister(true));
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -112,22 +121,26 @@ export function login(payload) {
       },
     })
       .then((response) => {
-        const success = response.status === 200;
-        if (success) {
-          // console.log('success');
-          return response.json();
-        } else {
-          // console.log();
-          throw new Error(response.statusText);
-        }
+        return response.json();
       })
       .then((result) => {
-        localStorage.setItem("userLog", JSON.stringify(result));
-        localStorage.setItem("isLogin", true);
-        u = JSON.parse(localStorage.getItem("userLog"));
-        userInfo = JSON.parse(localStorage.getItem("userLog"));
-        dispatch(setU(result));
-        dispatch(checkLogin(true));
+        if(result.error) {
+          console.log(result.error, "for swal")
+          if(Array.isArray(result.error)) {
+            result.error = result.error.join(", ")
+          }
+          Toast.fire({
+            icon: "error",
+            title: result.error,
+          });
+        } else {
+          localStorage.setItem("userLog", JSON.stringify(result));
+          localStorage.setItem("isLogin", true);
+          u = JSON.parse(localStorage.getItem("userLog"));
+          userInfo = JSON.parse(localStorage.getItem("userLog"));
+          dispatch(setU(result));
+          dispatch(checkLogin(true));
+        }
       })
       .catch((error) => {
         console.log(error, "<<< error");
@@ -151,7 +164,6 @@ export function findOneUser(id) {
         }
       })
       .then((user) => {
-        console.log(user, "<<");
         dispatch(setOneUser(user));
         dispatch(setLoading(false));
       })
@@ -398,21 +410,9 @@ export function postShowToItems(payload) {
       .then((result) => {
         dispatch(getAllShow(JSON.parse(localStorage.getItem("userLog")).id));
 
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
-        });
-
         Toast.fire({
           icon: "success",
-          title: "Card Added",
+          title: result.msg,
         });
       })
       .catch((error) => {
@@ -569,27 +569,25 @@ export function addItem(payload) {
       },
     })
       .then((response) => {
-        console.log(response, "<<< res");
         return response.json();
       })
-      .then((result) => {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
-        });
 
-        Toast.fire({
-          icon: "success",
-          title: "Delete successfully",
-        });
-        console.log(result, "ini result");
+      .then((result) => {
+        if(result.msg) {
+          Toast.fire({
+            icon: "success",
+            title: result.msg,
+          });
+
+        } else {
+          if(Array.isArray(result.error)) {
+          result.error = result.error.join(", ")
+        }
+          Toast.fire({
+            icon: "error",
+            title: result.error,
+          });
+        }
       })
       .catch((err) => {
         console.log(err, "<<< eerr");
@@ -655,25 +653,12 @@ export function deleteItem(payload) {
       },
     })
       .then((response) => {
-        console.log(response, "res");
         return response.json();
       })
       .then((result) => {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
-        });
-
         Toast.fire({
           icon: "success",
-          title: "Delete item successfully",
+          title: result.msg,
         });
         dispatch(setLoading(false));
         return result;
@@ -726,64 +711,34 @@ export function addWishlist(payload) {
       },
     })
       .then((response) => {
+        if(!response.ok) {
+          console.log(response, "<<<<not ok")
+          throw(response.json())
+        }
         return response.json();
       })
       .then((result) => {
-        const errorMessage = result.error[0];
-        if (errorMessage === 'invalid input syntax for type integer: "qwe"') {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 6000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener("mouseenter", Swal.stopTimer);
-              toast.addEventListener("mouseleave", Swal.resumeTimer);
-            },
-          });
-
-          Toast.fire({
-            icon: "error",
-            title: "price must an integer",
-          });
-        } else if (errorMessage === "value too long for type character varying(255)") {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 6000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener("mouseenter", Swal.stopTimer);
-              toast.addEventListener("mouseleave", Swal.resumeTimer);
-            },
-          });
-
-          Toast.fire({
-            icon: "error",
-            title: "img must an url / url var too long",
-          });
-        } else {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener("mouseenter", Swal.stopTimer);
-              toast.addEventListener("mouseleave", Swal.resumeTimer);
-            },
-          });
-
+        if(result.msg) {
           Toast.fire({
             icon: "success",
-            title: "Add wishlist successfully",
+            title: result.msg,
+          });
+
+        } else {
+          if(Array.isArray(result.error)) {
+          result.error = result.error.join(", ")
+        }
+          Toast.fire({
+            icon: "error",
+            title: result.error,
           });
         }
       })
       .catch((err) => {
+        Toast.fire({
+          icon: "error",
+          title: err.error,
+        });
         console.log(err, "ini err");
       });
   };
@@ -828,22 +783,9 @@ export function deleteWishlist(payload) {
         return response.json();
       })
       .then((result) => {
-        console.log(result);
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 1000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
-        });
-
         Toast.fire({
           icon: "success",
-          title: "Delete from wishlist successfully",
+          title: result.msg,
         });
         return result;
       })
@@ -854,7 +796,6 @@ export function deleteWishlist(payload) {
 }
 
 export function detailWishlist(payload) {
-  console.log(payload, "line 732");
   return (dispatch) => {
     dispatch(setLoading(true));
     fetch(server + `/wishlist/${payload}`, {
@@ -869,7 +810,6 @@ export function detailWishlist(payload) {
         return response.json();
       })
       .then((data) => {
-        console.log(data, "ini di action 748");
         return dispatch(getDetailWishlist(data));
       })
       // .then(())
@@ -898,22 +838,21 @@ export function editWishlist(payload) {
         return response.json();
       })
       .then((result) => {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
-        });
+        if(result.msg) {
+          Toast.fire({
+            icon: "success",
+            title: result.msg,
+          });
 
-        Toast.fire({
-          icon: "success",
-          title: "Edit wishlist successfully",
-        });
+        } else {
+          if(Array.isArray(result.error)) {
+          result.error = result.error.join(", ")
+        }
+          Toast.fire({
+            icon: "error",
+            title: result.error,
+          });
+        }
         console.log(result);
       })
       .catch((err) => {

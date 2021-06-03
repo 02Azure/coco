@@ -42,7 +42,7 @@ function App() {
         <Route path="/discovery">
           <Discovery />
         </Route>
-        <Route path="/wishmarket">
+        <Route path="/indemand">
           <Trending />
         </Route>
         <Route path="/seeall/:id">

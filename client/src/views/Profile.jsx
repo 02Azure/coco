@@ -2,13 +2,13 @@ import React from "react";
 import "./profile.css";
 import { useHistory, useParams, withRouter } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { CardColumns } from "react-bootstrap";
 import ModalWishList from "../components/Modal.jsx";
 import FormAdd from "../components/formAddItem";
 import { useDispatch, useSelector } from "react-redux";
 import { readItems, findOneUser, getAllShow, setLogin, setNotFound } from "../store/action";
 import ShowcaseModal from "../components/AddShowCaseModal.jsx";
 import ShowCase from "./ShowCase";
+
 const Profile = () => {
   let history = useHistory();
   const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const Profile = () => {
     if(userLogged) {
       dispatch(readItems());
     }
-  }, []);
+  }, [items]);
 
   useEffect(() => {
     dispatch(findOneUser(id));

@@ -1,9 +1,7 @@
 .box {
-  position: absolute;
+  margin-top: 1em
 }
-
 .wishlistContainer {
-  position: relative;
   width: 550px;
   /* min-height: 500px; */
   background-color: rgba(255, 255, 255, 0.5);
@@ -20,7 +18,7 @@
 
 .wishlistSection {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   min-height: 100vh;
   background-color: #f8f1f1;
