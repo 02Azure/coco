@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getWish } from "../store/action";
 import "./trending.css";
-
 import { useSelector, useDispatch } from "react-redux";
 import TrendingCard from "../components/TrendingCard";
+import shuffle from "../helpers/shuffle"
 
 const Trending = () => {
   const wish = useSelector((state) => state.wish);
@@ -19,6 +19,12 @@ const Trending = () => {
     setInput(e.target.value);
   };
 
+  let shuffledWish = []
+
+  if(wish.length) {
+    shuffledWish = shuffle(wish)
+  }
+
   return (
     <div className="trending">
       <div className="trending__container">
@@ -28,7 +34,7 @@ const Trending = () => {
           <input className="form-control " type="search" placeholder="Search..." onChange={(e) => handleChange(e)}></input>
         </form>
         <div className="row">
-          {wish
+          {shuffledWish
             .filter((e) => {
               if (input == "") {
                 return e;

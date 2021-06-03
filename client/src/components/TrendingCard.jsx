@@ -5,9 +5,14 @@ import "./trending.css";
 const TrendingCard = ({ data }) => {
   const [modalShow, setModalShow] = React.useState(false);
 
-  console.log(data, "trending!!!!");
+  const x = data.price;
 
-  console.log(data, "TRENDINGGG");
+  var formatter = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  });
+
+  const uang = formatter.format(+x);
 
   return (
     <div className="col-md-4 align-items-stretch">
@@ -29,7 +34,7 @@ const TrendingCard = ({ data }) => {
           <div className="card-body pb-0">
             <div className="d-flex content__card mb-0 justify-content-between">
               <strong className="card-text">With:</strong>
-              <p className="card-text">Rp. {data.price}</p>
+              <p className="card-text">{ uang }</p>
             </div>
           </div>
         </div>

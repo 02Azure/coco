@@ -5,6 +5,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { getDisco } from "../store/action";
+import shuffle from "../helpers/shuffle"
 
 const Discovery = () => {
   const dispatch = useDispatch();
@@ -56,6 +57,12 @@ const Discovery = () => {
     setInput(e.target.value);
   };
 
+  let shuffledDiscovery = []
+
+  if(discovery.length) {
+    shuffledDiscovery = shuffle(discovery)
+  }
+
   return (
     <div className="discovery">
       <div className="discovery__container pt-2">
@@ -65,7 +72,7 @@ const Discovery = () => {
           <input className="form-control " type="search" placeholder="Search..." onChange={(e) => handleChange(e)}></input>
         </form>
         <div className="row row-eq-height">
-          {discovery
+          {shuffledDiscovery
             .filter((e) => {
               if (input == "") {
                 return e;
