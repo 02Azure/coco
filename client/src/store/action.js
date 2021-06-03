@@ -178,6 +178,7 @@ export function updateUserInfo(payload) {
     })
       .then((response) => {
         if (response.ok) {
+          dispatch(setOneUser(payload))
           return response.json();
         } else {
           console.log(response, "<<<");
@@ -789,9 +790,13 @@ export function addWishlist(payload) {
   };
 }
 
-export function readWishlist() {
+export function readWishlist(payload) {
+  let temp = server + '/wishlist'
+  if(payload){
+    temp += '?userId=' + payload
+  }
   return (dispatch) => {
-    fetch(server + "/wishlist", {
+    fetch(temp, {
       headers: {
         access_token: JSON.parse(localStorage.getItem("userLog")).access_token,
         Accept: "application/json",
@@ -829,7 +834,7 @@ export function deleteWishlist(payload) {
           toast: true,
           position: "top-end",
           showConfirmButton: false,
-          timer: 3000,
+          timer: 1000,
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.addEventListener("mouseenter", Swal.stopTimer);
