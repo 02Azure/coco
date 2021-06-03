@@ -18,7 +18,7 @@ const ShowcaseCard = ({ see, ShowcaseId }) => {
     dispatch(removeItemsFromShowcase({ id, ShowcaseId }));
   };
 
-  console.log(see, "<<<SEE");
+  // console.log(see, "<<<SEE");
 
   const s = see.Item;
 

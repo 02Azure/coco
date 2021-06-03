@@ -33,7 +33,7 @@ h2 {
 
 .half .contents {
   background: #171717;
-  background-color: #a5e1ad;
+  background-color: #e3fdf9;
 }
 
 .half .bg {
@@ -98,7 +98,8 @@ h2 {
   padding: 40px;
   max-width: 500px;
   -webkit-box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.2);
-  box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 15px 30px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
 }
 @media (max-width: 767.98px) {
   .form-block {
@@ -176,36 +177,37 @@ h2 {
   color: #fff;
 }
 
-.control--checkbox .control__indicator:after {
-  top: 50%;
-  left: 50%;
-  margin-top: -1px;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-.control--checkbox input:disabled ~ .control__indicator:after {
-  border-color: #7b7b7b;
-}
-
-.control--checkbox input:disabled:checked ~ .control__indicator {
-  background-color: #7e0cf5;
-  opacity: 0.2;
-}
-
 .btn {
   text-decoration: none !important;
 }
 .btn.btn-facebook {
   display: block;
-  background: #3b5998;
+  background: #5EAAA8;
   color: #fff;
+  font-weight: 600;
+  letter-spacing: 3px;
+  transition:0.5s
+}
+.btn.btn-facebook:hover {
+  display: block;
+  background: #57b9b6;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 3px;
 }
 .btn.btn-google {
-  background: #ea4335;
+  background: #fb771a !important;
   color: #fff;
   display: block;
+  font-weight: 600;
+  letter-spacing: 3px;
+}
+.btn.btn-google:hover {
+  background: #ff6a00 !important;
+  color: #fff;
+  display: block;
+  font-weight: 600;
+  letter-spacing: 3px;
 }
 
 .bg {
@@ -218,10 +220,16 @@ label {
 
 .btn.btn-login {
   display: block;
-  background-color: #ba1b2a;
+  background-color: #fb771a;
   color: #fff;
+  font-weight: 600;
 }
 
 span a {
   cursor: pointer;
+}
+
+.usernameLabel{
+  font-size: 20px;
+  letter-spacing: 2px;
 }

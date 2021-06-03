@@ -94,7 +94,7 @@ const Profile = () => {
                 src={user.userImage}
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
+                  e.target.src = "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png";
                 }}
                 alt=""
                 className="header__image mx-auto"

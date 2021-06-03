@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { NavLink } from "react-bootstrap"
 import { useDispatch } from "react-redux";
 import { checkLogin } from "../store/action";
 import { useSelector } from "react-redux";
@@ -37,29 +38,31 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item navText">
-              <Link to="/discovery" className="nav-link">
+              <Link to="/discovery" 
+              
+              className="nav-link navLink">
                 Home
               </Link>
             </li>
             <li className="nav-item navText">
-              <Link to="/trending" className="nav-link">
+              <Link to="/trending" className="nav-link navLink">
                 Trending
               </Link>
             </li>
             {isLogin && (
               <>
                 <li className="nav-item navText">
-                  <Link to={`/chat/`} className="nav-link">
+                  <Link to={`/chat/`} className="nav-link navLink">
                     Chat
                   </Link>
                 </li>
                 <li className="nav-item navText">
-                  <Link to={`/profile/${u.id}`} className="nav-link">
+                  <Link to={`/profile/${u.id}`} className="nav-link navLink">
                     Profile
                   </Link>
                 </li>
                 <li className="nav-item navText">
-                  <a onClick={logout} style={{ cursor: "pointer" }} className="nav-link ">
+                  <a onClick={logout} style={{ cursor: "pointer" }} className="nav-link navLink ">
                     Logout
                   </a>
                 </li>
@@ -67,8 +70,10 @@ const Navbar = () => {
             )}
             {!isLogin && (
               <li className="nav-item navText">
-                <Link className="nav-link" to="/">
-                  Login
+                <Link className="nav-link navLinkLogin" to="/">
+                  <span className="login">
+                    Login
+                  </span>
                 </Link>
               </li>
             )}

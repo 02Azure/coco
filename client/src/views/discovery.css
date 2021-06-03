@@ -21,3 +21,27 @@
 .loading__discovery h3 {
   display: block;
 }
+
+
+.goToTop{
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  transition:0.5s
+}
+
+.imgTop{
+  transition:0.5s;
+  width: 50px;
+}
+
+.loader{
+  position: relative;
+  top:26vh;
+  left:73vh
+}

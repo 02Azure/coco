@@ -15,7 +15,7 @@ export default function WishList() {
   const user = useSelector((state) => state.oneUser);
   const test = JSON.parse(localStorage.getItem("userLog"));
   useEffect(() => {
-    dispatch(readWishlist());
+    dispatch(readWishlist(user.id));
   }, [wishlists]);
   useEffect(() => {
     dispatch(findOneUser(test.id));
