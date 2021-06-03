@@ -1,0 +1,35 @@
+.your-message {
+  background-color: #5eaaa8;
+}
+
+.recipient-message {
+  background-color: #a3d2ca;
+}
+
+.chat-handler-username {
+  width: fit-content;
+  color: #db6400
+}
+
+.box-content {
+  display:flex;
+  flex-direction: column;
+}
+.sender-position {
+  align-items: flex-end;
+}
+
+.chat-content {
+  width: 100%
+}
+
+.right-timestamp {
+  text-align: right;
+}
+
+.chat-timestamp {
+  color: gray;
+  visibility: hidden
+}
+
+

@@ -1,0 +1,14 @@
+.trending {
+  min-height: 100vh;
+  background-color: #f8f1f1;
+}
+
+.trending__container {
+  max-width: 70%;
+  margin: 0 auto;
+  padding-top: 1em;
+}
+
+.photos {
+  padding: 1rem;
+}

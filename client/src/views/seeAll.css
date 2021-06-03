@@ -1,0 +1,34 @@
+.discovery {
+  min-height: 100vh;
+  background-color: #f8f1f1;
+}
+
+.discovery__container {
+  max-width: 70%;
+  margin: 0 auto;
+}
+
+.photos {
+  padding: 1rem;
+}
+
+.loading__discovery {
+  min-height: 100vh;
+  background-color: #a3d2ca;
+  padding: 20rem;
+}
+
+.loading__discovery h3 {
+  display: block;
+  color: #f8f1f1;
+}
+
+.return-button {
+  margin: 0 auto;
+  font-size: 1.2em;
+}
+
+.showcase-header {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,164 @@
+.profile {
+  min-height: 100vh;
+}
+
+.header__image__container {
+  max-width: 100%;
+  margin: 0 auto;
+  /* background-color: red */
+  background-image: url(../images/bg_1.jpg);
+  height: 25em;
+}
+.row {
+  --bs-gutter-x: 0;
+}
+
+.profile {
+  background-color: #f8f1f1;
+}
+
+.user__info__container {
+  background-color: #eee;
+  box-shadow: 10px 10px 5px #fffafa;
+  padding: 25px;
+  border-radius: 20px;
+  top: 0;
+  border: 2px solid #346d63;
+  width: 26em;
+}
+
+.header__image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: #5eaaa8 2px solid;
+}
+
+.header__image__test {
+  width: 140px;
+  height: 140px;
+  position: relative;
+  left: 36%;
+  border-radius: 50%;
+  /* background-color: red; */
+  background-image: url("https://www.mugi.co.id/assets/images/img_def.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 8px;
+}
+
+.username__text {
+  font-size: large;
+  text-align: center;
+}
+
+.btn__chat {
+  display: block;
+}
+
+.items__container {
+  padding-top: 30px;
+}
+.items__show__container {
+  display: flex;
+  flex-direction: row;
+  background-color: #a3d2ca;
+  border-radius: 5px;
+  color: #0b3f3e;
+}
+.items__images {
+  display: flex;
+  flex-direction: row;
+  /* background-color: #191919; */
+  border-radius: 5px;
+}
+
+.items__image {
+  /* background-color: crimson; */
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
+  padding: 0.5rem;
+  /* color: #eee; */
+}
+.item__image {
+  width: 35vh;
+  box-shadow: 10px 10px 5px #687980;
+  margin-top: 25px;
+  border-radius: 10px;
+  transition: transform 0.3s;
+}
+
+.item__image:hover {
+  transform: scale(1.03);
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.see__all {
+  position: relative;
+  /* left: 179vh; */
+  text-decoration: none;
+  color: black;
+  font-size: 23px;
+  /* top: 0; */
+}
+
+.btn {
+  margin: 2px 4px;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.buttons {
+  justify-content: space-between;
+}
+
+.navbar__anchor {
+  padding: 20px;
+  text-decoration: none;
+  font-size: 20px;
+  /* margin-top: 20px; */
+  color: black;
+}
+
+.add__showCase {
+  position: absolute;
+  right: 14em;
+  /* top:1px */
+}
+
+.imgCase {
+  position: relative;
+  bottom: 2.1em;
+  width: 40px;
+  /* background-color: ; */
+}
+
+.fa-edit {
+  cursor: pointer;
+}
+
+.items__showcase {
+  background-color: black;
+}
+
+.showcase a,
+.showcase i {
+  color: #346d63;
+}
+
+.text p {
+  color: #346d63;
+}
+
+.tombol__profile {
+  border-radius: 5px;
+  border: 2px solid #a3d2ca;
+  width: 99.5%;
+}
+
+a .btn:hover{
+  color: red !important
+}
