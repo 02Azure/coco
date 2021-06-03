@@ -13,3 +13,21 @@
   font-size: 20px;
   color: white !important;
 }
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.navbar-brand img {
+  height: 45px;
+  width: auto;
+}
+
+.app-name {
+  margin-left: 0.3em;
+  font-size: 1.4em;
+  font-weight: bolder;
+  color: white
+}

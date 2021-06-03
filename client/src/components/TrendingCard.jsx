@@ -15,18 +15,21 @@ const TrendingCard = ({ data }) => {
 
       <div onClick={() => setModalShow(true)} className="card__item">
         <div className="card bg-light p-2 d-flex justify-content-between">
-          <img
-            src={data.image}
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
-            }}
-            alt=""
-          />
+          <div className="card-image-container"> 
+            <img
+              src={data.image}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
+              }}
+              alt=""
+            />
+          </div>
+
           <div className="card-body pb-0">
             <div className="d-flex content__card mb-0 justify-content-between">
-              <strong className="card-text"> Price</strong>
-              <p className="card-text">{data.price}</p>
+              <strong className="card-text">With:</strong>
+              <p className="card-text">Rp. {data.price}</p>
             </div>
           </div>
         </div>

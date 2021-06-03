@@ -9,16 +9,19 @@ const ItemCard = ({ discovery, data, wish }) => {
     <div className="col-md-4 align-items-stretch">
       <Detail discovery={discovery} show={modalShow} onHide={() => setModalShow(false)} />
       <div className="card__item">
-        <div onClick={() => setModalShow(true)} className="card bg-light p-2 d-flex justify-content-between">
-          <img
-            src={discovery.image}
-            alt=""
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
-            }}
-          />
-          <div className="card-body pb-0">
+        <div onClick={() => setModalShow(true)} className="card p-2 bg-light">
+          <div className="card-image-container">
+            <img
+              src={discovery.image}
+              alt=""
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "https://www.mugi.co.id/assets/images/img_def.png";
+              }}
+            />
+          </div>
+
+          <div className="card-body">
             <div className="d-flex content__card mb-0 justify-content-between">
               <strong className="card-text">Tradable</strong>
               <p style={{ color: "#f9f9ff" }} className="card-text">

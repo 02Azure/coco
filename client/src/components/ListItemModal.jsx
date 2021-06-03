@@ -12,8 +12,10 @@ export default function ListItemModal({ ShowcaseId, ...props }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getItems());
-    dispatch(oneShow(ShowcaseId));
+    if(localStorage.getItem("userLog")) {
+      dispatch(getItems());
+      dispatch(oneShow(ShowcaseId));
+    }
   }, []);
 
   const submit = (e) => {
