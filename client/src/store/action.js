@@ -817,6 +817,7 @@ export function detailWishlist(payload) {
         return response.json();
       })
       .then((data) => {
+        console.log(data, "<<<< wishlist item detail dapat");
         return dispatch(getDetailWishlist(data));
       })
       // .then(())
