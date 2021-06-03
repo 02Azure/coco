@@ -13,6 +13,8 @@
 }
 
 .card {
+  display: flex;
+  justify-content:center;
   cursor: pointer;
   height: 100%;
 }
@@ -23,11 +25,17 @@
   font-weight: 400;
 }
 
-/* .content__card {
-
-} */
-
 .card-text:last-child {
   margin-bottom: 0;
   text-align: justify;
+}
+
+.card-image-container {
+  height: 92%;
+}
+
+.card-image-container img{
+  margin: auto;
+  max-height: 100%;
+  max-width: 100%
 }

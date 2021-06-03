@@ -41,7 +41,18 @@
 }
 
 .loader{
-  position: relative;
-  top:26vh;
-  left:73vh
+  position: absolute;
+  top:45vh;
+  left:45%
+}
+
+.discovery-title {
+  text-align:center;
+  font-weight: bold
+}
+
+.discovery-sub {
+  margin-top: 0.5em;
+  text-align:center;
+  margin-bottom: 2em; 
 }

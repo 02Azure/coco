@@ -38,7 +38,9 @@ const Profile = () => {
 
   // console.log(userLogged);
   useEffect(() => {
-    dispatch(readItems());
+    if(userLogged) {
+      dispatch(readItems());
+    }
   }, []);
 
   useEffect(() => {
@@ -57,7 +59,7 @@ const Profile = () => {
   }
   function pageWishList() {
     // setShowModal(!showModal);
-    history.push("/wishlist");
+    history.push(`/profile/${id}/wishlist`);
   }
   function showChat() {
     history.push(`/chat?recipient=${id}`);
@@ -102,7 +104,7 @@ const Profile = () => {
             </div>
             <div className="username d-flex align-items-center p-1 justify-content-between">
               <p className="username__text">@{user.username}</p>
-              {userLogged.id === +id && <i onClick={editUserInfo} className="far fa-edit"></i>}
+              {userLogged?.id === +id && <i onClick={editUserInfo} className="far fa-edit"></i>}
             </div>
             <div className="main__content p-1">
               <p className="text">{user.userDesc}</p>
@@ -111,7 +113,7 @@ const Profile = () => {
               <i className="fas fa-map-marker-alt"></i>
               <p className="text mx-2">{user.location ? user.location : "unknown"}</p>
             </div>
-            {userLogged.id !== +id && (
+            {userLogged?.id !== +id && (
               <div className="btn__chat text-center">
                 <button onClick={showChat} className="btn btn-outline-dark">
                   Chat
@@ -128,7 +130,7 @@ const Profile = () => {
                 <a onClick={hideItems} className="btn p-0">
                   Showcases
                 </a>
-                {userLogged.id == id ? (
+                {userLogged?.id == id ? (
                   <div>
                     <i onClick={addToShowcase} style={{ cursor: "pointer" }} className="fas fa-folder-plus"></i>
                   </div>
@@ -138,7 +140,7 @@ const Profile = () => {
               </div>
             </div>
 
-            {userLogged.id == id ? (
+            {userLogged?.id == id ? (
               <div className="d-flex align-items-center">
                 <a onClick={itemsShow} className="btn pe-0">
                   My Items

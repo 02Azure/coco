@@ -4,6 +4,7 @@ import { NavLink } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { checkLogin, searchBy, setSearch } from "../store/action";
 import { useSelector } from "react-redux";
+import applogo from "../images/coco.png"
 import "./navbar.css";
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,12 @@ const Navbar = () => {
   return (
     <nav style={{ background: "#5eaaa8" }} className="navbar navbar-expand-lg navbar-dark">
       <div className="container">
-        <a className="navbar-brand">Co&Co</a>
+        <a className="navbar-brand">
+          <div className="brand-logo-container">
+            <img src={ applogo } alt="co&co logo"/>
+          </div>
+          <span className="app-name">Co&Co</span>
+        </a>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -43,15 +49,15 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item navText d-flex align-items-center">
-              <Link className="" to="/trending" className="nav-link hot">
-                Hot
+              <Link className="" to="/wishmarket" className="nav-link hot">
+                Wish Market
               </Link>
-              <i style={{ color: "rgba(255,255,255,.55)" }} className="fas fa-fire-alt  m-0"></i>
+              {/* <i style={{ color: "rgba(255,255,255,.55)" }} className="fas fa-fire-alt  m-0"></i> */}
             </li>
             {isLogin && (
               <>
                 <li className="nav-item navText">
-                  <Link to={`/chat/`} className="nav-link navLink">
+                  <Link to={`/chat`} className="nav-link navLink">
                     Chat
                   </Link>
                 </li>

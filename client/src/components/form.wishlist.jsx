@@ -34,23 +34,23 @@ export default function WishlistForm(props){
                 <Form.Label>Name</Form.Label>
                 <Form.Control 
                 onChange={e => setWishlist({...wishlist, name:e.target.value})}
-                type="text" placeholder="user" />
+                type="text" placeholder="Name of the item you want" />
             </Form.Group>
             <Form.Group>
-                <Form.Label>image</Form.Label>
-                <Form.Control type="text" placeholder="image" 
+                <Form.Label>image URL</Form.Label>
+                <Form.Control type="text" placeholder="ex: https://i.imgur.com/qjIemZX.png" 
                 onChange={e => setWishlist({...wishlist, image:e.target.value})}
                 />
             </Form.Group>
             <Form.Group>
                 <Form.Label>price</Form.Label>
-                <Form.Control type="text" placeholder="5000" 
+                <Form.Control type="text" placeholder="In Rp currency" 
                 onChange={e => setWishlist({...wishlist, price:e.target.value})}
                 />
             </Form.Group>
             <Form.Group>
                 <Form.Label>tag</Form.Label>
-                <Form.Control type="text" placeholder="rare" 
+                <Form.Control type="text" placeholder="example: figure, yugioh" 
                 onChange={e => setWishlist({...wishlist, tag:e.target.value})}
                 />
             </Form.Group>

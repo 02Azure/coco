@@ -52,7 +52,7 @@ const Register = () => {
         <div className="container">
           <div className="row align-items-center justify-content-center">
             <div className="col-md-12">
-              <p className="text-center text-uppercase descApp">show off your passion as <br/>a collector to other collectors!!!</p>
+              <p className="text-center text-uppercase descApp">show off your passion as <br/>a collector to other collectors!</p>
               <div className="form-block mx-auto">
                 {/* heading regis */}
                 <div className="text-center mb-4">
@@ -61,7 +61,7 @@ const Register = () => {
                   src={logo}
                   /> */}
                   <h1 className="text-uppercase">
-                    <strong>Co&Co</strong>
+                    <strong>Join Co&Co</strong>
                   </h1>
                 </div>
                 {/* regis form */}
