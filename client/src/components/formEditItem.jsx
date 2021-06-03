@@ -9,16 +9,6 @@ export default function FormEditItem(props) {
   const history = useHistory();
   const itemdetail = useSelector((state) => state.oneItem);
 
-  const [item, setItem] = useState({
-    name: itemdetail.name,
-    image: itemdetail.image,
-    price: itemdetail.price,
-    tradeable: itemdetail.tradeable,
-    tradeWith: itemdetail.tradeWith,
-    tag: itemdetail.tag,
-    description: itemdetail.description,
-  });
-
   const [select, setSelect] = useState([true, false]);
   // const [newName, setNewName] = useState()
   // const data = useSelector((state) => state.oneItem);

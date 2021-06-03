@@ -178,7 +178,6 @@ export function updateUserInfo(payload) {
     })
       .then((response) => {
         if (response.ok) {
-          dispatch(setOneUser(payload))
           return response.json();
         } else {
           console.log(response, "<<<");
@@ -791,9 +790,9 @@ export function addWishlist(payload) {
 }
 
 export function readWishlist(payload) {
-  let temp = server + '/wishlist'
-  if(payload){
-    temp += '?userId=' + payload
+  let temp = server + "/wishlist";
+  if (payload) {
+    temp += "?userId=" + payload;
   }
   return (dispatch) => {
     fetch(temp, {

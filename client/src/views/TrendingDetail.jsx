@@ -44,10 +44,12 @@ function TrendingDetail({ trending, ...props }) {
 
             <div className="col-md-6">
               <div className="items__detail">
-                <div className="d-flex p-2">
-                  <img src={u.userImage ? u.userImage : "https://img.icons8.com/cotton/2x/gender-neutral-user--v2.png"} style={{ width: "10%" }} />
-                  <div className="mx-1">
-                    <p>@{u.username}</p>
+                <div className="d-flex ps-0 py-2 pe-2 align-items-center">
+                  <div className="me-1">
+                    <img className="avatar" src={u.userImage ? u.userImage : "https://img.icons8.com/cotton/2x/gender-neutral-user--v2.png"} />
+                  </div>
+                  <div className="me-1">
+                    <p style={{ fontSize: "20px" }}>@{u.username}</p>
                   </div>
                 </div>
                 <hr style={{ margin: "5px" }}></hr>
