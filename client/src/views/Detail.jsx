@@ -9,6 +9,15 @@ function Detail({ discovery, ...props }) {
 
   const u = discovery.User;
 
+  const x = discovery.price;
+
+  var formatter = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  });
+
+  const uang = formatter.format(+x);
+
   const changePage = () => {
     h.push("/profile/" + discovery.UserId);
   };
@@ -66,7 +75,7 @@ function Detail({ discovery, ...props }) {
 
                 <div>
                   <p className="fst-italic fw-bold">Price</p>
-                  {discovery.price}
+                  {uang}
                 </div>
               </div>
             </div>

@@ -3,6 +3,14 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 function TrendingDetail({ trending, ...props }) {
+  const x = trending.price;
+
+  let formatter = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  });
+
+  const uang = formatter.format(+x);
   const h = useHistory();
 
   console.log(trending.image, "<<<<DETAIL");
@@ -67,7 +75,7 @@ function TrendingDetail({ trending, ...props }) {
 
                 <div>
                   <p className="fst-italic fw-bold">Price</p>
-                  {trending.price}
+                  {uang}
                 </div>
               </div>
             </div>

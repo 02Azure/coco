@@ -9,6 +9,15 @@ function SeeAllModal({ seeAllDetail, ...props }) {
 
   const u = seeAllDetail.Item;
 
+  const x = u.price;
+
+  var formatter = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  });
+
+  const uang = formatter.format(+x);
+
   return (
     <Modal {...props} size="md" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Body className="py-1">
@@ -54,7 +63,7 @@ function SeeAllModal({ seeAllDetail, ...props }) {
 
                 <div>
                   <p className="fst-italic fw-bold">Price</p>
-                  {u.price}
+                  {uang}
                 </div>
               </div>
             </div>
