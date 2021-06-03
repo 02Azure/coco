@@ -49,7 +49,7 @@ const Login = () => {
               <div className="form-block mx-auto">
                 {/* heading login */}
                 <div className="text-center mb-5">
-                    <h1 className="text-uppercase">
+                  <h1>
                     <strong>Login to Co&Co</strong>
                   </h1>
                 </div>

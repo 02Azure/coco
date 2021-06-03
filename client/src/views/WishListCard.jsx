@@ -1,6 +1,8 @@
 import React from "react";
 
 const WishListCard = ({ w, r, d }) => {
+  const loggedUser = JSON.parse(localStorage.getItem("userLog"));
+
   return (
     <div className="col-md-4 align-items-stretch">
       <div className="card__item">
@@ -18,9 +20,11 @@ const WishListCard = ({ w, r, d }) => {
             <button onClick={() => d(w.id)} className="btn-sm btn btn-outline-success mt-2">
               Details
             </button>
-            <button onClick={() => r(w.id)} className="btn-sm btn btn-outline-danger mt-2">
-              Remove
-            </button>
+            { loggedUser?.id == w.UserId &&
+              <button onClick={() => r(w.id)} className="btn-sm btn btn-outline-danger mt-2">
+                Remove
+              </button>
+            }
           </div>
         </div>
       </div>
