@@ -1,7 +1,5 @@
 import { Redirect } from "react-router";
-import Toast from "../helpers/swalToast"
-
-
+import Toast from "../helpers/swalToast";
 
 // const server = "http://localhost:3001"
 const server = "http://52.207.207.52:3000";
@@ -90,16 +88,15 @@ export function register(payload) {
         return response.json();
       })
       .then((result) => {
-        if(result.error) {
-          console.log(result.error, "for swal")
-          if(Array.isArray(result.error)) {
-            result.error = result.error.join(", ")
+        if (result.error) {
+          console.log(result.error, "for swal");
+          if (Array.isArray(result.error)) {
+            result.error = result.error.join(", ");
           }
           Toast.fire({
             icon: "error",
             title: result.error,
           });
-          
         } else {
           dispatch(setRegister(true));
         }
@@ -124,10 +121,10 @@ export function login(payload) {
         return response.json();
       })
       .then((result) => {
-        if(result.error) {
-          console.log(result.error, "for swal")
-          if(Array.isArray(result.error)) {
-            result.error = result.error.join(", ")
+        if (result.error) {
+          console.log(result.error, "for swal");
+          if (Array.isArray(result.error)) {
+            result.error = result.error.join(", ");
           }
           Toast.fire({
             icon: "error",
@@ -192,7 +189,10 @@ export function updateUserInfo(payload) {
         if (response.ok) {
           return response.json();
         } else {
-          console.log(response, "<<<");
+          Toast.fire({
+            icon: "error",
+            title: response.statusText,
+          });
           throw new Error(response.statusText);
         }
       })
@@ -277,8 +277,11 @@ export function AddNewShowcase(payload) {
         if (response.ok) {
           return response.json();
         } else {
+          Toast.fire({
+            icon: "error",
+            title: response.statusText,
+          });
           console.log(response, "<<<");
-          dispatch(setError({ err: true, msg: response.statusText }));
           throw new Error(response.statusText);
         }
       })
@@ -337,7 +340,10 @@ export function updateShowName(payload) {
         if (response.ok) {
           return response.json();
         } else {
-          console.log(response, "<<<");
+          Toast.fire({
+            icon: "error",
+            title: response.statusText,
+          });
           throw new Error(response.statusText);
         }
       })
@@ -573,16 +579,15 @@ export function addItem(payload) {
       })
 
       .then((result) => {
-        if(result.msg) {
+        if (result.msg) {
           Toast.fire({
             icon: "success",
             title: result.msg,
           });
-
         } else {
-          if(Array.isArray(result.error)) {
-          result.error = result.error.join(", ")
-        }
+          if (Array.isArray(result.error)) {
+            result.error = result.error.join(", ");
+          }
           Toast.fire({
             icon: "error",
             title: result.error,
@@ -711,23 +716,22 @@ export function addWishlist(payload) {
       },
     })
       .then((response) => {
-        if(!response.ok) {
-          console.log(response, "<<<<not ok")
-          throw(response.json())
+        if (!response.ok) {
+          console.log(response, "<<<<not ok");
+          throw response.json();
         }
         return response.json();
       })
       .then((result) => {
-        if(result.msg) {
+        if (result.msg) {
           Toast.fire({
             icon: "success",
             title: result.msg,
           });
-
         } else {
-          if(Array.isArray(result.error)) {
-          result.error = result.error.join(", ")
-        }
+          if (Array.isArray(result.error)) {
+            result.error = result.error.join(", ");
+          }
           Toast.fire({
             icon: "error",
             title: result.error,
@@ -838,16 +842,15 @@ export function editWishlist(payload) {
         return response.json();
       })
       .then((result) => {
-        if(result.msg) {
+        if (result.msg) {
           Toast.fire({
             icon: "success",
             title: result.msg,
           });
-
         } else {
-          if(Array.isArray(result.error)) {
-          result.error = result.error.join(", ")
-        }
+          if (Array.isArray(result.error)) {
+            result.error = result.error.join(", ");
+          }
           Toast.fire({
             icon: "error",
             title: result.error,

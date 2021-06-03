@@ -64,6 +64,7 @@ const EditProfile = () => {
     dispatch(updateUserInfo(u));
     setSubmit(true);
     dispatch(findOneUser(id));
+    setInitialUser({ userImage: "", bio: "", location: "" });
   };
 
   return (
@@ -71,12 +72,14 @@ const EditProfile = () => {
       <div className="edit__container mt-5">
         <div className="form-block mx-auto">
           <div className="mb-4">
-            <img 
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png";
-            }}
-            src={u.userImage} className="mx-auto  edit__profile__image" />
+            <img
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png";
+              }}
+              src={u.userImage}
+              className="mx-auto  edit__profile__image"
+            />
           </div>
           {/* login form */}
           <form>
